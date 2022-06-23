@@ -1,0 +1,50 @@
+<div *ngIf="showFlash" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Successfully Added !!</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <div *ngIf="showFlashError" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error !!</strong>&nbsp;{{errorMessage}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+<div class="row m-4 p-2">
+    <div class="row col-md-12 border card p-0">
+        <div class="card-header">
+            <strong>Item Group</strong>
+        </div>
+        <div class="card-body row m-0 p-2">
+                   
+                    <div class="row name col-md-4 col-12 m-0 p-2">
+                        <label class="row col-md-4 col-12 m-0 p-2">Item Group :</label>
+                        <div  class="row  col-md-8 col-12 m-0 p-2">
+                            <select [(ngModel)]="group.groupName" (change)="getWholegroup($event)" id="groupName">
+                                <option >Primary</option>
+                                <option id="groupSelect" *ngFor="let group of getGroups"  value={{group.groupCategory}} >{{group.groupName}}/{{group.groupCategory}}</option>
+                
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    
+                    <div class="row name col-md-4 col-12 m-0 p-2">
+                        <label class="row col-md-4 col-12 m-0 p-2">Item Group Category :</label>
+                        <div  class="row  col-md-8 col-12 m-0 p-2">
+                            <input type="text" [(ngModel)]="group.groupCategory" id="groupCategory">
+                        </div>
+                    </div>
+                
+
+                    <br>
+               
+            
+            <div class=" button col-md-4 col-12 m-0 p-2">
+                <button id="save" (click)="saveGroup()" *ngIf="buttonAdd">Add Group</button>
+                <button id="save" (click)="EditGroup($event)" *ngIf="buttonEdit" value={{group.groupCategory}>Edit Branch</button>
+            </div>
+        
+    </div>
+    <div class="table">
+        <app-group-table (parentFun)="getGroup($event)"></app-group-table>
+    </div>
+</div>
+

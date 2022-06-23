@@ -1,0 +1,56 @@
+<div *ngIf="showFlash" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Successfully Added !!</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <div *ngIf="showFlashError" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error !!</strong>&nbsp;{{errorMessage}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+<div class="row m-4">
+    <div class="row col-md-12 border card p-0">
+        <div class="card-header">
+            Bank
+        </div>
+        <div class="card-body row m-0 p-4">
+           
+              <div class=" itemName col-md-6 col-12">
+                  <label>Bank Name :</label>
+                  <input type="text" [(ngModel)]="bank.BankName"  id="BankName"  >
+              </div>
+              <br>
+              <br>
+              <div class=" itemName col-md-6 col-12">
+                <label>IFSC Code:</label>
+                <input type="text" [(ngModel)]="bank.IFSC_Code" id="IFSC_Code" >
+            </div>
+    <br>
+    <br>
+    <div class="group col-md-6 col-12">
+        <label> Address : </label>
+        <input type="text" [(ngModel)]="bank.Address" id="Address">
+      </div>
+            <br>
+            <br>
+            <div class=" itemName col-md-6 col-12">
+                <label>City:</label>
+                <input type="text" [(ngModel)]="bank.City" id="City">
+            </div>  
+           
+    
+  
+    
+        <div class="button">
+            <button id="save" (click)="saveBank()" *ngIf="buttonAdd">Add Bank</button>
+            <button id="save" (click)="editBank($event)" *ngIf="buttonEdit" value={{bank.IFSC_Code}}>Edit Bank</button>
+
+        </div>
+    <br>
+        <div class="table">
+            <app-bank-table (parentFun)="getBankDataToInput($event)" (parentPropAdd)="buttonAdd" (parentPropEdit)="buttonEdit"></app-bank-table>
+        </div>
+    </div>
+    
+    
+    </div>
+    

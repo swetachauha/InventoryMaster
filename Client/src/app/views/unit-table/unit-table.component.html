@@ -1,0 +1,63 @@
+
+<div class="row m-0 p-2">
+    <div class="col-md-6 col-4">
+      Show:
+      <select (change)="OnTableSizeChange($event)">
+        <option *ngFor="let no of tableSizes">{{no}}</option>
+      </select>
+      entries
+    </div>
+
+
+    <div class="col-md-6 col-8">
+      <pagination-controls class="float-end"
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="OnTableDataChange($event)">
+      </pagination-controls>
+
+  </div>
+ 
+ 
+  <div class="table-responsive">
+
+
+    <table datatable [dtOptions]="dtOptions" 
+     class="table table-striped table-sm row-border hover" >
+    
+    <thead>
+    <th>SN</th>
+    <th>Unit</th>
+    <th>Acronymn</th>
+    <th>Edit / Delete</th>
+
+    <!-- <th style="display: none"></th>  -->
+  </thead>
+  <tbody *ngIf="isData">
+    <tr  *ngFor="let unit of getUnits | paginate:{
+        itemsPerPage : tableSize,
+        currentPage:page,
+        totalItems:count};   let i=index" >
+      <td>{{i+1}}</td>
+      <td>{{unit.unit}}</td>
+      <td>{{unit.acronymn}}</td>
+      <td>        
+        <button class="bg-sucess" (click)="edit($event)" value="{{unit.unit}}" >Edit</button>
+        
+      </td>
+        <!-- <i class="fa-solid fa-trash-can" style="color:red" (click)="deleteItem()"></i></td> -->
+      <!-- <td style="display: none">{{group.groupId}}#{{group.groupName}}</td> -->
+    </tr>
+  </tbody>
+  <tbody *ngIf="!isData">
+    <p >{{noData}}</p>
+  </tbody>
+</table>
+</div>
+</div>
+
+<!-- </div> -->
+
+
+
+

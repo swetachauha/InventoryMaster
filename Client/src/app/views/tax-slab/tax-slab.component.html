@@ -1,0 +1,49 @@
+<div *ngIf="showFlash" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Successfully Added !!</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <div *ngIf="showFlashError" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error !!</strong>&nbsp;{{errorMessage}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+<div class="row m-4 p-2">
+    <div class="row col-md-12 border card p-0">
+        <div class="card-header">
+            <strong>Tax Slab</strong>
+        </div>
+        <div class="card-body row m-0 p-2">
+                   
+                    <div class="row name col-md-4 col-12 m-0 p-2">
+                        <label class="row col-md-4 col-12 m-0 p-2">Tax Type :</label>
+                        <div  class="row  col-md-8 col-12 m-0 p-2">
+                            <input type="text" [(ngModel)]="tax.taxType" id="taxType">
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row name col-md-4 col-12 m-0 p-2">
+                        <label class="row col-md-4 col-12 m-0 p-2">Tax Perc(in %) :</label>
+                        <div  class="row  col-md-8 col-12 m-0 p-2">
+                            <input type="number" [(ngModel)]="tax.taxPerc" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " id="taxPerc">
+                        </div>
+                      
+                    </div>
+            
+
+                    <br>
+               
+            
+            <div class="button col-md-4 col-12 m-0 p-2">
+                <button id="save" (click)="saveTax()" *ngIf="buttonAdd">Add Tax</button>
+                <button id="save" (click)="editTax($event)" *ngIf="buttonEdit" value={{tax.taxType}}>Edit Bank</button>
+            </div>
+        
+    </div>
+    <div class="table">
+        <label class="unitLabel">
+          See all Taxes here
+        </label>
+        <app-tax-table  (parentFun)="getTaxDataToInput($event)"></app-tax-table>
+    </div>
+</div>

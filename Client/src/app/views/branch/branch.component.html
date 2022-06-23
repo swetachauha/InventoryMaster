@@ -1,0 +1,68 @@
+<div *ngIf="showFlash" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Successfully Added !!</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <div *ngIf="showFlashError" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error !!</strong>&nbsp;{{errorMessage}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+
+<div class="row m-4">
+    <div class="row col-md-12 border card p-0">
+        <div class="card-header">
+            Branch
+        </div>
+        <div class="card-body row m-0 p-4">
+           
+         
+                    <div class=" itemName col-md-6 col-12">
+                        <label>Firm Name :</label>
+                        <input type="text" [(ngModel)]="branch.FirmName" id="firmName">
+                    </div>
+                    <br>
+                    <br>
+                    <div class="group col-md-6 col-12">
+                      <label>Branch ID: </label>
+                      <input type="text" [(ngModel)]="branch.BranchId" id="branchId">
+                    </div>     
+                    
+     <br>
+    <br>
+                                  <div class=" itemName col-md-6 col-12">
+                        <label>Branch Name :</label>
+                        <input type="text" [(ngModel)]="branch.BranchName" id="branchName">
+                    </div>
+                    <br>
+                    <br>
+                                    <div class="group col-md-6 col-12">
+                                      <label>Address : </label>
+                                      <input type="text" [(ngModel)]="branch.Address" id="address">
+                                    </div>   
+                                    
+                                    
+     <br>
+    <br>                             
+                               <div class="group col-md-6 col-12">
+                                   
+                                    <div class=" itemName col-md-6 col-12">
+                                        <label>City:</label>
+                                        <input type="text" [(ngModel)]="branch.City" id="city">
+                                    </div>
+     <br>                 
+            
+        </div>
+    
+        <div class="button">
+            <button id="save" (click)="saveBranch()" *ngIf="buttonAdd">Add Branch</button>
+            <button id="save" (click)="editBranch($event)" *ngIf="buttonEdit" value={{branch.BranchId}}>Edit Branch</button>
+        </div>
+    <br>
+        <div class="table">
+            <app-branch-table  (parentFun)="getbranchDataToInput($event)" (parentPropAdd)="buttonAdd" (parentPropEdit)="buttonEdit"></app-branch-table>
+        </div>
+    </div>
+    
+    
+    </div>
+    

@@ -1,0 +1,289 @@
+*{
+  height: 100vh;
+    padding: 0;
+    /* margin: -1px !important; */
+   overflow-y: hidden;
+   overflow-x: hidden;
+}
+/* .mainPage{
+    position: relative;
+
+} */
+
+
+.mainPage{
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.9;
+    background: url("http://test.excellentbasics.com/CS/bg.jpg") no-repeat center center/cover;
+
+  }
+   
+.alert{
+  height: 2rem;
+  padding: 0;
+  padding-top: .5rem;
+  /* border-bottom: 1px solid rgba(186, 7, 7, 0.722); */
+  box-shadow: 0 4px 8px 0 rgba(204, 11, 11, 0.5);
+
+}
+
+.formcontainer{
+    
+    width: 25rem;
+    height: 33rem;
+    padding:2rem;
+    /* background-color: red; */
+    /* margin: 2rem; */
+    border:1px solid white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    border-radius: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.25);
+    text-align: center;
+  
+  
+    
+}
+
+form > input{
+    width: 20rem;
+    height: 3rem;
+    border-radius: 2rem;
+    border-style: none;
+    background-color: rgba(255, 255, 255, 0.409);
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+}
+form > button{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 20rem;
+    height: 3rem;
+    border-radius: 2rem;
+    border-style: none;
+    background-color: rgb(235, 149, 35);
+    color:white;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.598);
+    margin-top: 5rem;
+
+
+}
+form > button:hover{
+  background-color: rgba(1, 29, 34, 0.641);
+  color:orange;
+  font-size: 1.5rem;
+}
+#logo{
+  height:5rem;
+  width: 5rem;
+  display: inline-block;
+}
+p{
+  height: 5rem;  
+  text-align: center; 
+  color: WHITE;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  padding-top: 2rem;
+}
+.about{
+  /* width:50rem;
+    height: 37rem; */
+    /* padding:2rem; */
+    /* background-color: red; */
+    /* margin: .5rem; */
+    /* border:1px solid white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.25); */
+    text-align: center;
+    overflow-x: hidden;
+}
+#image{
+
+  /* height: 40rem; */
+  /* width:fit-content; */
+}
+@media  (min-width:1026px)
+{
+  .container{
+    width: 120vw;
+    display: flex;
+    flex-direction: row;
+    column-gap: 3rem;
+    /* margin-right: -50rem!important; */
+   /* background-color: aqua; */
+   max-width: 80rem;
+   margin: 0;
+  }
+  .formcontainer{
+    
+    width: 60rem;
+    height: 43rem;
+    padding:2rem;
+    /* background-color: red; */
+    margin: 2rem;
+    border:1px solid white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    border-radius: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.25);
+    text-align: center;
+  
+  
+    
+}
+p{
+  margin-bottom: 5rem;
+  /* font-size: 7rem; */
+}
+form>button{
+  width: 28rem;
+  height: 4rem;
+}
+form > input{
+  width: 28rem;
+  height: 4rem;
+  border-radius: 2rem;
+  border-style: none;
+  background-color: rgba(255, 255, 255, 0.409);
+  padding-left: 1rem;
+  padding-right: 1rem;
+ 
+
+
+}
+#logo{
+  height:10rem;
+  width: 10rem;
+  display: inline-block;
+}
+/* .about{
+  width:50rem;
+    height: 37rem;
+    
+} */
+}
+
+@media (max-width:1020px)and (min-width:200px)
+{
+
+ 
+  .container{
+    width: 120vw;
+   
+    /* column-gap: 2rem; */
+    /* margin-right: -50rem!important; */
+   /* background-color: aqua; */
+   max-width: 80rem;
+   margin: 0;
+  }
+  .about{
+    display: none;
+    }
+    
+}
+@media (max-width:1025px)and (min-width:900px) 
+{
+  .mainPage{
+    text-align: center;
+  }
+  .formcontainer{
+    margin: 16rem 0 0 -10rem;
+    width: 30rem;
+    height: 35rem;
+    padding:2rem;
+    display: inline-block;   
+   }
+   .about{
+    height: 100vh;
+    width: 100vw;
+    }
+}
+@media (max-width:900px)and (min-width:500px) {
+
+.mainPage{
+  text-align: center;
+}
+.formcontainer{
+  margin: 8rem 0 0 -7rem;
+  width: 30rem;
+  height: 35rem;
+  padding:2rem;
+  display: inline-block;   
+ }
+}
+@media (max-width:500px)and (min-width:380px) {
+  .mainPage{
+    text-align: center;
+  }
+  .formcontainer{
+    margin: 12rem 0 0 -4rem;
+    width: 20rem;
+    height: 25rem;
+    padding:2rem;
+    display: inline-block;
+
+  }
+  
+  #logo{
+    height:3rem;
+    width:3rem;
+  }
+  form > input{
+    width: 15rem;
+    height: 2.5rem;
+  }
+  p{
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+  form > button{
+    margin-top: 2rem;
+    height: 2.5rem;
+
+    width: 10rem;
+    font-size: 1rem;
+
+  }
+  
+}
+
+
+@media (max-width:380px)and (min-width:200px) {
+  .mainPage{
+    text-align: center;
+  }
+  .formcontainer{
+    margin:  8rem .2rem 5rem -3rem;
+    width: 15rem;
+    height: 25rem;
+    padding:.2rem;
+    display: inline-block;
+
+  }
+  #logo{
+    margin-top: 1rem;
+  }
+  p{
+    /* margin-top: 1rem; */
+    margin-bottom: 1rem;
+    font-size: 2rem;
+
+  }
+  form > input{
+
+    width: 12rem;
+    height:2rem;
+  }
+  form > button{
+    margin-top: 3rem;
+    width: 6rem;
+    height:2rem;
+    font-size: 1rem;
+  }
+}

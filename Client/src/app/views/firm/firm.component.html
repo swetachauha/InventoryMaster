@@ -1,0 +1,155 @@
+<div class="row  m-0 p-2">
+    <div class="row firm col-md-12 border card p-0">
+        <div class="card-header">
+            <strong>About Firm</strong>
+        </div>
+        <div class="card-body row m-0 p-2">
+            <div class="first col-md-6 col-12 m-0 p-2" >
+                <div class="col-md-12 border card p-3" style="background-color: #f4f5f7d7;">
+                    <div class="name">
+                        <label>Firm Logo :</label>
+                        <div class="col-md-12 border card p-2">
+                            <!-- <img class="img-responsive img-thumbnail" [src]="image" height="150"> -->
+
+                            <input [(ngModel)]="firm.FirmLogo" type="file" name="Image" id="Image" class="form-control mt-3 mb-2"  formControlName="ImageUrl" (change)="onFileChanged($event)">
+                            
+                            <img [src]="image" height="150" >
+                            <!-- <button type="submit" class="btn btn-primary btn-block mt-3" (click)="UploadImage()">Submit</button> -->
+                           
+                        </div>
+
+
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+
+                    </div>
+                    <br>
+                    <div class="row name m-0 ">
+                        <label class="m-0 col-md-4 col-4">Firm Name :</label>
+                        <input [(ngModel)]="firm.FirmName" type="text" class="m-0 col-md-4 col-4">
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                    </div>
+                    <br>
+                    <div class=" row address m-0">
+                        <label class="m-0 col-md-4 col-4">Firm Address :</label>
+                        <textarea class=" col-md-4 col-4" [(ngModel)]="firm.FirmAddress"></textarea>
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                    </div>
+                    <br>
+                    <div class=" row map m-0">
+                        <label class="m-0 col-md-4 col-4">Firm Location :</label>
+                        <div class="m-0 col-md-4 col-4"></div>
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span>Edit</span></h6>
+
+                    </div>
+                    <br>
+                    
+                    <div class="row location m-0 ">
+                        <iframe [(ngModel)]="firm.FirmLocation" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3538.9313308145383!2d77.66553601555144!3d27.50251098287727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39737104fd94fb13%3A0x5f8ead5963602dad!2sUtkranti%20Softwares%20Pvt%20Ltd%20%7C%20Digital%20Marketing%20Agency%20%7C%20Software%20Development%20Company!5e0!3m2!1sen!2sin!4v1654842016913!5m2!1sen!2sin" width="102%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                    </div>
+
+                    <br>
+                </div>
+            </div>
+            <div class="second col-md-6 col-12 m-0 p-2" >
+                <div class="col-md-12 border card p-3" style="background: radial-gradient(#f4f5f7d7, transparent);">
+                   <div class=" tax">
+                    <h4>Tax Info</h4>
+                    <div class="row gst m-0 ">
+                        <label class="m-0 col-md-4 col-12 ">GST No :</label>
+                        <input [(ngModel)]="firm.GST_No" type="text" class="m-0 col-md-4 col-6 " >
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                    </div>
+                    <br>
+                    <div class="row pan m-0 ">
+                        <label class="m-0 col-md-4 col-12 ">PAN No :</label>
+                        <input [(ngModel)]="firm.PAN_No" type="text" class="m-0 col-md-4 col-6 ">
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                    </div>
+                    <br>
+                    <div class="row reg m-0 ">
+                        <label class="m-0 col-md-4 col-12">Registration No :</label>
+                        <input [(ngModel)]="firm.Reg_no" type="text" class="m-0 col-md-4 col-6 ">
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                    </div>
+                    <br>
+                    <div class="row fssai m-0 ">
+                        <label class="m-0 col-md-4 col-12 ">FSSAI No :</label>
+                        <input [(ngModel)]="firm.FSSAI_No" type="text" class="m-0 col-md-4 col-6 ">
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                    </div>
+                    <br>
+                   </div>
+                </div>  
+                <br>
+                <div class="col-md-12 border card p-4" style="background: radial-gradient(#f4f5f7d7, transparent);">
+                    <h4>Contact</h4>
+                   <div class="contact">
+                    <div class="row namePerson m-0 ">
+                        <label class="m-0 col-md-4 col-12 ">Contact Person  :</label>
+                        <input [(ngModel)]="firm.Contact_Person" type="text" class="m-0 col-md-4 col-6">
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                    </div>
+                    <br>
+                    <div class="row mobile m-0 ">
+                        <label class="m-0 col-md-4 col-12 ">Mobile No :</label>
+                        <input [(ngModel)]="firm.Contact_Mobile" type="text" class="m-0 col-md-4 col-6 ">
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                    </div>
+                    <br>
+                    <div class="row email m-0 ">
+                        <label class="m-0 col-md-4 col-12 ">Email :</label>
+                        <input [(ngModel)]="firm.Email" type="text" class="m-0 col-md-4 col-6 ">
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                    </div>
+                    <br>
+                    <div class="row website m-0 ">
+                        <label class="m-0 col-md-4 col-12 ">Website :</label>
+                        <input [(ngModel)]="firm.Website" type="text" class="m-0 col-md-4 col-6 ">
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                    </div>
+                    <br>
+                   </div>
+                
+                </div>
+                <br>
+                <div class="col-md-12 border card p-4" style="background: radial-gradient(#f4f5f7d7, transparent);">
+                    <div class="bank">
+                     <h4>Bank Details</h4>
+                     <div class="row bankName m-0 ">
+                        <label class="m-0 col-md-4 col-4 ">Bank Name :</label>
+                        <select class="m-0 col-md-4 col-4 " [(ngModel)]="firm.Bank_Name">
+                            <option>------------------Select--------------------</option>
+                            <option *ngFor="let bank of banks"  value={{bank.bankName}}>{{bank.bankName}}</option>
+                        </select>
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                     </div>
+                     <br>
+                     <div class="row account m-0 ">
+                        <label class="m-0 col-md-4 col-4 ">Account No :</label>
+                        <input [(ngModel)]="firm.Account_No" type="text" class="m-0 col-md-4 col-4 ">
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                     </div>
+                     <br>
+                     <div class="row ifsc m-0 ">
+                        <label class="m-0 col-md-4 col-4 ">IFSC Code :</label>
+                        <input [(ngModel)]="firm.IFSC_Code" type="text" class="m-0 col-md-4 col-4 ">
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                     </div>
+                     <br>
+                     <div class=" row address m-0">
+                        <label class="m-0 col-md-4 col-4">Bank Address :</label>
+                        <textarea class="m-0 col-md-4 col-4"  [(ngModel)]="firm.Bank_Address"></textarea>
+                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                    </div>
+                     <br>
+                    </div>
+                 </div>  
+            </div>
+            <div class=" button ">
+                <button id="save" (click)="upload()">Submit</button>
+            </div>
+        </div>
+       
+    </div>
+</div>

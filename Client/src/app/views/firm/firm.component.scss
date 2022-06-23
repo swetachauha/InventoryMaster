@@ -1,0 +1,113 @@
+.firm{
+  box-shadow: 4px 4px 8px -4px blue;
+
+}
+
+img{
+    opacity: 0.3;
+}
+label{
+    // display: inline-block;
+    width: 150px !important;
+  }
+  input{
+    //   border: none;
+    //   border-bottom: 1px solid grey ;
+      width: 100%;
+      height:2rem;
+      border-radius: .5rem;
+    border: 1.5px solid #3a8ec5;
+      
+  }
+//   input:focus {
+//       border-style: none !important;
+// }
+input:focus-visible {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+  select{
+    width: 100%;
+    height:2rem;
+    border-radius: .5rem;
+    border: 1.5px solid #3a8ec5;
+  }
+  select:focus-visible {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+  textarea{
+    // border: none;
+    // border-bottom: 1px solid grey ;
+    width: 100%;
+    height:4rem;
+    border-radius: .5rem;
+    border: 1.5px solid #3a8ec5;
+
+  }
+  textarea:focus-visible {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+  .location{
+      margin:2rem 0 0 0;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+      height:34.5rem;
+
+  }
+  .card{
+      height:fit-content
+  }
+  .button{
+      text-align: center;
+      margin:2rem
+  }
+  // button{
+  //     background-color: green;
+  //     height:3rem;
+  //     width:15rem;
+  //     display: inline-block;
+  //     border:none;
+
+  // }
+  .card-header{
+    //   background-color: rgb(213, 40, 150);
+    background-color: #3a8ec5;
+    color:white;
+    // E2D9E8
+  }
+  .card-body{
+    //   background-color: rgba(68, 66, 66, 0.654);
+    margin-bottom: 2rem;
+  }
+  @media (min-width:1290px) {
+    .name,.map,.gst,.pan,.reg,.fssai,.namePerson,.mobile,.email,.website,.bankName,.address,.ifsc,.account{
+        display: grid;
+        grid-template-columns: 25% 60% 20%;
+        row-gap: 1rem;
+    }
+    span{
+        float: right;
+    }
+  }
+  #save{
+    display: inline-block;
+    box-shadow: 4px 4px 8px -4px black;
+    border:none;
+    background-color: #1e72e1;
+    border-radius: 5px;
+    height:3rem;
+    width:10rem;
+    margin-bottom: 1rem;
+    color:white
+   
+}
+#save:hover{
+    background-color: #3a8ec5;
+    transform: scale(1.05 ,1.05);
+
+}
+
+  @media (max-width:1290px) and (min-width:776px)
+  {
+    label{
+        margin-left: -1rem;
+    }
+  }
