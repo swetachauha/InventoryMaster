@@ -322,6 +322,46 @@ namespace API.Data.Migrations
                     b.ToTable("Purchase");
                 });
 
+            modelBuilder.Entity("API.Entity.PurchaseMasterEntity", b =>
+                {
+                    b.Property<int>("purchaseID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("purchaseID"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone_No")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Purchase_Invoice_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Purchase_Invoice_NO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Purchase_Order_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Purchase_Order_No")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Vendor_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("purchaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("purchaseID");
+
+                    b.ToTable("PurchaseMaster");
+                });
+
             modelBuilder.Entity("API.Entity.purchaseReportEntity", b =>
                 {
                     b.Property<int>("purchaseReportId")
@@ -398,6 +438,43 @@ namespace API.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("PurchaseTotal");
+                });
+
+            modelBuilder.Entity("API.Entity.PurchaseTransactionEntity", b =>
+                {
+                    b.Property<int>("purchaseTransactionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("purchaseTransactionID"), 1L, 1);
+
+                    b.Property<string>("HSN_No")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ItemName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Tax")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Total_Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Unit")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("purchaseID")
+                        .HasColumnType("int");
+
+                    b.HasKey("purchaseTransactionID");
+
+                    b.ToTable("PurchaseTransaction");
                 });
 
             modelBuilder.Entity("API.Entity.registerEntity", b =>

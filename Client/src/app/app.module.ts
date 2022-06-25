@@ -8,6 +8,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
+
 
 
 import {
@@ -70,6 +74,7 @@ import { MainPageComponent } from './Pages/main-page/main-page.component';
 import { PartyComponent } from './views/party/party.component';
 import { PartyTableComponent } from './views/party-table/party-table.component';
 import { PurchaseComponent } from './views/purchase/purchase.component';
+import { PurchaseItemTableComponent } from './views/purchase-item-table/purchase-item-table.component';
 
 
 
@@ -86,7 +91,7 @@ const APP_CONTAINERS = [
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 
-  declarations: [AppComponent, ...APP_CONTAINERS, TaxSlabComponent, UnitComponent, ItemsComponent, GroupComponent, FirmComponent, BranchComponent, BankComponent, StockComponent, BranchTableComponent, TaxTableComponent, UnitTableComponent, GroupTableComponent, ItemTableComponent, BankTableComponent, MainPageComponent, PartyComponent, PartyTableComponent, PurchaseComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, TaxSlabComponent, UnitComponent, ItemsComponent, GroupComponent, FirmComponent, BranchComponent, BankComponent, StockComponent, BranchTableComponent, TaxTableComponent, UnitTableComponent, GroupTableComponent, ItemTableComponent, BankTableComponent, MainPageComponent, PartyComponent, PartyTableComponent, PurchaseComponent, PurchaseItemTableComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -117,7 +122,10 @@ const APP_CONTAINERS = [
     DataTablesModule,
     NgxPaginationModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+
 
   ],
   providers: [

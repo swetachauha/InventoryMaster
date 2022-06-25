@@ -152,7 +152,9 @@ export class BankComponent implements OnInit {
   console.log("bankinput",this.bank)
 
   this.child?.dataintext;
-  console.log("child",this.child?.dataintext.bankName);
+  console.log("child", this.bank.BankName);
+  console.log("child", (<HTMLInputElement>document.getElementById('BankName')).value);
+
   this.bank.BankName=(<HTMLInputElement>document.getElementById('BankName')).value=this.child?.dataintext.bankName;
  this.bank.IFSC_Code=(<HTMLInputElement>document.getElementById('IFSC_Code')).value=this.child?.dataintext.ifsC_Code;
  this.bank.Address=(<HTMLInputElement>document.getElementById('Address')).value=this.child?.dataintext.address;

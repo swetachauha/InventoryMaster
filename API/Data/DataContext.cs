@@ -49,6 +49,10 @@ namespace API.Data
 
         public DbSet<BranchEntity>Branch{get; set;}
         public DbSet<PartyEntity>Party{get; set;}
+        public DbSet<PurchaseMasterEntity>PurchaseMaster{get; set;}
+
+        public DbSet<PurchaseTransactionEntity>PurchaseTransaction{get; set;}
+
 
 
 

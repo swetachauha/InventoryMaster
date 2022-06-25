@@ -179,6 +179,27 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PurchaseMaster",
+                columns: table => new
+                {
+                    purchaseID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Vendor_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone_No = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    purchaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Purchase_Invoice_NO = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Purchase_Invoice_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Purchase_Order_No = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Purchase_Order_Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchaseMaster", x => x.purchaseID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PurchaseReport",
                 columns: table => new
                 {
@@ -225,6 +246,26 @@ namespace API.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PurchaseTotal", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PurchaseTransaction",
+                columns: table => new
+                {
+                    purchaseTransactionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    purchaseID = table.Column<int>(type: "int", nullable: false),
+                    ItemName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HSN_No = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Unit = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Tax = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Total_Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PurchaseTransaction", x => x.purchaseTransactionID);
                 });
 
             migrationBuilder.CreateTable(
@@ -340,6 +381,9 @@ namespace API.Data.Migrations
                 name: "Purchase");
 
             migrationBuilder.DropTable(
+                name: "PurchaseMaster");
+
+            migrationBuilder.DropTable(
                 name: "PurchaseReport");
 
             migrationBuilder.DropTable(
@@ -347,6 +391,9 @@ namespace API.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "PurchaseTotal");
+
+            migrationBuilder.DropTable(
+                name: "PurchaseTransaction");
 
             migrationBuilder.DropTable(
                 name: "Sale");

@@ -136,6 +136,12 @@ saveFirm(firm:any)
     return this.http.get("https://localhost:5001/item/displayItems");
 
   }
+  getItemByItemName(itemName:any)
+  {
+    return this.http.get("https://localhost:5001/item/displayItems/"+itemName);
+
+  }
+ 
   UploadImage(image:any)
   {
     return this.http.post("https://localhost:5001/firm/uploadImage",image);
@@ -163,9 +169,19 @@ saveFirm(firm:any)
   }
   savePurchase(purchase:any)
   {
-    return this.http.post("https://localhost:5001/purchase",purchase);
+    return this.http.post("https://localhost:5001/purchase/master",purchase);
 
   }
+  AllPurchaseItem()
+  {
+    return this.http.get("https://localhost:5001/purchase");
+
+  }
+  // savePurchaseTransaction(purchase:any)
+  // {
+  //   return this.http.post("https://localhost:5001/purchase/transaction/",purchase);
+
+  // }
   // addImage(image: any): Observable<any> {
   //   const httpOptions = {
   //     headers: new HttpHeaders({ "Content-Type": "application/json" })

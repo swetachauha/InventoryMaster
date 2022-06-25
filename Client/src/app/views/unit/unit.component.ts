@@ -32,8 +32,12 @@ export class UnitComponent implements OnInit {
   {
     return this.service.saveUnit(this.unit).subscribe(res=>{
       console.log("unit",res);
-      this.child?.AllUnits();
-      this.showFlash=true;
+      Swal.fire({
+        title: 'Added Successfully',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      }).then(()=>{    window.location.reload();
+      });
       this.showFlashError=false;
       this.unit='';
       
