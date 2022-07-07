@@ -16,25 +16,25 @@
            
               <div class=" itemName col-md-6 col-12">
                   <label>Bank Name :</label>
-                  <input type="text" [(ngModel)]="bank.BankName"  id="BankName"  >
+                  <input type="text" [(ngModel)]="bank.BankName"  id="BankName" oninput="this.value = this.value.toUpperCase()" >
               </div>
               <br>
               <br>
               <div class=" itemName col-md-6 col-12">
                 <label>IFSC Code:</label>
-                <input type="text" [(ngModel)]="bank.IFSC_Code" id="IFSC_Code" >
+                <input type="text" [(ngModel)]="bank.IFSC_Code" id="IFSC_Code" oninput="this.value = this.value.toUpperCase()">
             </div>
     <br>
     <br>
     <div class="group col-md-6 col-12">
         <label> Address : </label>
-        <input type="text" [(ngModel)]="bank.Address" id="Address">
+        <input type="text" [(ngModel)]="bank.Address" id="Address" >
       </div>
             <br>
             <br>
             <div class=" itemName col-md-6 col-12">
                 <label>City:</label>
-                <input type="text" [(ngModel)]="bank.City" id="City">
+                <input type="text" [(ngModel)]="bank.City" id="City"oninput="javascript: firstCapital();" >
             </div>  
            
     

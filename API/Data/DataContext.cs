@@ -46,6 +46,7 @@ namespace API.Data
         public DbSet<BankEntity>Bank{get; set;}
         public DbSet<firmEntity>Firm{get; set;}
 
+        public DbSet<TransportEntity>Transport{get; set;}
 
         public DbSet<BranchEntity>Branch{get; set;}
         public DbSet<PartyEntity>Party{get; set;}
@@ -53,7 +54,9 @@ namespace API.Data
 
         public DbSet<PurchaseTransactionEntity>PurchaseTransaction{get; set;}
 
+        public DbSet<SalesEntity>Sales{get; set;}
 
+        public DbSet<SalesTransactionEntity>SalesTransaction{get; set;}
 
 
 

@@ -43,6 +43,7 @@ namespace API.Data.Migrations
                 columns: table => new
                 {
                     FirmName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ID = table.Column<int>(type: "int", nullable: false),
                     FirmLogo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirmAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirmLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -125,9 +126,10 @@ namespace API.Data.Migrations
                     groupName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HSN_No = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Bar_Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GST = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IGST = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CGST = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SGST = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Cess = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Execise = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Purchase_Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     margin = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Sales_Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -188,7 +190,7 @@ namespace API.Data.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone_No = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    purchaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Builty_No = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Purchase_Invoice_NO = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Purchase_Invoice_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Purchase_Order_No = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -260,7 +262,9 @@ namespace API.Data.Migrations
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Unit = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Tax = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IGST = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CGST = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SGST = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Total_Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -288,6 +292,32 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Sales",
+                columns: table => new
+                {
+                    Sales_Invoice_No = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Customer_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GST_No = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone_No = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Purchase_Order_no = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Builty_No = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Transport = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Document_Through = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sales_Invoice_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Sales_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Purchase_Order_Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Builty_Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sales", x => x.Sales_Invoice_No);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SalesReport",
                 columns: table => new
                 {
@@ -306,6 +336,28 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SalesTransaction",
+                columns: table => new
+                {
+                    salesTransactionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Sales_Invoice_No = table.Column<int>(type: "int", nullable: false),
+                    ItemName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HSN_No = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Quantity = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Unit = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IGST = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CGST = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SGST = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Total_Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SalesTransaction", x => x.salesTransactionID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tax",
                 columns: table => new
                 {
@@ -318,6 +370,27 @@ namespace API.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tax", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Transport",
+                columns: table => new
+                {
+                    Transporter_ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Transporter_Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GST_No = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone_No = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Contact_Person = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Created_At = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transport", x => x.Transporter_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -399,10 +472,19 @@ namespace API.Data.Migrations
                 name: "Sale");
 
             migrationBuilder.DropTable(
+                name: "Sales");
+
+            migrationBuilder.DropTable(
                 name: "SalesReport");
 
             migrationBuilder.DropTable(
+                name: "SalesTransaction");
+
+            migrationBuilder.DropTable(
                 name: "Tax");
+
+            migrationBuilder.DropTable(
+                name: "Transport");
 
             migrationBuilder.DropTable(
                 name: "Unit");

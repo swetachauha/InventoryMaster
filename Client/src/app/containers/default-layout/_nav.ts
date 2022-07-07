@@ -59,6 +59,12 @@ export const navItems: INavData[] = [
     iconComponent: { name: 'cil-chart-pie' }
   },
   {
+    name: 'Transport Master',
+    iconComponent: { name: 'cil-star' },
+    url: '/transportMaster',
+   
+  },
+  {
     name: 'Stock Master',
     iconComponent: { name: 'cil-star' },
     url: '/stockMaster',
@@ -74,6 +80,24 @@ export const navItems: INavData[] = [
     name: 'Purchase ',
     iconComponent: { name: 'cil-star' },
     url: '/purchase',
+   
+  },
+  {
+    name: 'Purchase Report ',
+    iconComponent: { name: 'cil-star' },
+    url: '/purchaseReport',
+   
+  },
+  {
+    name: 'Sales ',
+    iconComponent: { name: 'cil-star' },
+    url: '/sales',
+   
+  },
+  {
+    name: 'Sales Report',
+    iconComponent: { name: 'cil-star' },
+    url: '/saleReport',
    
   },
  

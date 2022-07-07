@@ -169,12 +169,38 @@ saveFirm(firm:any)
   }
   savePurchase(purchase:any)
   {
-    return this.http.post("https://localhost:5001/purchase/master",purchase);
+    return this.http.put("https://localhost:5001/purchase/master",purchase);
 
   }
   AllPurchaseItem()
   {
     return this.http.get("https://localhost:5001/purchase");
+
+  }
+  getFirmGST(GST_No:any)
+  {
+    return this.http.get("https://localhost:5001/firm/"+GST_No);
+
+  }
+  getFirm()
+  {
+    return this.http.get("https://localhost:5001/firm");
+
+  }
+  saveTransport(transport:any)
+  {
+    return this.http.post("https://localhost:5001/transport",transport);
+
+  }
+  AllTransport()
+  {
+    return this.http.get("https://localhost:5001/transport");
+
+  }
+  saveSale(sale:any)
+  {   
+     return this.http.put("https://localhost:5001/sale/master",sale);
+
 
   }
   // savePurchaseTransaction(purchase:any)

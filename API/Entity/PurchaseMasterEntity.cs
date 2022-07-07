@@ -16,7 +16,9 @@ namespace API.Entity
         public  string Address{ get; set; }
         public  string City{ get; set; }
         public  string Phone_No{ get; set; }
-        public  DateTime purchaseDate{ get; set; }
+        public  string Builty_No{ get; set; }
+
+        // public  DateTime purchaseDate{ get; set; }
         public  string Purchase_Invoice_NO{ get; set; }
         public  DateTime Purchase_Invoice_Date{ get; set; }
         public  string Purchase_Order_No{ get; set; }

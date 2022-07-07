@@ -1,0 +1,221 @@
+
+
+<div *ngIf="showFlash" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Successfully Added !!</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <div *ngIf="showFlashError" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error !!</strong>&nbsp;{{errorMessage}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+<div class="row m-4">
+    <div class="row col-md-12 border card p-0">
+        <div class="card-header">
+            purchase
+        </div>
+        <div class="card-body row m-0 p-4">
+           
+
+            <div class=" itemName row col-md-4 col-12">
+                <div class="left">
+                    <label class="label">Customer Name </label>
+                    <select (change)="getSelectedVendor($event)" [(ngModel)]="purchase.Customer_Name" style="margin-bottom: .5rem;">
+                        <option>Select</option>
+                        <option *ngFor="let vendor of getVendorList">{{vendor.party_Name}}-{{vendor.phone_No}}</option>
+                    </select>
+                   
+<br>
+
+                    <div class="auto" *ngIf="dataFetched" style="width: inherit;">
+                        <!-- <label class="ilabel">Phone No</label>: -->
+            
+                        
+                       
+                        <!-- <label class="ilabel">Address </label>: -->
+                        <label class="autocome" type="text" [(ngModel)]="purchase.Address" id="Address">{{getVendor.party_Address}},</label>
+                       
+                        <label class="autocome" type="text" [(ngModel)]="purchase.City" id="City">{{getVendor.city}}</label>
+
+                              
+                      
+                        <!-- <label class="ilabel"> City </label>: -->
+                        <!-- <label class="autocome" type="text" [(ngModel)]="purchase.City" id="City"></label> -->
+                        <div class="autocome">
+                            <label > GST No  :</label>
+                            <label  type="text" [(ngModel)]="purchase.GST_No" id="GST_No">{{getVendor.gsT_No}}</label>
+                        </div>
+                   
+                   
+                        <label  class="autocome" type="number" [(ngModel)]="purchase.Phone_No" id="phone" >{{getVendor.phone_No}}</label>
+
+
+                    </div>
+              </div>
+                </div>
+            
+                <div class="right  col-md-4 col-12"  >
+
+                    <label class="purchaseLabel">Sales Invoice Date</label>
+                    <mat-form-field>
+                        <input  matInput [matDatepicker]="dpicker" [(ngModel)]="purchase.Sales_Invoice_Date"  class="inputDate" max="{{maxDate}}" placeholder="{{maxDate}}">
+                        <mat-datepicker-toggle  [for]="dpicker" matSuffix style="z-index: 500;"></mat-datepicker-toggle>
+                        <mat-datepicker #dpicker></mat-datepicker>
+                    </mat-form-field>   
+                    <br>
+
+                <label class="purchaseLabel">Sales Date</label>
+                <mat-form-field>
+                    <input  matInput [matDatepicker]="datepicker" [(ngModel)]="purchase.Sales_Date"  class="inputDate" max="{{maxDate}}" placeholder="{{maxDate}}">
+                    <mat-datepicker-toggle  [for]="datepicker" matSuffix style="z-index: 500;"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker></mat-datepicker>
+                </mat-form-field>     
+                
+                <br>
+                <label class="purchaseLabel">Purchase Order No</label>
+                <input class="input" type="text" [(ngModel)]="purchase.Purchase_Order_No" id="purchaseOrderNo" oninput="this.value = this.value.toUpperCase()">
+
+                <br>
+                <label class="purchaseLabel">Purchase Order Date</label>
+                <mat-form-field>
+                    <input  matInput [matDatepicker]="dtpicker" [(ngModel)]="purchase.Purchase_Order_Date"  class="inputDate" max="{{maxDate}}" placeholder="{{maxDate}}">
+                    <mat-datepicker-toggle  [for]="dtpicker" matSuffix style="z-index: 500;"></mat-datepicker-toggle>
+                    <mat-datepicker #dtpicker></mat-datepicker>
+                </mat-form-field>     
+                
+                </div>
+                <div class=" col-md-4 col-12"  >
+                    <label class="purchaseLabel">Builty No</label>
+                    <input class="input" type="text" [(ngModel)]="purchase.Builty_NO" oninput="this.value = this.value.toUpperCase()" >
+
+                    <br>
+                    <label class="purchaseLabel">Builty Date</label>
+                    <mat-form-field>
+                        <input  matInput [matDatepicker]="picker" [(ngModel)]="purchase.Builty_Date" class="inputDate" max="{{maxDate}}" placeholder="{{maxDate}}">
+                        <mat-datepicker-toggle  [for]="picker" matSuffix></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                   
+   
+                    <br>
+                    <label class="purchaseLabel">Transport</label>
+
+                    <select [(ngModel)]="purchase.Transport">
+                        <option>Select</option>
+                        <option *ngFor="let tran of transportList">{{tran.transporter_Name}}</option>
+                    </select>
+                    <br>
+                    <label class="purchaseLabel">Document Through</label>
+                    <input class="input" type="text" [(ngModel)]="purchase.Document_Through" id="purchaseInvoiceNO">
+                    </div>
+
+             
+               
+<br>
+<br>
+
+<div class="second">
+
+<label class="addItemLabel" for="addItems">Add Items  to your purchase</label>
+                <div  id="addItems"> 
+                    <div *ngFor="let purchaseTran of itemArray; let i=index" >
+                        <div class="item  "  >
+                            <div class="items" >
+                                <div class="quantity">
+                                    <label class="itemLabel">Item </label>
+                                    <select class="selectCSS"  [(ngModel)]="purchaseTran.ItemName" (change)="getItemDetails($event , i)" >
+                                        <option >Select</option>
+                                        <option  *ngFor="let item of getItem" >{{item.itemName}}</option>
+                                    </select>
+                                </div>
+                                <!-- <div class="quantity  ">
+                                    <label class="itemLabel">HSN No  </label>
+                                    <input  type="text" class="itemCSS" [(ngModel)]="purchaseTran.HSN_No" id="HSN_No{{i}}"  >
+                            
+                                </div> -->
+                                <div class="quantity  ">
+                                    <label class="itemLabel">Quantity </label>
+                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.Quantity" id="Quantity{{i}}" oninput="javascript: if (this.value < 0) {alert('Please enter Positive Quantity')}" (ngModelChange)="calculate(purchaseTran);">
+                                </div>
+                                <div class="quantity  ">
+                                    <label class="itemLabel">Unit </label>
+                                    <select class="selectCSS"[(ngModel)]="purchaseTran.Unit"   >
+                                        <option >Select</option>
+                                        <option *ngFor="let unit of getUnitList">{{unit.acronymn}}</option>
+                                    </select>                  
+                                </div>
+                                
+                                <div class="quantity  ">
+                                    <label class="itemLabel">Price  </label>
+                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.Price" value={{purchaseTran.Price}} id="Price{{i}}" oninput="javascript: if (this.value < 0) {alert('Please enter Positive Quantity');} " (ngModelChange)="calculate(purchaseTran);">
+                                </div>
+                                <div class="quantity  ">
+                                    <label class="itemLabel">Total Amount</label>
+                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.Total_Amount"  id="Price{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " >
+                                </div>
+                                <div class="quantity  ">
+                                    <label class="itemLabel">Discount(%) </label>
+                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.Discount"  id="Price{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " (ngModelChange)="calculate(purchaseTran);">
+                                    <label [(ngModel)]="purchaseTran.DiscountPrice">{{purchaseTran.DiscountPrice}}</label>
+                                </div>
+                                <div class="quantity  ">
+                                    <label class="itemLabel">Disc_Price </label>
+                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.Disc_Price"  id="Price{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') ">
+                                </div>
+                                <div class="quantity  " *ngIf="gst">
+                                    <label class="itemLabel">IGST(%) </label>
+                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.IGST" id="IGST{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " (ngModelChange)="calculate(purchaseTran);">
+                                    <label>{{purchaseTran.IGST}}</label>
+                                </div>
+                                <div class="quantity  " *ngIf="!gst">
+                                    <label class="itemLabel">CGST (%) </label>
+                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.CGST" id="CGST{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " (ngModelChange)="calculate(purchaseTran);">
+                                    <label style="max-width:inherit;">{{purchaseTran.CGSTLabel}}</label>
+                                </div>
+                                <div class="quantity  " *ngIf="!gst">
+                                    <label class="itemLabel">SGST(%) </label>
+                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.SGST" id="SGST{{i}}"  oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') "(ngModelChange)="calculate(purchaseTran);">
+                                    <label style="max-width:inherit;">{{purchaseTran.SGSTLabel}}</label>
+                                </div>
+                               
+                               
+                                
+                                <div class="quantity  ">
+                                    <label  class="itemLabel">Net Amount</label>
+                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.Net_Amount" id="Total_Amount{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') ">
+                                </div>
+                            </div>
+                           
+                            <div class="button" >
+                                <label  class="itemLabel"></label>
+                                <button class="bg-danger float-end" id="delete"  (click)="removevalue(i)">X</button>
+                            </div>
+                          
+                        
+                        </div>
+                    </div>
+                </div>
+</div>
+           
+              
+        <div  >
+            <button (click)="addvalue()" id="add" class="float-end" >+</button>
+            <!-- <button id="save" (click)="editPurchase($event)" *ngIf="buttonEdit" value={{purchase.}}>Edit purchase</button> -->
+
+        </div>
+        <div *ngFor="let value of itemArray;">
+            {{value.value}}
+        </div>
+    <br>
+        <div class="button">
+            <button (click)="savePurchase()" id="save">Save</button>
+        </div>
+        <!-- <div class="table">
+            <app-purchase-item-table></app-purchase-item-table>
+            <!-- <app-purchase-table (parentFun)="getpurchaseDataToInput class="input"($event)" (parentPropAdd)="buttonAdd" (parentPropEdit)="buttonEdit"></app-purchase-table> -->
+      <!-- </div> --> 
+    </div>
+    
+    
+    </div>
+  

@@ -164,4 +164,12 @@ export class BankComponent implements OnInit {
  console.log("bankinput",this.bank.IFSC_Code)
 
   }
+
+  firstCapital()
+  {
+    var string= this.bank.City.charAt(0).toUpperCase() + this.bank.City.slice(1);
+    console.log("capital",string);
+    return string;
+
+  }
 }

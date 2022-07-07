@@ -21,14 +21,15 @@ import { DashboardModule } from './views/dashboard/dashboard.module';
 import { DashboardRoutingModule } from './views/dashboard/dashboard-routing.module';
 import { PartyComponent } from './views/party/party.component';
 import { PurchaseComponent } from './views/purchase/purchase.component';
+import { SalesComponent } from './views/sales/sales.component';
+import { TransportComponent } from './views/transport/transport.component';
+import { SalesReportComponent } from './views/sales-report/sales-report.component';
+import { PurchaseReportComponent} from './views/purchase-report/purchase-report.component';
+
 
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   redirectTo: 'dashboard',
-  //   pathMatch: 'full'
-  // },
+ 
 
   {
     path: '',
@@ -114,7 +115,30 @@ const routes: Routes = [
         // loadChildren: () =>
         //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
       },
-     
+      {
+        path: 'sales',
+        component: SalesComponent,
+        // loadChildren: () =>
+        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+      },
+      {
+        path: 'transportMaster',
+        component: TransportComponent ,
+        // loadChildren: () =>
+        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+      },
+      {
+        path: 'purchaseReport',
+        component: PurchaseReportComponent ,
+        // loadChildren: () =>
+        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+      },
+      {
+        path: 'saleReport',
+        component: SalesReportComponent ,
+        // loadChildren: () =>
+        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+      },
       
      
       {

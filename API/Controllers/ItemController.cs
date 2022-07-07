@@ -47,12 +47,13 @@ namespace API.Controllers
                     itemName = itemDTO.itemName,
                     HSN_No=itemDTO.HSN_No,
                     Bar_Code=itemDTO.Bar_Code,
-                    GST=itemDTO.GST,
+                    IGST=itemDTO.IGST,
+                    CGST=itemDTO.CGST,
+                    SGST=itemDTO.SGST,
                     Cess=itemDTO.Cess,
-                    Execise=itemDTO.Execise,
                     Purchase_Rate=itemDTO.Purchase_Rate,
                     margin=itemDTO.margin,
-                    Sales_Rate=(itemDTO.Purchase_Rate + ((itemDTO.GST+itemDTO.Cess+itemDTO.Execise)/100)-itemDTO.margin)
+                    Sales_Rate=(itemDTO.Purchase_Rate + ((itemDTO.IGST+itemDTO.Cess)/100)*itemDTO.Purchase_Rate+itemDTO.margin)
                    
                     
 
@@ -68,9 +69,10 @@ namespace API.Controllers
                     itemName = item.itemName,
                     HSN_No=item.HSN_No,
                     Bar_Code=item.Bar_Code,
-                    GST=item.GST,
+                    IGST=item.IGST,
+                    CGST=item.CGST,
+                    SGST=item.SGST,
                     Cess=item.Cess,
-                    Execise=item.Execise,
                     Purchase_Rate=item.Purchase_Rate,
                     margin=item.margin,
                     Sales_Rate=item.Sales_Rate

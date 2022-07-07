@@ -94,6 +94,8 @@ namespace API.Controllers
                 }
                 var result = await _context.Bank
                             .FirstOrDefaultAsync(e => e.IFSC_Code == bankEntity.IFSC_Code);
+                                                Console.WriteLine($"IFSC_Code {result.Address}");
+
                 if (result != null)
                 {
                     result.BankName=bankEntity.BankName;
@@ -102,6 +104,8 @@ namespace API.Controllers
                     result.City=bankEntity.City;
 
                     await _context.SaveChangesAsync();
+                                        Console.WriteLine($"IFSC_Code2 {result.Address}");
+
                     return result;
                 }
                 return null;

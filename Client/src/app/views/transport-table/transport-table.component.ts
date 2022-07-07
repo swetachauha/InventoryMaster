@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { InventoryServiceService } from 'src/app/Services/inventory-service.service';
 
 @Component({
-  selector: 'app-purchase-item-table',
-  templateUrl: './purchase-item-table.component.html',
-  styleUrls: ['./purchase-item-table.component.scss']
+  selector: 'app-transport-table',
+  templateUrl: './transport-table.component.html',
+  styleUrls: ['./transport-table.component.scss']
 })
-export class PurchaseItemTableComponent implements OnInit {
+export class TransportTableComponent implements OnInit {
 
   getItem:any=[];
   dataTable:any;
@@ -25,9 +25,9 @@ export class PurchaseItemTableComponent implements OnInit {
   constructor(private service:InventoryServiceService) { }
 
   ngOnInit(): void {
-    this.AllPurchaseItems();
+    this.AllTransport();
   }
-OnTableDataChange(event:any)
+  OnTableDataChange(event:any)
   {
     this.page = event;
  
@@ -41,9 +41,9 @@ OnTableDataChange(event:any)
     // this.getAllPurchase();
   }
 
-  AllPurchaseItems()
+  AllTransport()
   {
-   return this.service.AllPurchaseItem().subscribe(res=>{
+   return this.service.AllTransport().subscribe(res=>{
      this.getItem=res;
      console.log("allGroup",this.getItem);
      if(this.getItem.length==0)

@@ -1,14 +1,10 @@
 *{
   height: 100vh;
     padding: 0;
-    /* margin: -1px !important; */
    overflow-y: hidden;
    overflow-x: hidden;
 }
-/* .mainPage{
-    position: relative;
 
-} */
 
 
 .mainPage{
@@ -27,6 +23,7 @@
   height: 2rem;
   padding: 0;
   padding-top: .5rem;
+  /* background-color: blue; */
   /* border-bottom: 1px solid rgba(186, 7, 7, 0.722); */
   box-shadow: 0 4px 8px 0 rgba(204, 11, 11, 0.5);
 
@@ -34,23 +31,23 @@
 
 .formcontainer{
     
-    width: 25rem;
-    height: 33rem;
-    padding:2rem;
-    /* background-color: red; */
-    /* margin: 2rem; */
-    border:1px solid white;
+    height: 92%;
+    padding:2rem; 
+    background-color: red; 
+     margin: 2rem;
+     border:1px solid white;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
     border-radius: 0.5rem;
     background-color: rgba(0, 0, 0, 0.25);
     text-align: center;
-  
+    position: relative;
+
   
     
-}
+ } 
 
-form > input{
-    width: 20rem;
+ input{
+    width: 100%;
     height: 3rem;
     border-radius: 2rem;
     border-style: none;
@@ -62,7 +59,7 @@ form > input{
 form > button{
     padding-left: 1rem;
     padding-right: 1rem;
-    width: 20rem;
+    width: 100%;
     height: 3rem;
     border-radius: 2rem;
     border-style: none;
@@ -80,8 +77,8 @@ form > button:hover{
   font-size: 1.5rem;
 }
 #logo{
-  height:5rem;
-  width: 5rem;
+  height:6rem;
+  width: 6rem;
   display: inline-block;
 }
 p{
@@ -92,141 +89,154 @@ p{
   font-size: 2.5rem;
   padding-top: 2rem;
 }
-.about{
-  /* width:50rem;
-    height: 37rem; */
-    /* padding:2rem; */
-    /* background-color: red; */
-    /* margin: .5rem; */
-    /* border:1px solid white;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-    background-color: rgba(0, 0, 0, 0.25); */
-    text-align: center;
-    overflow-x: hidden;
-}
-#image{
 
-  /* height: 40rem; */
-  /* width:fit-content; */
-}
-@media  (min-width:1026px)
+
+@media  (min-width:1221px)
 {
-  .container{
-    width: 120vw;
-    display: flex;
-    flex-direction: row;
-    column-gap: 3rem;
-    /* margin-right: -50rem!important; */
-   /* background-color: aqua; */
-   max-width: 80rem;
-   margin: 0;
+  .main{
+    display: grid;
+    grid-template-columns: 33% 67%;
   }
-  .formcontainer{
     
-    width: 60rem;
-    height: 43rem;
-    padding:2rem;
-    /* background-color: red; */
-    margin: 2rem;
-    border:1px solid white;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-    border-radius: 0.5rem;
-    background-color: rgba(0, 0, 0, 0.25);
-    text-align: center;
-  
-  
-    
-}
 p{
   margin-bottom: 5rem;
-  /* font-size: 7rem; */
-}
-form>button{
-  width: 28rem;
-  height: 4rem;
-}
-form > input{
-  width: 28rem;
-  height: 4rem;
-  border-radius: 2rem;
-  border-style: none;
-  background-color: rgba(255, 255, 255, 0.409);
-  padding-left: 1rem;
-  padding-right: 1rem;
- 
-
-
 }
 #logo{
-  height:10rem;
-  width: 10rem;
+  /* height:10rem;
+  width: 10rem; */
   display: inline-block;
 }
-/* .about{
-  width:50rem;
-    height: 37rem;
-    
-} */
-}
 
-@media (max-width:1020px)and (min-width:200px)
+}
+@media (max-width:1220px)and (min-width:1001px)
 {
 
- 
-  .container{
-    width: 120vw;
-   
-    /* column-gap: 2rem; */
-    /* margin-right: -50rem!important; */
-   /* background-color: aqua; */
-   max-width: 80rem;
-   margin: 0;
+} .main{
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+  
+p{
+margin-bottom: 5rem;
+}
+#logo{
+/* height:10rem;
+width: 10rem; */
+display: inline-block;
+}
+@media (max-width:1000px)and (min-width:767px)
+{
+  .main{
+    display: grid;
+    grid-template-columns: 40% 60%;
   }
-  .about{
+    
+p{
+  margin-bottom: 5rem;
+}
+#logo{
+  /* height:10rem;
+  width: 10rem; */
+  display: inline-block;
+}
+}
+
+@media (max-width:767px)and (min-width:200px)
+{
+
+  .right{
     display: none;
     }
     
 }
-@media (max-width:1025px)and (min-width:900px) 
+ @media (max-width:1024px)and (min-width:768px) 
 {
-  .mainPage{
-    text-align: center;
+  .main{
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+    
+p{
+  margin-bottom: 5rem;
+}
+#logo{
+  /* height:10rem;
+  width: 10rem; */
+  display: inline-block;
+}
+
+} 
+/* @media (max-width:1100px)and (min-width:1025px) 
+{
+  .main{
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+    
+p{
+  margin-bottom: 5rem;
+}
+#logo{
+ 
+  display: inline-block;
+}
+} */
+@media (max-width:767px)and (min-width:501px) {
+
+  .main{
+    padding: 2rem;
   }
   .formcontainer{
-    margin: 16rem 0 0 -10rem;
-    width: 30rem;
-    height: 35rem;
-    padding:2rem;
-    display: inline-block;   
-   }
-   .about{
-    height: 100vh;
-    width: 100vw;
-    }
-}
-@media (max-width:900px)and (min-width:500px) {
+   
+    height:35rem;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    
 
-.mainPage{
-  text-align: center;
-}
-.formcontainer{
-  margin: 8rem 0 0 -7rem;
-  width: 30rem;
-  height: 35rem;
-  padding:2rem;
-  display: inline-block;   
- }
+  }
+   #logo{
+    height:6rem;
+    width:6rem;
+  }
+  form > input{
+    /* width: 15rem; */
+    height: 3rem;
+  }
+  p{
+    height: 5rem;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+  form > button{
+    margin-top: 6rem;
+    height:3rem;
+
+    width: 100%;
+    font-size: 2rem;
+
+  }
 }
 @media (max-width:500px)and (min-width:380px) {
-  .mainPage{
-    text-align: center;
+  
+  .main{
+    padding: 2rem;
   }
   .formcontainer{
-    margin: 12rem 0 0 -4rem;
-    width: 20rem;
+   
     height: 25rem;
-    padding:2rem;
-    display: inline-block;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    
 
   }
   
@@ -235,7 +245,7 @@ form > input{
     width:3rem;
   }
   form > input{
-    width: 15rem;
+    /* width: 15rem; */
     height: 2.5rem;
   }
   p{
@@ -253,37 +263,36 @@ form > input{
   
 }
 
-
-@media (max-width:380px)and (min-width:200px) {
-  .mainPage{
-    text-align: center;
+@media  (max-width:380px) {
+  .main{
+    padding: 2rem;
   }
   .formcontainer{
-    margin:  8rem .2rem 5rem -3rem;
-    width: 15rem;
+   
     height: 25rem;
-    padding:.2rem;
-    display: inline-block;
+    margin-top: auto;
+    margin-bottom: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    
 
   }
-  #logo{
-    margin-top: 1rem;
+  input{
+    height: 2rem;
   }
   p{
-    /* margin-top: 1rem; */
     margin-bottom: 1rem;
-    font-size: 2rem;
-
-  }
-  form > input{
-
-    width: 12rem;
-    height:2rem;
+    font-size: 1.5rem;
   }
   form > button{
-    margin-top: 3rem;
-    width: 6rem;
-    height:2rem;
+    margin-top: 1rem;
+    height: 2.5rem;
+
+    width: 10rem;
     font-size: 1rem;
+
   }
 }

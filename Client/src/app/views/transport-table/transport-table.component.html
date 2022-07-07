@@ -28,13 +28,15 @@
     
     <thead>
     <th>SN</th>
-    <th>Purchase ID</th>
-    <th>Item </th>
-    <th>HSN_No</th>
-    <th>Quantity</th>
-    <th>Price</th>
-    <th>Tax</th>
-    <th>Total Amount</th>
+    <th>Transporter Name </th>
+    <th>GST No</th>
+    <th>Phone No</th>
+    <th>Email</th>
+    <th>Contact Person</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Edit / Delete</th>
 
     <!-- <th style="display: none"></th>  -->
   </thead>
@@ -44,17 +46,20 @@
         currentPage:page,
         totalItems:count};   let i=index" >
       <td>{{i+1}}</td>
-      <td>{{item.purchaseTransactionID}}</td>
-      <td>{{item.itemName}}</td>
-      <td>{{item.hsN_No}}</td>
-      <td>{{item.quantity}}</td>
-      <th>{{item.price}}</th>
-      <th>{{item.tax}}</th>
-      <th>{{item.total_Amount}}</th>
+      <td>{{item.transporter_Name}}</td>
+      <td>{{item.gsT_No}}</td>
+      <td>{{item.phone_No}}</td>
+      <td>{{item.email}}</td>
+      <td>{{item.contact_Person}}</td>
+      <td>{{item.address}}</td>
+      <td>{{item.city}}</td>
 
+      <td>{{item.state}}</td>
+
+     
 
       
-        <!-- <i class="fa-solid fa-trash-can" style="color:red" (click)="deleteItem()"></i></td> -->
+        <td><i class="fa-solid fa-trash-can" style="color:red" ></i></td>
       <!-- <td style="display: none">{{group.groupId}}#{{group.groupName}}</td> -->
     </tr>
   </tbody>

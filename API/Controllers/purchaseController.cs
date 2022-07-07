@@ -37,11 +37,18 @@ public async Task<IEnumerable<purchaseTotalDTO>> GetCompanies()
             return purchaseList.ToList();
     }
 }
+ [HttpGet("displayBankByIFSC/{HSN_No}")]
 
-        [HttpPost("{master}")]
+        public async Task<PurchaseTransactionEntity> getBankByIFSC(string HSN_No)
+        {
+            return await _context.PurchaseTransaction
+                .FirstOrDefaultAsync(e => e.HSN_No == HSN_No);
+        }
+        [HttpPut("{master}")]
         public async Task<ActionResult<IEnumerable<PurchaseTransactionEntity>>> AddPurchase(purchaseMasterDTO purchaseMasterDTO)
         {
           Console.WriteLine($"INVENTORY INVENTORY ,{purchaseMasterDTO.Vendor_Name}");
+          
 
             if(purchaseMasterDTO.PurchaseTransaction.AsList().Count==0)
             {
@@ -55,7 +62,7 @@ public async Task<IEnumerable<purchaseTotalDTO>> GetCompanies()
                     Address=purchaseMasterDTO.Address,
                     City=purchaseMasterDTO.City,
                     Phone_No=purchaseMasterDTO.Phone_No,
-                    purchaseDate=purchaseMasterDTO.purchaseDate,
+                    // purchaseDate=purchaseMasterDTO.purchaseDate,
                     Purchase_Order_No=purchaseMasterDTO.Purchase_Order_No,
                     Purchase_Order_Date=purchaseMasterDTO.Purchase_Order_Date,
                     Purchase_Invoice_NO=purchaseMasterDTO.Purchase_Invoice_NO,
@@ -70,16 +77,25 @@ public async Task<IEnumerable<purchaseTotalDTO>> GetCompanies()
                 
             foreach(var item in purchaseMasterDTO.PurchaseTransaction.AsList())
                 {
+                    var itemP=await _context.Items
+                .FirstOrDefaultAsync(e => e.itemName == item.ItemName);
+                var itemPrice=itemP.Purchase_Rate;
+                                Console.WriteLine($"ITEMPRICE  ITEMPRICE {itemP}");
+
+                Console.WriteLine($"ITEMPRICE  ITEMPRICE {itemPrice}");
+
                  var purchaseTran = new PurchaseTransactionEntity
                 {
                     purchaseID=purchase.purchaseID,
                     ItemName=item.ItemName,
                     Quantity=item.Quantity,
                     Unit=item.Unit,
-                    Price=item.Price,
-                    Tax=item.Tax,
+                    Price=item.Price ,
+                    IGST=item.IGST,
+                    CGST=item.CGST,
+                    SGST=item.SGST,
                     HSN_No=item.HSN_No,
-                    Total_Amount=item.Total_Amount,
+                    Total_Amount=item.Net_Amount,
                 };
                  _context.PurchaseTransaction.Add(purchaseTran);
                 await _context.SaveChangesAsync();

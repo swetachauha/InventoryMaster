@@ -23,15 +23,23 @@ namespace API.DTOs
         [Required]
          [Range(0, 100, ErrorMessage = "Only positive number allowed")]
 
-        public decimal GST{ get; set; }
+        public decimal IGST{ get; set; }
+          [Required]
+         [Range(0, 100, ErrorMessage = "Only positive number allowed")]
+
+        public decimal CGST{ get; set; }
+          [Required]
+         [Range(0, 100, ErrorMessage = "Only positive number allowed")]
+
+        public decimal SGST{ get; set; }
         [Required]
         [Range(0, 100, ErrorMessage = "Only positive number allowed")]
 
         public decimal Cess{ get; set; }
-        [Required]
-        [Range(0, 100, ErrorMessage = "Only positive number allowed")]
+        // [Required]
+        // [Range(0, 100, ErrorMessage = "Only positive number allowed")]
 
-        public decimal Execise{ get; set; }
+        // public decimal Execise{ get; set; }
          [Required]
         [Range(0, int.MaxValue, ErrorMessage = "Only positive number allowed")]
 

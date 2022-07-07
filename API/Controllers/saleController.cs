@@ -1,97 +1,105 @@
-// using API.Data;
-// using API.DTOs;
-// using API.Entity;
-// using Dapper;
-// using Microsoft.AspNetCore.Mvc;
-// using Microsoft.EntityFrameworkCore;
+using API.Data;
+using API.DTOs;
+using API.Entity;
+using Dapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-// namespace API.Controllers
-// {
-//     public class saleController:BaseApiController
-//     {
-//          private readonly DataContext _context;
+namespace API.Controllers
+{
+    public class saleController:BaseApiController
+    {
+         private readonly DataContext _context;
 
-//         public saleController(DataContext context )
-//         {
-//             _context = context;
-//         }
+        public saleController(DataContext context )
+        {
+            _context = context;
+        }
 
-//         [HttpGet]
-//          public async Task<ActionResult<IEnumerable<saleEntity>>> GetAllSales()
-//         {
+        [HttpGet]
+         public async Task<ActionResult<IEnumerable<saleEntity>>> GetAllSales()
+        {
 
-//             return await  _context.Sale.ToListAsync();
-//         }
-//          [HttpPost]
-//         public async Task<ActionResult<IEnumerable<saleEntity>>> AddSale(saleDTO saleDTO )
-//         {
+            return await  _context.Sale.ToListAsync();
+        }
+         [HttpPut("{master}")]
+        public async Task<ActionResult<int>> AddPurchase(saleDTO SalesMasterDTO)
+        {
+          var InvoiceNO=0;
 
-//               var itemUnit=await _context.Items.FirstOrDefaultAsync(x =>x.itemName==saleDTO.itemName);
-//             if(itemUnit!=null)
-//             {
-//                 var unit=itemUnit.unit;
+            if(SalesMasterDTO.SalesTransaction.AsList().Count==0)
+            {
+                return BadRequest("Add atleast one item to Sales.");
+            }
+            else
+            {
+                     var Sales = new SalesEntity
+                {
+                    Customer_Name=SalesMasterDTO.Customer_Name,
+                    Address=SalesMasterDTO.Address,
+                    City=SalesMasterDTO.City,
+                    GST_No=SalesMasterDTO.GST_No,
+                    Phone_No=SalesMasterDTO.Phone_No,
+                    Sales_Date=SalesMasterDTO.Sales_Date,
+                    Purchase_Order_Date=SalesMasterDTO.Purchase_Order_Date,
+                    Purchase_Order_no=SalesMasterDTO.Purchase_Order_No,
 
-                
+                    Sales_Invoice_Date=SalesMasterDTO.Sales_Invoice_Date,
+                    Builty_No=SalesMasterDTO.Builty_NO,
+                    Builty_Date=SalesMasterDTO.Builty_Date,
+                    Transport=SalesMasterDTO.Transport,
+                    Document_Through=SalesMasterDTO.Document_Through
+                    
 
-//                             var query="SELECT itemName, SUM(quantity) AS total FROM Purchase GROUP BY itemName ;";
-//             using (var connection = _context.CreateConnection())
-//             {
-//                 var purchaseList = await connection.QueryAsync<purchaseTotalDTO>(query);
-//                 foreach(var purchaseItem in purchaseList)
-//                 {
-//                     var result = await _context.Items.FirstOrDefaultAsync(e => e.itemName == purchaseItem.itemName);
-                            
-//                     purchaseItem.total=purchaseItem.total+result.openingQuantity;
-//                 }
-//       var p=purchaseList.FirstOrDefault(e=>e.itemName==saleDTO.itemName);
-//             if(saleDTO.quantity<=p.total)
-//             {
-//             var sale = new saleEntity
-//                 {
-//                     saleId=saleDTO.saleId,
-//                     saleDate=saleDTO.saleDate,
-//                     godownName=saleDTO.godownName ,
-//                     groupName=saleDTO.groupName,
-//                     itemName=saleDTO.itemName,
-//                     quantity=saleDTO.quantity,
-//                     unit=unit                 
-//                 };
-//                 _context.Sale.Add(sale);
-//                 await _context.SaveChangesAsync();
-
-//                  return await  _context.Sale.ToListAsync();
-
-//             }
-            
-//             else{
-//                 return BadRequest();
-//             }
+                    
+                };
               
-               
- 
-    
-//             //  var result = await _context.Purchase.FirstOrDefaultAsync(e=>e.itemName==saleDTO.itemName);
-            
-         
-               
-               
-//                 return await  _context.Sale.ToListAsync();
- 
-            
-
-//             }
-            
-
-//                 return await  _context.Sale.ToListAsync();
-
-        
-        
-
-//     }
-//                     return await  _context.Sale.ToListAsync();
-
-// }
+                 _context.Sales.Add(Sales);
+                await _context.SaveChangesAsync();
                 
+            foreach(var item in SalesMasterDTO.SalesTransaction.AsList())
+                {
+                    var purchaseQuantity=await _context.PurchaseTransaction
+                .FirstOrDefaultAsync(e => e.ItemName == item.ItemName);
 
-//     }
-// }
+                // if(purchaseQuantity.Quantity<item.Quantity)
+                // {
+                //     BadRequest("Sales could not greater than purchase");
+                // }
+                // else
+                // {
+              var SalesTran = new SalesTransactionEntity
+                {
+                    Sales_Invoice_No=Sales.Sales_Invoice_No,
+                    ItemName=item.ItemName,
+                    Quantity=item.Quantity,
+                    Unit=item.Unit,
+                    Price=item.Price ,
+                    IGST=item.IGST,
+                    CGST=item.CGST,
+                    SGST=item.SGST,
+                    HSN_No=item.HSN_No,
+                    Total_Amount=item.Net_Amount,
+                };
+                 _context.SalesTransaction.Add(SalesTran);
+                await _context.SaveChangesAsync();
+                InvoiceNO =  SalesTran.Sales_Invoice_No;
+                Console.WriteLine($"Invoice ,{InvoiceNO}");
+                }
+
+                
+            // }
+         
+          
+
+}
+                                            
+                    return InvoiceNO;
+                // return await  _context.SalesTransaction.ToListAsync();
+ 
+            
+        }
+
+
+    }
+}

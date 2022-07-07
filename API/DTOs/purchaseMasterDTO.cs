@@ -16,8 +16,8 @@ namespace API.DTOs
        public  string City{ get; set; }
        [Required] 
        public  string Phone_No{ get; set; }
-       [Required] 
-       public  DateTime purchaseDate{ get; set; }
+    //    [Required] 
+    //    public  DateTime purchaseDate{ get; set; }
        [Required] 
        public  string Purchase_Invoice_NO{ get; set; }
        [Required] 

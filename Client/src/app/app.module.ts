@@ -74,7 +74,11 @@ import { MainPageComponent } from './Pages/main-page/main-page.component';
 import { PartyComponent } from './views/party/party.component';
 import { PartyTableComponent } from './views/party-table/party-table.component';
 import { PurchaseComponent } from './views/purchase/purchase.component';
-import { PurchaseItemTableComponent } from './views/purchase-item-table/purchase-item-table.component';
+import { SalesComponent } from './views/sales/sales.component';
+import { TransportComponent } from './views/transport/transport.component';
+import { TransportTableComponent } from './views/transport-table/transport-table.component';
+import { SalesReportComponent } from './views/sales-report/sales-report.component';
+import { PurchaseReportComponent } from './views/purchase-report/purchase-report.component';
 
 
 
@@ -91,7 +95,7 @@ const APP_CONTAINERS = [
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 
-  declarations: [AppComponent, ...APP_CONTAINERS, TaxSlabComponent, UnitComponent, ItemsComponent, GroupComponent, FirmComponent, BranchComponent, BankComponent, StockComponent, BranchTableComponent, TaxTableComponent, UnitTableComponent, GroupTableComponent, ItemTableComponent, BankTableComponent, MainPageComponent, PartyComponent, PartyTableComponent, PurchaseComponent, PurchaseItemTableComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, TaxSlabComponent, UnitComponent, ItemsComponent, GroupComponent, FirmComponent, BranchComponent, BankComponent, StockComponent, BranchTableComponent, TaxTableComponent, UnitTableComponent, GroupTableComponent, ItemTableComponent, BankTableComponent, MainPageComponent, PartyComponent, PartyTableComponent, PurchaseComponent, SalesComponent, TransportComponent, TransportTableComponent, SalesReportComponent, PurchaseReportComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

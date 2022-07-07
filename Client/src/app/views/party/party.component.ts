@@ -19,6 +19,7 @@ export class PartyComponent implements OnInit {
   constructor(private service:InventoryServiceService) { }
 
   ngOnInit(): void {
+    this.party.Party_Type='';
   }
 
   displayGroup()

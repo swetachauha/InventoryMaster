@@ -1,3 +1,4 @@
+import { UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { InventoryServiceService } from 'src/app/Services/inventory-service.service';
 import Swal from 'sweetalert2';
@@ -11,6 +12,9 @@ import Swal from 'sweetalert2';
 export class ItemsComponent implements OnInit {
 
   item:any={};
+  getTax:any=[];
+  Tax:any=[];
+
   getGroups:any=[];
   errorMessage:String | undefined;
   showFlash: boolean =false;
@@ -21,8 +25,29 @@ export class ItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.displayGroup();
-  }
+    this.displatTax();
+    this.item.IGST='';
 
+  }
+ displatTax()
+ {
+  return this.service.AllTax().subscribe(res=>{
+    console.log("res",res);
+    this.Tax=res;
+    for(var i=0 ; i<this.Tax.length ; i++)
+    {    console.log("2",this.Tax[i].taxType.slice(0,4));
+
+       console.log("3",this.Tax[i]);
+
+      if(this.Tax[i].taxType.slice(0,4)==='IGST')
+      {
+        console.log("4",this.Tax[i]);
+
+        this.getTax.push(this.Tax[i]);
+      }
+    }
+  })
+ }
   displayGroup()
  {
    return this.service.AllGroup().subscribe(res=>{
@@ -83,20 +108,28 @@ export class ItemsComponent implements OnInit {
 
   },(err:any)=>{
     console.log("error in component", err) ;
+
     if(err.status==400)
     {
+      // if(!this.item.groupName)
+      // {
+      //   this.errorMessage="Please select Group";
+      //   this.showFlashError=true;
+      //   this.showFlash=false;
+      // }
+      // else if(!this.item.igst)
+      // {
+      //   this.errorMessage="Please select Tax";
+      //   this.showFlashError=true;
+      //   this.showFlash=false;
+      // }
       if(err.error=="Item already Exists !!")
       {
         this.errorMessage="Item already Exists .";
         this.showFlashError=true;
         this.showFlash=false;
       }
-      else if(err.err='Only positive number allowed')
-      {
-        this.errorMessage="Only positive number allowed";
-        this.showFlashError=true;
-        this.showFlash=false;
-      }
+    
       
       else
       {
@@ -123,5 +156,12 @@ export class ItemsComponent implements OnInit {
    
   })
  }
+ fillCgst(event:any)
+ {
+   console.log("5",event.target.value);
+   this.item.CGST=event.target.value/2;
+   this.item.SGST=event.target.value/2;
 
+  //  (<HTMLInputElement>document.getElementById('CGST')).value;
+ }
 }

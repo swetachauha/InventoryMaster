@@ -17,11 +17,13 @@
                     <div class="row name col-md-4 col-12 m-0 p-2">
                         <label class="row col-md-4 col-12 m-0 p-2">Item Group :</label>
                         <div  class="row  col-md-8 col-12 m-0 p-2">
-                            <select [(ngModel)]="group.groupName" (change)="getWholegroup($event)" id="groupName">
-                                <option >Primary</option>
-                                <option id="groupSelect" *ngFor="let group of getGroups"  value={{group.groupCategory}} >{{group.groupName}}/{{group.groupCategory}}</option>
+                            <select (change)="getWholegroup($event)" [(ngModel)]="group.groupName" >
+                                <option>Select</option>
+                                <option>Primary</option>
+                                <option id="groupSelect" *ngFor="let group of getGroups" >{{group.groupName}}/{{group.groupCategory}}</option>
                 
                             </select>
+                          
                         </div>
                     </div>
                     <br>
@@ -29,7 +31,7 @@
                     <div class="row name col-md-4 col-12 m-0 p-2">
                         <label class="row col-md-4 col-12 m-0 p-2">Item Group Category :</label>
                         <div  class="row  col-md-8 col-12 m-0 p-2">
-                            <input type="text" [(ngModel)]="group.groupCategory" id="groupCategory">
+                            <input type="text" [(ngModel)]="group.groupCategory" id="groupCategory" id="taxType"oninput="this.value = this.value.toUpperCase()">
                         </div>
                     </div>
                 
@@ -39,7 +41,7 @@
             
             <div class=" button col-md-4 col-12 m-0 p-2">
                 <button id="save" (click)="saveGroup()" *ngIf="buttonAdd">Add Group</button>
-                <button id="save" (click)="EditGroup($event)" *ngIf="buttonEdit" value={{group.groupCategory}>Edit Branch</button>
+                <button id="save" (click)="EditGroup($event)" *ngIf="buttonEdit" value={{group.groupCategory}}>Edit Branch</button>
             </div>
         
     </div>

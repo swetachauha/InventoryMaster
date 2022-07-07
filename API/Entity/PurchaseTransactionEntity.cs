@@ -21,7 +21,11 @@ namespace API.Entity
         public decimal Quantity{ get; set; }
         public string Unit{ get; set; }
         public decimal Price{ get; set; }
-        public string Tax { get; set; }
+        public string IGST { get; set; }
+        public string CGST { get; set; }
+
+        public string SGST { get; set; }
+
         public decimal Total_Amount { get; set; }
 
     }

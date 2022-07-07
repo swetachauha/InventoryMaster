@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220623095950_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220704120431_UserPasswordAdded")]
+    partial class UserPasswordAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,6 +102,9 @@ namespace API.Data.Migrations
 
                     b.Property<string>("GST_No")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ID")
+                        .HasColumnType("int");
 
                     b.Property<string>("IFSC_Code")
                         .HasColumnType("nvarchar(max)");
@@ -215,22 +218,25 @@ namespace API.Data.Migrations
                     b.Property<string>("Bar_Code")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("CGST")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("Cess")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("CreatedAt_")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Execise")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("GST")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("HSN_No")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("IGST")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("Purchase_Rate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SGST")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Sales_Rate")
@@ -335,6 +341,9 @@ namespace API.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Builty_No")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -355,9 +364,6 @@ namespace API.Data.Migrations
 
                     b.Property<string>("Vendor_Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("purchaseDate")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("purchaseID");
 
@@ -450,7 +456,13 @@ namespace API.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("purchaseTransactionID"), 1L, 1);
 
+                    b.Property<string>("CGST")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("HSN_No")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IGST")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ItemName")
@@ -462,7 +474,7 @@ namespace API.Data.Migrations
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Tax")
+                    b.Property<string>("SGST")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Total_Amount")
@@ -535,6 +547,62 @@ namespace API.Data.Migrations
                     b.ToTable("Sale");
                 });
 
+            modelBuilder.Entity("API.Entity.SalesEntity", b =>
+                {
+                    b.Property<int>("Sales_Invoice_No")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Sales_Invoice_No"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Builty_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Builty_No")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Customer_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Document_Through")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GST_No")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone_No")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Purchase_Order_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Purchase_Order_no")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Sales_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Sales_Invoice_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Transport")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Sales_Invoice_No");
+
+                    b.ToTable("Sales");
+                });
+
             modelBuilder.Entity("API.Entity.salesReportEntity", b =>
                 {
                     b.Property<int>("saleReportId")
@@ -566,6 +634,49 @@ namespace API.Data.Migrations
                     b.ToTable("SalesReport");
                 });
 
+            modelBuilder.Entity("API.Entity.SalesTransactionEntity", b =>
+                {
+                    b.Property<int>("salesTransactionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("salesTransactionID"), 1L, 1);
+
+                    b.Property<string>("CGST")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HSN_No")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IGST")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ItemName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("SGST")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Sales_Invoice_No")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Total_Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Unit")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("salesTransactionID");
+
+                    b.ToTable("SalesTransaction");
+                });
+
             modelBuilder.Entity("API.Entity.TaxEntity", b =>
                 {
                     b.Property<int>("ID")
@@ -586,6 +697,46 @@ namespace API.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Tax");
+                });
+
+            modelBuilder.Entity("API.Entity.TransportEntity", b =>
+                {
+                    b.Property<int>("Transporter_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Transporter_ID"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Contact_Person")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Created_At")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GST_No")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone_No")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Transporter_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Transporter_ID");
+
+                    b.ToTable("Transport");
                 });
 
             modelBuilder.Entity("API.Entity.UnitEntity", b =>

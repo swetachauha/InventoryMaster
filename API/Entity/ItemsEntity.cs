@@ -21,9 +21,12 @@ namespace API.Entity
         public string HSN_No{ get; set; }
         public string Bar_Code{ get; set; }
 
-        public decimal GST{ get; set; }
+        public decimal IGST{ get; set; }
+        public decimal CGST{ get; set; }
+        public decimal SGST{ get; set; }
+
         public decimal Cess{ get; set; }
-        public decimal Execise{ get; set; }
+        // public decimal Execise{ get; set; }
          public decimal Purchase_Rate{ get; set; }
 
         public decimal margin{ get; set; }

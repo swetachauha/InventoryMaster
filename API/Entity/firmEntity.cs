@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,9 @@ namespace API.Entity
 {
     public class firmEntity
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+
+        public int ID { get; set; }
         public string FirmLogo{ get; set; }
 
 [Key]
@@ -26,7 +30,6 @@ namespace API.Entity
         public string Contact_Mobile{ get; set; }
 [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public  string Email{ get; set; }
-[EmailAddress(ErrorMessage = "Invalid Website Address")]
 
         public  string Website{ get; set; }
 
