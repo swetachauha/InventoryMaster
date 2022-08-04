@@ -31,6 +31,7 @@ namespace API.Entity
 
         public decimal margin{ get; set; }
          public decimal Sales_Rate{ get; set; }
+         public string Unit { get; set; }
 
         public DateTime CreatedAt_ { get; set; }=DateTime.Now;
 

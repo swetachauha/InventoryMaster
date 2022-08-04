@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { InventoryServiceService } from 'src/app/Services/inventory-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-group-table',
@@ -15,7 +16,7 @@ export class GroupTableComponent implements OnInit {
   getGroup:any=[];
   dtOptions: DataTables.Settings = {};
   title='pagination';
-  tableSize:number=5;
+  tableSize:number=10;
   tableSizes:any=[5,10,15,20];
   page:number=1;
   count:number=0;
@@ -23,8 +24,11 @@ export class GroupTableComponent implements OnInit {
   noData:string | undefined;
   date:Date| undefined;
   dataintext:any;
-
-
+  groupCategory:any;
+  activeGroupList:any=[];
+   groupof={};
+  groupCatrTarget:string='';
+  searchText="";
   constructor(private service:InventoryServiceService) { }
 
   ngOnInit(): void {
@@ -50,13 +54,23 @@ export class GroupTableComponent implements OnInit {
   return this.service.AllGroup().subscribe(res=>{
     this.getGroup=res;
     console.log("allGroup",this.getGroup);
-    if(this.getGroup.length==0)
+    if(this.getGroup.length==0 )
     {
+      
      this.noData="No Data Found";
      this.isData=false;
      console.log("byugunh",this.getGroup);
     }
     else{
+      for(var i=0 ; i<this.getGroup.length;i++)
+      {
+        // console.log("ALLACTIVE",this.getGroup[i].active);
+        // if(this.getGroup[i].active==true)
+        // {
+        //   this.activeGroupList.push(this.getGroup[i]);
+        //   console.log("ACTIVE",this.activeGroupList)
+        // }
+      }
       this.isData=true;
     }
   })
@@ -64,8 +78,8 @@ export class GroupTableComponent implements OnInit {
 
  edit(branch:any)
 {
-
-  return this.service.getBranchById(branch.target.value).subscribe(res=>{
+   this.groupCatrTarget=branch;
+  return this.service.getGroupByCategory(branch).subscribe(res=>{
 
       console.log("getBranchbyid",res);
       this.dataintext=res;
@@ -73,4 +87,63 @@ export class GroupTableComponent implements OnInit {
      
   })
 }
+
+
+delete(event:any)
+{ 
+
+  for(var i=0;i<this.activeGroupList.length;i++)
+{
+  if(this.activeGroupList[i].groupCategory==event.target.value)
+  {
+    this.groupof=this.activeGroupList[i];
+     this.deletec(event.target.value);
+
+  }
+ 
+
+}
+}
+deletec(event:any)
+{
+  
+  //  this.deletec(event.target.value);
+
+     return this.service.deleteGroup(event, this.groupof).subscribe(res=>{
+
+      this.dataintext=res;
+      this.parentFun.emit();
+      Swal.fire({
+        title: 'Deleted Successfully',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      }).then(()=>{    window.location.reload();
+      });
+  })
+  
+
+}
+
+
+
+search(){
+   if(this.searchText!== "")
+   {
+     let searchValue = this.searchText.toLocaleLowerCase();
+    
+     this.getGroup = this.getGroup.filter((contact:any) =>
+     {
+       return contact.groupCategory.toLocaleLowerCase().match(searchValue );
+     
+      });
+           
+     }
+      else 
+      { 
+       this.service.AllGroup().subscribe(res=>{this.getGroup=res});
+      } 
+     }
+
+
+
 }

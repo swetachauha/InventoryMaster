@@ -1,5 +1,7 @@
 import { INavData } from '@coreui/angular';
 
+
+
 export const navItems: INavData[] = [
   {
     name: 'Dashboard',
@@ -16,7 +18,7 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Masters',
-    title: true
+    title: true,
   },
   {
     name: 'Firm Master',

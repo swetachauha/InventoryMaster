@@ -14,13 +14,13 @@
     </div>
     <div class="card-body row m-0 p-4">
        
-          <div class=" itemName col-md-6 col-12">
+          <div class=" itemName col-md-3 col-6">
               <label>Item Name </label>
-              <input [(ngModel)]="item.itemName" oninput="this.value = this.value.toUpperCase()">
+              <input id="itemName" [(ngModel)]="item.itemName" oninput="this.value = this.value.toUpperCase()" >
           </div>
           <br>
           <br>
-          <div class="group col-md-6 col-12 float-right">
+          <div class="group col-md-3 col-6 float-right">
             <label>Item Group  </label>
             <br>
             <select [(ngModel)]="item.groupName" >
@@ -32,81 +32,98 @@
           </div>
 <br>
 <br>
-          <div class=" itemName col-md-6 col-12">
+          <div class=" itemName col-md-3 col-6">
             <label>HSN No </label>
-            <input [(ngModel)]="item.HSN_No" oninput="this.value = this.value.toUpperCase()">
+            <input [(ngModel)]="item.HSN_No" oninput="this.value = this.value.toUpperCase()" id="HSN_No">
         </div>
         <br>
         <br>
-        <div class="group col-md-6 col-12">
+        <div class="group col-md-3 col-6">
           <label>Bar Code  </label>
-          <input [(ngModel)]="item.Bar_Code" oninput="this.value = this.value.toUpperCase()">
+          <input [(ngModel)]="item.Bar_Code" oninput="this.value = this.value.toUpperCase()" id="Bar_Code">
         </div>
 
 <br>
 <br>
-          <div class=" itemName col-md-6 col-12">
+          <div class=" itemName col-md-3 col-6">
             <label>IGST</label>
             <select [(ngModel)]="item.IGST" (change)="fillCgst($event)">
               <option value="" selected>Select</option>
-              <option *ngFor="let tax of getTax" value={{tax.taxPerc}}>{{tax.taxType|uppercase}} </option>
+              <option id="igst" *ngFor="let tax of getTax" value={{tax.taxPerc}}>{{tax.taxType|uppercase}} </option>
             </select>
             <!-- <input [(ngModel)]="item.GST" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') ">  -->
         </div>
         <br>
         <br>
-        <div class="group col-md-6 col-12">
+        <div class="group col-md-3 col-6">
           <label>CGST </label>
-          <input [(ngModel)]="item.CGST" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " id="CGST">
+          <input readonly id="cgst"[(ngModel)]="item.CGST" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " id="CGST">
         </div>
 
 <br>
-<br><div class="group col-md-6 col-12">
+<br><div class="group col-md-3 col-6">
   <label>SGST</label>
-  <input [(ngModel)]="item.SGST" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " id="SGST">
+  <input readonly id="sgst" [(ngModel)]="item.SGST" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " id="SGST">
 </div>
 
 <br>
 <br>
-        <div class="group col-md-6 col-12">
+        <div class="group col-md-3 col-6">
           <label>Cess  </label>
-          <input [(ngModel)]="item.Cess" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') ">
+          <input [(ngModel)]="item.Cess" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " id="Cess">
         </div>
 
 <br>
 <br>
-                <!-- <div class=" itemName col-md-6 col-12">
+                <!-- <div class=" itemName col-md-3 col-6">
                     <label>Execise </label>
                     <input [(ngModel)]="item.Execise" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') ">
                 </div>
                 <br>
                 <br> -->
-                <div class="group col-md-6 col-12">
+                <div class="group col-md-3 col-6">
                   <label>Purchase Rate  </label>
-                  <input [(ngModel)]="item.Purchase_Rate" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') ">
+                  <input [(ngModel)]="item.Purchase_Rate" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" id="Purchase_Rate">
                 </div>     
                 
  <br>
 <br>
-                                <div class=" itemName col-md-6 col-12">
+                                <div class=" itemName col-md-3 col-6">
                                     <label>Margin </label>
-                                    <input [(ngModel)]="item.margin" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') ">
+                                    <input [(ngModel)]="item.margin" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" id="margin">
                                 </div>
                                 <br>
                                 <br>
-                                <!-- <div class="group col-md-6 col-12">
+                                <!-- <div class="group col-md-3 col-6">
                                   <label>Sales Rate  </label>
                                   <input [(ngModel)]="item.salesRate">
-                                </div>                     -->
+                                </div>     -->   
+                                <div class=" itemName col-md-3 col-6">
+                                    <label>Sales Rate </label>
+                                    <input [(ngModel)]="item.Sales_Rate" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)" id="Sales_Rate">
+                                </div>
+                                <br>
+                                <br>
+                                <div class=" itemName col-md-3 col-6">
+                                    <label>Unit </label>
+                                    <select [(ngModel)]="item.Unit">
+                                      <option >Select</option>
+                                      <option id="unit" *ngFor="let unit of unitList">{{unit.acronymn}}</option>
+                                    </select>
+                                   
+                                </div>
+                                <br>
+                                <br>            
         
     </div>
 
     <div class="button">
-        <button id="save" (click)="saveItem()">Add Item</button>
+        <button id="save" (click)="saveItem()" *ngIf="buttonAdd">Add </button>
+        <button id="save" (click)="EditItem($event)" *ngIf="buttonEdit" value={{item.itemName}}>Edit </button>
     </div>
 <br>
     <div class="table">
-        <app-item-table></app-item-table>
+        <app-item-table (parentFun)="getGroupDataToInput($event)"></app-item-table>
     </div>
 </div>
 

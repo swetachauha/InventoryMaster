@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row m-4">
     <div class="row col-md-12 border card p-0">
         <div class="card-header">
             Stock
@@ -35,10 +35,9 @@
     <thead>
     <th>SN</th>
     <th>Item </th>
-    <th>Date of Purchase</th>
-    <th>Quantity</th>
-    <th>Unit</th>
-    <th>Delete</th>
+    <th>HSN No</th>
+    <th>Price</th>
+    <th>Present Quantity</th>
 
     <!-- <th style="display: none"></th>  -->
   </thead>
@@ -47,15 +46,12 @@
         itemsPerPage : tableSize,
         currentPage:page,
         totalItems:count};   let i=index" >
-      <td>{{purchase.purchaseId}}</td>
+      <td>{{i+1}}</td>
       <td>{{purchase.itemName}}</td>
-      <td>{{purchase.purchaseDate | date}}</td>
-      <td>{{purchase.quantity}}</td>
-      <td>{{purchase.unit}}</td>
-      <td >
-        <i class="fa-solid fa-pen" style="color:green"></i>
-        <!-- <i class="fa-solid fa-trash-can" style="color:red" (click)="deleteItem()"></i></td> -->
-      <!-- <td style="display: none">{{group.groupId}}#{{group.groupName}}</td> -->
+      <td>{{purchase.HSN_No}</td>
+      <td>{{purchase.price}}</td>
+      <td>{{purchase.quantity}} {{purchase.unit}}</td>
+   
     </tr>
   </tbody>
   <tbody *ngIf="!isData">

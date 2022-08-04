@@ -1,11 +1,13 @@
 using API.Data;
+using API.DTOs;
 using API.Entity;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    public class purchaseReportController
+    public class purchaseReportController:BaseApiController
     {
          private readonly DataContext _context;
 
@@ -20,11 +22,19 @@ namespace API.Controllers
 
 
     [HttpGet("{dateStart}/{dateEnd}/{itemName}")]
-    public async Task<IEnumerable<purchaseEntity>> Search( DateTime dateStart, DateTime dateEnd, string itemName)
+    public async Task<IEnumerable<pReportDTO>> Search( DateTime dateStart, DateTime dateEnd, string itemName)
     {
-        var query=_context.Purchase.AsQueryable();
-        query=query.Where(u=>u.purchaseDate>=dateStart && u.purchaseDate<=dateEnd && u.itemName==itemName);
-        return await query.ToListAsync();
+                Console.WriteLine($"QUERYSWETA, {dateStart}");
+var query=$"select * from PurchaseMaster pM join PurchaseTransaction pT On pM.purchaseID=pT.purchaseID where pM.Purchase_Order_Date>="+"'"+@dateStart+"'"+" and pM.Purchase_Order_Date<="+"'"+@dateEnd+"'"+" and ItemName="+"'"+@itemName+"'";
+ using (var connection = _context.CreateConnection())
+    {
+        var purchaseList = await connection.QueryAsync<pReportDTO>(query);
+      
+          
+            return purchaseList.ToList();
+    }
+
+
     }
     }
 }

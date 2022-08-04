@@ -2,8 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild, ViewContainerRef } from '@ang
 import { InventoryServiceService } from 'src/app/Services/inventory-service.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { ItemArr } from 'src/app/_models/ItemArr';
-import { FirmComponent } from '../firm/firm.component';
 // import { cibToshiba } from '@coreui/icons';
 
 @Component({
@@ -15,7 +13,7 @@ export class PurchaseComponent implements OnInit {
 
   @ViewChild('scroll') scroll :ElementRef | undefined;
 
-  
+  show:boolean=false;
   itemArray : any[]=[];
   firm:any=[];
   purchase:any={};
@@ -32,13 +30,14 @@ export class PurchaseComponent implements OnInit {
   getUnitList:any=[];
   ItemComponentArr=[];
   firmDetails:any={};
-  gst:boolean | undefined;
+  gst:boolean | undefined=true;
   maxDate:any;
   dataFetched:any=false;
   price:any|undefined;
-  
-  
-  // ItemArr=new this.ItemArr();
+  ifItem:boolean=false;
+  today=new Date();
+  showItem:any=false;
+  showItemLabels:any=false;
 
   constructor(private service:InventoryServiceService , private router:Router ) 
   { 
@@ -52,13 +51,15 @@ export class PurchaseComponent implements OnInit {
     this.getItems();
     this.addvalue();
     this.getUnit();
-    console.log("itemarray",this.itemArray.length);
     
   }
  scrollTop()
  {
   window.scroll(0,0);
  }
+ 
+ decimal(el:any)
+ {el.value=parseFloat(el.value).toFixed(2);};
 
   futureDateDisable()
   {
@@ -93,10 +94,7 @@ export class PurchaseComponent implements OnInit {
    
     this.itemArray.push({
       value:"",
-      HSN_No:this.purchaseTran.HSN_No,
-      Price:this.purchaseTran.Price,
-      IGST:this.purchaseTran.IGST,
-      CGST:this.purchaseTran.CGST,
+      
   });
   console.log("priceadd",this.price);
 
@@ -125,33 +123,77 @@ export class PurchaseComponent implements OnInit {
 
     )
   }
+  // getSelectedVendor(event:any)
+  // {
+
+  //   var arrOfStr = event.target.value.split("-", 2);
+
+  //   return this.service.getPartyByPhoneAndName(arrOfStr[0],arrOfStr[1]).subscribe(res=>{
+
+
+  //     this.getVendor=res;
+  //     this.getVendorDataToInput();
+  //     this.showItem=true;
+
+  //     console.log("res",res);
+
+  //     // this.dataFetched=true;
+
+     
+  //       const gstVendor=this.getVendor.gsT_No.slice(0,2);
+  //       const gstStart=this.firmDetails[0].gsT_No.slice(0,2);
+        
+  //         if (gstStart===gstVendor)
+  //         {    
+  //           this.gst=false;
+  //           // this.showItem=true;
+  //         }
+  //         else if(gstStart!==gstVendor)
+  //         {    
+  //            this.gst=true;
+  //         }
+
+
+  //   }
+
+  //   )
+  // }
   getSelectedVendor(event:any)
   {
     var arrOfStr = event.target.value.split("-", 2);
-
     return this.service.getPartyByPhoneAndName(arrOfStr[0],arrOfStr[1]).subscribe(res=>{
-      console.log("vendorsselected",res);
-
       this.getVendor=res;
-      if (this.getVendor!=null)
-      {
-        this.dataFetched=true;
-        this.getVendorDataToInput();
-      }
+      console.log("res",this.getVendor);
+(<HTMLLabelElement>document.getElementById('Address')).textContent=this.getVendor?.party_Address;
+(<HTMLLabelElement>document.getElementById('City')).textContent=this.getVendor?.city;
+(<HTMLLabelElement>document.getElementById('phone')).textContent=this.getVendor?.phone_No;
+(<HTMLLabelElement>document.getElementById('GST_No')).textContent=this.getVendor?.gsT_No;
+      // this.getVendorDataToInput();
+      this.show=true;
 
-     
 
-    }
+      this.showItem=true;
+      const gstVendor=this.getVendor.gsT_No.slice(0,2);
+        const gstStart=this.firmDetails[0].gsT_No.slice(0,2);
+        
+          if (gstStart===gstVendor)
+          {    
+            this.gst=false;
+            // this.showItem=true;
+          }
+          else if(gstStart!==gstVendor)
+          {    
+             this.gst=true;
+          }
 
-    )
+
+    });
   }
   getVendorDataToInput()
 {
   console.log("address",this.getVendor.city);
 
-  // console.log("label",(<HTMLLabelElement>document.getElementById('phone')).textContent);
-
-  this.purchase.Address=this.getVendor.party_Address;
+  this.purchase.Address=      (<HTMLLabelElement>document.getElementById('Address')).textContent=this.getVendor?.party_Address;
   this.purchase.City=this.getVendor.city;
   this.purchase.Phone_No=this.getVendor.phone_No;
   // console.log("label",(<HTMLLabelElement>document.getElementById('phone')).textContent);
@@ -291,10 +333,6 @@ export class PurchaseComponent implements OnInit {
     })
   }
 
-
-
-
-
 getUnit()
 {
   return this.service.AllUnits().subscribe(
@@ -305,29 +343,13 @@ getUnit()
   )
 }
 
-
- 
-
- 
   getFirmGST()
 {
   return this.service.getFirm().subscribe(res=>{
     console.log("firmgst",res);
    
     this.firmDetails=res;
-    const gstStart=this.firmDetails[0].gsT_No.slice(0,2);
-    if (gstStart==='09')
-    {
-      console.log("09");
-      this.gst=false;
-
-    }
-    else
-    {
-      console.log("not 09");
-       this.gst=true;
-
-    }
+ 
     
 
   })
@@ -342,66 +364,48 @@ getItemDetails(event:any , id:any)
   return this.service.getItemByItemName(event.target.value).subscribe(res=>{
     console.log("getitem",res);
     this.item=res;
-    
+    this.ifItem=true;
     console.log("price",(this.purchase.Price));
       
     // this.purchaseTran.HSN_No=(<HTMLInputElement>document.getElementById('HSN_No'+id)).value=this.item?.hsN_No;
     this.purchaseTran.Price=(<HTMLInputElement>document.getElementById('Price'+id)).value=this.item?.purchase_Rate;
-    console.log("price",(this.purchase.Price));
-    this.price=this.item?.purchase_Rate;
+    this.purchaseTran.Unit=(<HTMLLabelElement>document.getElementById('Unit'+id)).textContent=this.item?.unit;
 
-   if(this.gst==false)
-   {
-     this.purchaseTran.CGST=(<HTMLInputElement>document.getElementById('CGST'+id)).value=this.item?.cgst;
-     this.purchaseTran.SGST=(<HTMLInputElement>document.getElementById('SGST'+id)).value=this.item?.sgst;
-    //  this.purchaseTran.IGST=0;
-   }
-   else {
-    this.purchaseTran.IGST.value=(<HTMLInputElement>document.getElementById('IGST'+id)).value=this.item?.igst;
-    // this.purchaseTran.SGST=0;
-    // this.purchaseTran.CGST=0;
-   }
-   
-  //  this.purchaseTran.Total_Amount=(<HTMLInputElement>document.getElementById('Total_Amount'+id)).value=amount;
-console.log("hsn", this.purchaseTran.SGST);
-console.log("hsn", this.purchaseTran.CGST);
-for(var i=0;i<this.itemArray.length;i++)
-{
-  this.itemArray[i].Price=this.item?.purchase_Rate;
-  this.itemArray[i].IGST=this.item?.igst;
-  this.itemArray[i].CGST=this.item?.cgst;
-  this.itemArray[i].SGST=this.item?.sgst;
+    // this.price=this.item?.purchase_Rate;
 
-}
+
+  this.itemArray[id].Price=this.item?.purchase_Rate;
+  this.itemArray[id].Unit=this.item?.unit;
+  this.itemArray[id].IGST=this.item?.igst;
+  this.itemArray[id].CGST=this.item?.cgst;
+  this.itemArray[id].SGST=this.item?.sgst;
+
+
 
   }
   )
 
 }
 
-calculate(i:any)
+calculate(i:any, id:any)
 {    
-  console.log("Price", this.purchaseTran.Price );
-  console.log("i",i.Price);
-  console.log("i",i.Quantity);
 
   if((!this.purchaseTran.Price || !i.Quantity ) )
   {
-    console.log("Price", this.purchaseTran.Price )
-    console.log("quantity", i.Quantity)
     i.Total_Amount=0;
-    
+    i.Total_Amount=parseFloat(  i.Total_Amount).toFixed(2);
+
   }
   else if(i.Price==undefined)
   {
     i.Total_Amount=this.purchaseTran.Price*i.Quantity;
-    console.log("2",  i.Total_Amount);
+    i.Total_Amount=parseFloat(  i.Total_Amount).toFixed(2);
+
   }
   else 
   {
     i.Total_Amount=i.Price*i.Quantity;
-    console.log("2",  i.Total_Amount);
-
+    i.Total_Amount=parseFloat(  i.Total_Amount).toFixed(2);
   }
   
   if(!i.Discount)
@@ -411,17 +415,37 @@ calculate(i:any)
     else
     {
       i.DiscountPrice=(i.Discount*i.Total_Amount)/100
-      i.Disc_Price=i.Disc_Price-i.DiscountPrice;
+      i.Disc_Price=i.Total_Amount-i.DiscountPrice;
       console.log("dis",i.Disc_Price)
 
     }
-    console.log("CGST",this.purchaseTran.CGST);
-    console.log("CGST",i.Disc_Price);
+  
+    var cgst=(this.item?.cgst* i.Disc_Price )/100;
+   var sgst=(this.item?.sgst* i.Disc_Price )/100;
+   var igst=(this.item?.igst* i.Disc_Price )/100;
+   console.log("igt",igst);
+   var net='0';
+    if(this.gst==false)
+   {
+    this.purchaseTran.CGSTAmount=(<HTMLInputElement>document.getElementById('CGST'+id)).value=cgst.toString();
+     this.purchaseTran.SGSTAmount=(<HTMLInputElement>document.getElementById('SGST'+id)).value=sgst.toString();
+      net =(parseFloat(i.Disc_Price)+((cgst+sgst))).toString()
 
-    i.CGSTLabel=(this.purchaseTran.CGST*i.Disc_Price)/100;
-    i.SGSTLabel=(this.purchaseTran.SGST*i.Disc_Price)/100;
-    i.Net_Amount=i.Disc_Price-(((this.purchaseTran.CGST*i.Disc_Price)/100)+((this.purchaseTran.SGST*i.Disc_Price)/100));
-    console.log("CGST",i.Net_Amount);
+
+    //  this.purchaseTran.IGST=0;
+   }
+   else if(this.gst==true) {
+    net=(parseFloat(i.Disc_Price)+((cgst+sgst))).toString();
+
+    this.purchaseTran.IGST=(<HTMLInputElement>document.getElementById('IGST'+id)).value=igst.toString();
+     
+   }
+  
+   console.log("sdxfcgvhbj",net);
+
+    i.Net_Amount=(<HTMLInputElement>document.getElementById('Net_Amount'+id)).value=net;
+    console.log("net",i.Net_Amount);
+
 
 }
 calculateDiscount(i:any)
@@ -437,5 +461,14 @@ calculateDiscount(i:any)
       console.log("dis",i.Disc_Price)
 
     }
+}
+
+validateNumber(e: any) {
+  let input = String.fromCharCode(e.charCode);
+  const reg = /^\d*(?:[.,]\d{1,2})?$/;
+
+  if (!reg.test(input)) {
+    e.preventDefault();
+  }
 }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { InventoryServiceService } from 'src/app/Services/inventory-service.service';
 
 @Component({
@@ -8,6 +8,8 @@ import { InventoryServiceService } from 'src/app/Services/inventory-service.serv
 })
 export class PartyTableComponent implements OnInit {
 
+  @Output("parentFun") parentFun: EventEmitter<any> = new EventEmitter();
+  searchText='';
   getParty:any=[];
   dataTable:any;
   getPurchases:any=[];
@@ -21,6 +23,8 @@ export class PartyTableComponent implements OnInit {
   noData:string | undefined;
   date:Date| undefined;
   errorMessage:String | undefined;
+  groupCatrTarget:string='';
+  dataintext:any;
 
   constructor(private service:InventoryServiceService) { }
 
@@ -57,5 +61,45 @@ export class PartyTableComponent implements OnInit {
      }
    })
   }
+  edit(branch:any)
+  {
+     this.groupCatrTarget=branch;
+    return this.service.getPartyByGST(branch).subscribe(res=>{
+  
+        console.log("getBranchbyid",res);
+        this.dataintext=res;
+        this.parentFun.emit();
+       
+    })
+  }
+  search(){
+    if(this.searchText!== "")
+    {
+      let searchValue = this.searchText.toLocaleLowerCase();
+     
+      this.getParty = this.getParty.filter((contact:any) =>
+      {
+        if(!contact.party_Name.toLocaleLowerCase().match(searchValue ))
+        {
+          this.isData=false;
+          this.noData="Data Not Found";
+        }
+        else
+        {
+          return contact.party_Name.toLocaleLowerCase().match(searchValue );
+
+        }
+      
+       });
+            
+      }
+       else 
+       { 
+        this.service.allParty().subscribe(res=>{
+          this.getParty=res;
+          
+        });
+       } 
+      }
 
 }

@@ -11,6 +11,8 @@ namespace API.DTOs
         [Required]
         public string BankName{ get; set; }
         [Required]
+        [RegularExpression(@"^[A-Za-z]{4}0[A-Z0-9a-z]{6}$", ErrorMessage = "Invalid IFSC Code")]
+
         public string IFSC_Code{ get; set; }
         [Required]
         public string Address{ get; set; }

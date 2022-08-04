@@ -13,7 +13,7 @@ export class BankTableComponent implements OnInit {
   getGroup:any=[];
   dtOptions: DataTables.Settings = {};
   title='pagination';
-  tableSize:number=5;
+  tableSize:number=10;
   tableSizes:any=[5,10,15,20];
   page:number=1;
   count:number=0;
@@ -21,6 +21,7 @@ export class BankTableComponent implements OnInit {
   noData:string | undefined;
   date:Date| undefined;
   dataintext:any;
+  searchText="";
   // buttonEdit:boolean=true;
   // buttonDone:boolean=false;
 
@@ -63,9 +64,9 @@ export class BankTableComponent implements OnInit {
  }
 edit(bank:any)
 {
-    console.log("itemstargeted",bank.target.value);
+    console.log("itemstargeted",bank);
 
-  return this.service.getBankById(bank.target.value).subscribe(res=>{
+  return this.service.getBankById(bank).subscribe(res=>{
 
       console.log("getBankbyid",res);
       this.dataintext=res;
@@ -73,6 +74,22 @@ edit(bank:any)
      
   })
 }
-
+search(){
+  if(this.searchText!== "")
+  {
+    let searchValue = this.searchText.toLocaleLowerCase();
+   
+    this.getGroup = this.getGroup.filter((contact:any) =>
+    {
+      return contact.bankName.toLocaleLowerCase().match(searchValue );
+    
+     });
+          
+    }
+     else 
+     { 
+      this.service.AllBank().subscribe(res=>{this.getGroup=res});
+     } 
+    }
 
 }

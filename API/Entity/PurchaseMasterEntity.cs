@@ -13,9 +13,9 @@ namespace API.Entity
          [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int purchaseID { get; set; }
         public  string  Vendor_Name{ get; set; }
-        public  string Address{ get; set; }
-        public  string City{ get; set; }
-        public  string Phone_No{ get; set; }
+        // public  string Address{ get; set; }
+        // public  string City{ get; set; }
+        // public  string Phone_No{ get; set; }
         public  string Builty_No{ get; set; }
 
         // public  DateTime purchaseDate{ get; set; }

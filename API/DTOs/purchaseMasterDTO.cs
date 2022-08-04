@@ -10,12 +10,12 @@ namespace API.DTOs
     {
        [Required] 
        public  string  Vendor_Name{ get; set; }
-       [Required] 
-       public  string Address{ get; set; }
-       [Required] 
-       public  string City{ get; set; }
-       [Required] 
-       public  string Phone_No{ get; set; }
+    //    [Required] 
+    //    public  string Address{ get; set; }
+    //    [Required] 
+    //    public  string City{ get; set; }
+    //    [Required] 
+    //    public  string Phone_No{ get; set; }
     //    [Required] 
     //    public  DateTime purchaseDate{ get; set; }
        [Required] 

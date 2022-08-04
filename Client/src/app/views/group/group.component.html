@@ -19,9 +19,15 @@
                         <div  class="row  col-md-8 col-12 m-0 p-2">
                             <select (change)="getWholegroup($event)" [(ngModel)]="group.groupName" >
                                 <option>Select</option>
-                                <option>Primary</option>
-                                <option id="groupSelect" *ngFor="let group of getGroups" >{{group.groupName}}/{{group.groupCategory}}</option>
-                
+                                <ng-container *ngIf="!edit">
+                                    <option>Primary</option>
+                                     <option *ngFor="let group of getGroups" className="selectGroupName"  value={{group.groupCategory}}>{{group.groupName}}/{{group.groupCategory}}</option>
+                                </ng-container>
+                                <ng-container *ngIf="edit">
+                                    <option>Primary</option>
+                                     <option *ngFor="let group of uniqueGroup" className="selectGroupName"  value={{group.groupCategory}}>{{group.groupName}}/{{group.groupCategory}}</option>
+                                     <option style="background-color:blue" className="selectGroupName" *ngIf="edit" value={{group.groupName}}>{{group.groupName}}</option>
+                                </ng-container>
                             </select>
                           
                         </div>
@@ -31,7 +37,7 @@
                     <div class="row name col-md-4 col-12 m-0 p-2">
                         <label class="row col-md-4 col-12 m-0 p-2">Item Group Category :</label>
                         <div  class="row  col-md-8 col-12 m-0 p-2">
-                            <input type="text" [(ngModel)]="group.groupCategory" id="groupCategory" id="taxType"oninput="this.value = this.value.toUpperCase()">
+                            <input type="text" [(ngModel)]="group.groupCategory" id="groupCategory" oninput="this.value = this.value.toUpperCase()">
                         </div>
                     </div>
                 
@@ -41,12 +47,12 @@
             
             <div class=" button col-md-4 col-12 m-0 p-2">
                 <button id="save" (click)="saveGroup()" *ngIf="buttonAdd">Add Group</button>
-                <button id="save" (click)="EditGroup($event)" *ngIf="buttonEdit" value={{group.groupCategory}}>Edit Branch</button>
+                <button id="save" (click)="EditGroup($event)" *ngIf="buttonEdit" value={{group.groupCategory}}>Edit </button>
             </div>
         
     </div>
     <div class="table">
-        <app-group-table (parentFun)="getGroup($event)"></app-group-table>
+        <app-group-table (parentFun)="getGroupDataToInput($event)"  ></app-group-table>
     </div>
 </div>
 

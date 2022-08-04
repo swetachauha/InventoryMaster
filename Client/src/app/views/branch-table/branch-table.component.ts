@@ -22,7 +22,7 @@ export class BranchTableComponent implements OnInit {
   noData:string | undefined;
   date:Date| undefined;
   dataintext:any;
-
+  searchText="";
 
   constructor(private service:InventoryServiceService) { }
 
@@ -64,7 +64,7 @@ export class BranchTableComponent implements OnInit {
  edit(branch:any)
 {
 
-  return this.service.getBranchById(branch.target.value).subscribe(res=>{
+  return this.service.getBranchById(branch).subscribe(res=>{
 
       console.log("getBranchbyid",res);
       this.dataintext=res;
@@ -72,5 +72,22 @@ export class BranchTableComponent implements OnInit {
      
   })
 }
-  
+search(){
+  if(this.searchText!== "")
+  {
+    let searchValue = this.searchText.toLocaleLowerCase();
+   
+    this.getPurchases = this.getPurchases.filter((contact:any) =>
+    {
+      return contact.branchName.toLocaleLowerCase().match(searchValue );
+    
+     });
+          
+    }
+     else 
+     { 
+      this.service.AllBranch().subscribe(res=>{this.getPurchases=res});
+     } 
+    }
+
 }

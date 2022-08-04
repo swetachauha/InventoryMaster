@@ -12,7 +12,7 @@
 <div class="row m-4">
     <div class="row col-md-12 border card p-0">
         <div class="card-header">
-            purchase
+           Sale
         </div>
         <div class="card-body row m-0 p-4">
            
@@ -27,30 +27,26 @@
                    
 <br>
 
-                    <div class="auto" *ngIf="dataFetched" style="width: inherit;">
-                        <!-- <label class="ilabel">Phone No</label>: -->
-            
+<div class="auto"  style="width: inherit;">            
                         
                        
-                        <!-- <label class="ilabel">Address </label>: -->
-                        <label class="autocome" type="text" [(ngModel)]="purchase.Address" id="Address">{{getVendor.party_Address}},</label>
                        
-                        <label class="autocome" type="text" [(ngModel)]="purchase.City" id="City">{{getVendor.city}}</label>
+    <label class="autocome" type="text"  id="Address" [(ngModel)]="purchase.Address" ></label>
 
-                              
-                      
-                        <!-- <label class="ilabel"> City </label>: -->
-                        <!-- <label class="autocome" type="text" [(ngModel)]="purchase.City" id="City"></label> -->
-                        <div class="autocome">
-                            <label > GST No  :</label>
-                            <label  type="text" [(ngModel)]="purchase.GST_No" id="GST_No">{{getVendor.gsT_No}}</label>
-                        </div>
-                   
-                   
-                        <label  class="autocome" type="number" [(ngModel)]="purchase.Phone_No" id="phone" >{{getVendor.phone_No}}</label>
+    <span *ngIf='show'>,</span><label class="autocome" type="text" id="City" [(ngModel)]="purchase.City"></label>
+
+<!-- <label  type="text" [(ngModel)]="purchase.GST_No" id="GST_No">{{getVendor.gsT_No}}</label> -->
+
+<div class="autocome" >
+  <span *ngIf='show'>GST No :</span>  <label  type="text"  id="GST_No" [(ngModel)]="purchase.GST_No" ></label>
+</div>
+
+<div >
+<label  class="autocome" type="number"  id="phone" [(ngModel)]="purchase.Phone_No"></label>
+</div>
 
 
-                    </div>
+</div>
               </div>
                 </div>
             
@@ -58,7 +54,7 @@
 
                     <label class="purchaseLabel">Sales Invoice Date</label>
                     <mat-form-field>
-                        <input  matInput [matDatepicker]="dpicker" [(ngModel)]="purchase.Sales_Invoice_Date"  class="inputDate" max="{{maxDate}}" placeholder="{{maxDate}}">
+                        <input  matInput [matDatepicker]="dpicker" [(ngModel)]="purchase.Sales_Invoice_Date"  class="inputDate" [max]="today" placeholder="{{maxDate}}">
                         <mat-datepicker-toggle  [for]="dpicker" matSuffix style="z-index: 500;"></mat-datepicker-toggle>
                         <mat-datepicker #dpicker></mat-datepicker>
                     </mat-form-field>   
@@ -66,7 +62,7 @@
 
                 <label class="purchaseLabel">Sales Date</label>
                 <mat-form-field>
-                    <input  matInput [matDatepicker]="datepicker" [(ngModel)]="purchase.Sales_Date"  class="inputDate" max="{{maxDate}}" placeholder="{{maxDate}}">
+                    <input  matInput [matDatepicker]="datepicker" [(ngModel)]="purchase.Sales_Date"  class="inputDate" [max]="today" placeholder="{{maxDate}}">
                     <mat-datepicker-toggle  [for]="datepicker" matSuffix style="z-index: 500;"></mat-datepicker-toggle>
                     <mat-datepicker #datepicker></mat-datepicker>
                 </mat-form-field>     
@@ -78,7 +74,7 @@
                 <br>
                 <label class="purchaseLabel">Purchase Order Date</label>
                 <mat-form-field>
-                    <input  matInput [matDatepicker]="dtpicker" [(ngModel)]="purchase.Purchase_Order_Date"  class="inputDate" max="{{maxDate}}" placeholder="{{maxDate}}">
+                    <input  matInput [matDatepicker]="dtpicker" [(ngModel)]="purchase.Purchase_Order_Date"  class="inputDate" [max]="today" placeholder="{{maxDate}}">
                     <mat-datepicker-toggle  [for]="dtpicker" matSuffix style="z-index: 500;"></mat-datepicker-toggle>
                     <mat-datepicker #dtpicker></mat-datepicker>
                 </mat-form-field>     
@@ -91,7 +87,7 @@
                     <br>
                     <label class="purchaseLabel">Builty Date</label>
                     <mat-form-field>
-                        <input  matInput [matDatepicker]="picker" [(ngModel)]="purchase.Builty_Date" class="inputDate" max="{{maxDate}}" placeholder="{{maxDate}}">
+                        <input  matInput [matDatepicker]="picker" [(ngModel)]="purchase.Builty_Date" class="inputDate" [max]="today" placeholder="{{maxDate}}">
                         <mat-datepicker-toggle  [for]="picker" matSuffix></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
@@ -114,99 +110,111 @@
 <br>
 <br>
 
-<div class="second">
 
-<label class="addItemLabel" for="addItems">Add Items  to your purchase</label>
-                <div  id="addItems"> 
-                    <div *ngFor="let purchaseTran of itemArray; let i=index" >
-                        <div class="item  "  >
-                            <div class="items" >
-                                <div class="quantity">
-                                    <label class="itemLabel">Item </label>
-                                    <select class="selectCSS"  [(ngModel)]="purchaseTran.ItemName" (change)="getItemDetails($event , i)" >
-                                        <option >Select</option>
-                                        <option  *ngFor="let item of getItem" >{{item.itemName}}</option>
-                                    </select>
-                                </div>
-                                <!-- <div class="quantity  ">
-                                    <label class="itemLabel">HSN No  </label>
-                                    <input  type="text" class="itemCSS" [(ngModel)]="purchaseTran.HSN_No" id="HSN_No{{i}}"  >
-                            
-                                </div> -->
-                                <div class="quantity  ">
-                                    <label class="itemLabel">Quantity </label>
-                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.Quantity" id="Quantity{{i}}" oninput="javascript: if (this.value < 0) {alert('Please enter Positive Quantity')}" (ngModelChange)="calculate(purchaseTran);">
-                                </div>
-                                <div class="quantity  ">
-                                    <label class="itemLabel">Unit </label>
-                                    <select class="selectCSS"[(ngModel)]="purchaseTran.Unit"   >
-                                        <option >Select</option>
-                                        <option *ngFor="let unit of getUnitList">{{unit.acronymn}}</option>
-                                    </select>                  
-                                </div>
-                                
-                                <div class="quantity  ">
-                                    <label class="itemLabel">Price  </label>
-                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.Price" value={{purchaseTran.Price}} id="Price{{i}}" oninput="javascript: if (this.value < 0) {alert('Please enter Positive Quantity');} " (ngModelChange)="calculate(purchaseTran);">
-                                </div>
-                                <div class="quantity  ">
-                                    <label class="itemLabel">Total Amount</label>
-                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.Total_Amount"  id="Price{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " >
-                                </div>
-                                <div class="quantity  ">
-                                    <label class="itemLabel">Discount(%) </label>
-                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.Discount"  id="Price{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " (ngModelChange)="calculate(purchaseTran);">
-                                    <label [(ngModel)]="purchaseTran.DiscountPrice">{{purchaseTran.DiscountPrice}}</label>
-                                </div>
-                                <div class="quantity  ">
-                                    <label class="itemLabel">Disc_Price </label>
-                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.Disc_Price"  id="Price{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') ">
-                                </div>
-                                <div class="quantity  " *ngIf="gst">
-                                    <label class="itemLabel">IGST(%) </label>
-                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.IGST" id="IGST{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " (ngModelChange)="calculate(purchaseTran);">
-                                    <label>{{purchaseTran.IGST}}</label>
-                                </div>
-                                <div class="quantity  " *ngIf="!gst">
-                                    <label class="itemLabel">CGST (%) </label>
-                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.CGST" id="CGST{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " (ngModelChange)="calculate(purchaseTran);">
-                                    <label style="max-width:inherit;">{{purchaseTran.CGSTLabel}}</label>
-                                </div>
-                                <div class="quantity  " *ngIf="!gst">
-                                    <label class="itemLabel">SGST(%) </label>
-                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.SGST" id="SGST{{i}}"  oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') "(ngModelChange)="calculate(purchaseTran);">
-                                    <label style="max-width:inherit;">{{purchaseTran.SGSTLabel}}</label>
-                                </div>
-                               
-                               
-                                
-                                <div class="quantity  ">
-                                    <label  class="itemLabel">Net Amount</label>
-                                    <input  type="number" class="itemCSS" [(ngModel)]="purchaseTran.Net_Amount" id="Total_Amount{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') ">
-                                </div>
-                            </div>
-                           
-                            <div class="button" >
-                                <label  class="itemLabel"></label>
-                                <button class="bg-danger float-end" id="delete"  (click)="removevalue(i)">X</button>
-                            </div>
-                          
-                        
-                        </div>
-                    </div>
-                </div>
-</div>
            
               
-        <div  >
-            <button (click)="addvalue()" id="add" class="float-end" >+</button>
-            <!-- <button id="save" (click)="editPurchase($event)" *ngIf="buttonEdit" value={{purchase.}}>Edit purchase</button> -->
+<div class="sec" *ngIf='showItem'>
+    <div class="second"  >
 
+        <label class="addItemLabel" for="addItems">Add Items  to your purchase</label>
+                        <div  id="addItems" > 
+                            <div *ngFor="let purchaseTran of itemArray; let i=index"  >
+                                <div class="item">
+                                    <div class="items" >
+                                        <div class="quantity">
+                                            <label class="itemLabel"></label><br>
+        
+                                            <label class="itemLabel">Item </label>
+                                            <select ngDefaultControl class="selectCSS"  [(ngModel)]="purchaseTran.ItemName" (change)="getItemDetails($event , i)" style="width: 90%;">
+                                                <option >Select</option>
+                                                <option  *ngFor="let item of getItem" >{{item.itemName}}</option>
+                                            </select>
+                                        </div>
+                                        <!-- <div class="quantity  ">
+                                            <label class="itemLabel">HSN No  </label>
+                                            <input  type="text" class="itemCSS" [(ngModel)]="purchaseTran.HSN_No" id="HSN_No{{i}}"  >
+                                    
+                                        </div> -->
+                                        <div class="quantity" id=quantityUnit>
+                                            <label class="itemLabel"></label><br>
+        
+                                                <label class="itemLabel">Quantity</label>
+                                                <input name="r" ngDefaultControl  type="number" class="itemCSS" [(ngModel)]="purchaseTran.Quantity" id="Quantity{{i}}" oninput="javascript: if (this.value < 0) {alert('Please enter Positive Quantity')}" (ngModelChange)="calculate(purchaseTran, i );">
+                                           
+                                           
+                                                <label ngDefaultControl [(ngModel)]="purchaseTran.Unit" id="Unit{{i}}">{{purchaseTran.Unit}}</label>     
+                                          
+                                           
+                                        </div>     
+                                        <div class="quantity  ">
+                                            <label class="itemLabel"></label><br>
+                                            <label class="itemLabel">Price</label>
+                                            <input ngDefaultControl type="number" class="itemCSS" [(ngModel)]="purchaseTran.Price" value={{purchaseTran.Price}} id="Price{{i}}" oninput="javascript: if (this.value < 0) {alert('Please enter Positive Quantity');} " (ngModelChange)="calculate(purchaseTran , i);">
+                                        </div>
+                                        <div class="quantity  ">
+                                            <label class="itemLabel">Total</label><br>
+                                            <label class="itemLabel"> Amount</label>
+                                            <input readonly   class="itemCSS" [(ngModel)]="purchaseTran.Total_Amount"  id="Price{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)">
+                                        </div>
+                                        <div class="quantity  ">
+                                            <label class="itemLabel">Discount</label><br>
+                                            <label class="itemLabel">(%) </label><br>
+                                            <input ngDefaultControl style="width: 60%;" type="number" class="itemCSS" [(ngModel)]="purchaseTran.Discount"  id="Price{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') " (ngModelChange)="calculate(purchaseTran , i);" onchange="(function(el){el.value=parseFloat(el.value).toFixed(2);})(this)"><br>
+                                            <label [(ngModel)]="purchaseTran.DiscountPrice">{{purchaseTran.DiscountPrice}}</label>
+                                        </div>
+                                        <div class="quantity  ">
+                                            <label class="itemLabel">Disc</label><br>
+                                            <label class="itemLabel">Price </label>
+                                            <input ngDefaultControl readonly class="itemCSS" [(ngModel)]="purchaseTran.Disc_Price"  id="Price{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') ">
+                                        </div>
+                                        <div class="quantity  " *ngIf="gst">
+                                            <label class="itemLabel">IGST</label><br>
+                                            <label class="itemLabel">({{purchaseTran.IGST}}%)</label>
+                                            <input ngDefaultControl readonly type="number" class="itemCSS" [(ngModel)]="purchaseTran.IGSTAmount" id="IGST{{i}}" (ngModelChange)="calculate(purchaseTran , i);">
+                                        </div>
+                                        <div class="quantity  " *ngIf="!gst">
+                                            <label class="itemLabel">CGST </label><br>
+                                            <label class="itemLabel">({{purchaseTran.CGST}}%) </label>
+                                            <input ngDefaultControl readonly type="number" class="itemCSS" [(ngModel)]="purchaseTran.CGSTAmount" id="CGST{{i}}" (ngModelChange)="calculate(purchaseTran , i);">
+                                            <!-- <label class="labelWidth">{{purchaseTran.CGSTLabel}}</label> -->
+                                        </div>
+                                        <div class="quantity  " *ngIf="!gst">
+                                            <label class="itemLabel">SGST</label><br>
+                                            <label class="itemLabel">({{purchaseTran.SGST}}%) </label>
+                                            <input ngDefaultControl readonly  type="number" class="itemCSS" [(ngModel)]="purchaseTran.SGSTAmount" id="SGST{{i}}"  oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') "(ngModelChange)="calculate(purchaseTran , i);">
+                                            <!-- <label class="labelWidth">{{purchaseTran.SGSTLabel}}</label> -->
+                                        </div> 
+                                        <div class="quantity  ">
+                                            <label class="itemLabel">Net</label><br>
+                                            <label  class="itemLabel"> Amount</label>
+                                            <input  ngDefaultControl class="itemCSS" [(ngModel)]="purchaseTran.Net_Amount" id="Net_Amount{{i}}" oninput="javascript: if (this.value < 0) alert('Please enter Positive Quantity') ">
+                                        </div>
+                                    
+                                    <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">Clear</mat-icon> -->
+                                   
+                                </div>
+                                <button class="deleteButton float-end" style="background-color: inherit; border:none;padding:1rem;margin-top: 1rem;">
+                                    <span class="material-icons float-end" id="delete"  (click)="removevalue(i)" style="color: red; float: end;" >
+                                        delete_outline
+                                        </span>
+                                   </button>
+                            </div>
+                                
+                            </div>
+                        </div>
         </div>
-        <div *ngFor="let value of itemArray;">
-            {{value.value}}
-        </div>
-    <br>
+                 
+               
+                  
+            <div  >
+                <button (click)="addvalue()" id="add" class="float-end" >+</button>
+                <!-- <button id="save" (click)="editPurchase($event)" *ngIf="buttonEdit" value={{purchase.}}>Edit purchase</button> -->
+    
+            </div>
+            <div *ngFor="let value of itemArray;">
+                {{value.value}}
+            </div>
+</div>
         <div class="button">
             <button (click)="savePurchase()" id="save">Save</button>
         </div>

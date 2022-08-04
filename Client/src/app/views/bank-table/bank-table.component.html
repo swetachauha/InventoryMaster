@@ -1,7 +1,7 @@
  
 
 <div class="row m-0 p-2">
-    <div class="col-md-6 col-4">
+    <div class="col-md-4 col-4">
       Show:
       <select (change)="OnTableSizeChange($event)">
         <option *ngFor="let no of tableSizes">{{no}}</option>
@@ -9,8 +9,9 @@
       entries
     </div>
 
+    <input class="col-md-4 col-4 mt-2 mb-2" id="searchInput" type="text" [(ngModel)]="searchText"  (input)="search()"  placeholder="Search by Bank Name" /> 
 
-    <div class="col-md-6 col-8">
+    <div class="col-md-4 col-8">
       <pagination-controls class="float-end"
         previousLabel="Prev"
         nextLabel="Next"
@@ -32,7 +33,7 @@
     <th>Bank Name</th>
     <th>Address</th>
     <th>City</th>
-    <th>Edit / Delete</th>
+    <th>Edit</th>
 
     <!-- <th style="display: none"></th>  -->
   </thead>
@@ -51,7 +52,11 @@
         <i class="fa fa-pen"></i>
         <i class="fa fa-pen-to-square"></i>
         <!-- <i class="fa fa-pencil" style="color:green"></i> -->
-        <button class="bg-sucess" (click)="edit($event)" value="{{groups.ifsC_Code}}" >Edit</button>
+        <!-- <button class="bg-sucess" (click)="edit($event)" value="{{groups.ifsC_Code}}" > -->
+          <button (click)="edit(groups.ifsC_Code)">
+            <mat-icon style="color: green;">edit</mat-icon>
+          </button>
+        <!-- </button> -->
         <!-- <button class="bg-sucess" (click)="editionDone($event)" value="{{groups.ifsC_Code}}" >Done</button> -->
 
         <i class="fa-solid fa-trash-can" style="color:red"></i></td>

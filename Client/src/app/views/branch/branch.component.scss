@@ -63,3 +63,14 @@ input:focus-visible {
 
     color:#3a8ec5;
 }
+button{
+    background-color: transparent;
+    border-style: none;
+    width:5rem;
+    border-radius: .2rem;
+    margin-left: 1rem;
+}
+button:hover{
+    transform: scale(1.05 ,1.05);
+
+}

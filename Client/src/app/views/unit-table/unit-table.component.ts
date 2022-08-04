@@ -11,12 +11,12 @@ export class UnitTableComponent implements OnInit {
 
   @Output("parentFun") parentFun: EventEmitter<any> = new EventEmitter();
 
-
+  searchText='';
   dataTable:any;
   getUnits:any=[];
   dtOptions: DataTables.Settings = {};
   title='pagination';
-  tableSize:number=5;
+  tableSize:number=10;
   tableSizes:any=[5,10,15,20];
   page:number=1;
   count:number=0;
@@ -68,9 +68,8 @@ export class UnitTableComponent implements OnInit {
 
   edit(unit:any)
  {
-  console.log("GETTAX",unit.target.value);
 
-   return this.service.getUnit(unit.target.value).subscribe(res=>{
+   return this.service.getUnit(unit).subscribe(res=>{
  
        console.log("getBranchbyid",res);
        this.dataintext=res;
@@ -78,5 +77,35 @@ export class UnitTableComponent implements OnInit {
       
    })
  }
+ search(){
+  if(this.searchText!== "")
+  {
+    let searchValue = this.searchText.toLocaleLowerCase();
+    console.log("searchValue",searchValue);
 
+    this.getUnits = this.getUnits.filter((contact:any) =>
+    {
+      if(!contact.unit.toLocaleLowerCase().match(searchValue ))
+      {
+        this.isData=false;
+        this.noData="Data Not Found";
+      }
+      else
+      {
+        console.log("lowwer",contact.unit);
+        return contact.unit.toLocaleLowerCase().match(searchValue );
+
+      }
+    
+     });
+          
+    }
+     else 
+     { 
+      this.service.AllUnits().subscribe(res=>{
+        this.getUnits=res;
+        
+      });
+     } 
+    }
 }

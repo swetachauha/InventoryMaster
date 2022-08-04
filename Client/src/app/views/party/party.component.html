@@ -10,13 +10,13 @@
   <div class="row m-4">
   <div class="row col-md-12 border card p-0">
       <div class="card-header">
-          Item
+          Party 
       </div>
       <div class="card-body row m-0 p-4">
          
             <div class=" itemName col-md-6 col-12">
                 <label>Party Name </label>
-                <input [(ngModel)]="party.Party_Name" >
+                <input [(ngModel)]="party.Party_Name"  id="Party_Name" oninput="this.value = this.value.toUpperCase()">
             </div>
             <br>
             <br>
@@ -26,8 +26,8 @@
                 <br>
                 <select [(ngModel)]="party.Party_Type">
                   <option value="" disabled>Select</option>
-                    <option >Customer</option>
-                    <option>Vendor</option>
+                    <option className="Party_Type" value="Customer">Customer</option>
+                    <option className="Party_Type" value="Vendor">Vendor</option>
                     
                 </select>
             </div>
@@ -35,20 +35,20 @@
   <br>
   <div class="group col-md-6 col-12">
     <label>GST No </label>
-    <input [(ngModel)]="party.GST_No" type="number">
+    <input [(ngModel)]="party.GST_No" type="text" id="GST_No" oninput="this.value = this.value.toUpperCase()"> 
   </div>
 
   <br>
   <br>
   <div class=" itemName col-md-6 col-12">
     <label>PAN No </label>
-    <input [(ngModel)]="party.PAN_No" type="number">
+    <input [(ngModel)]="party.PAN_No" type="text" id="PAN_No" oninput="this.value = this.value.toUpperCase()">
 </div>
 <br>
 <br>
 <div class=" itemName col-md-6 col-12">
     <label>Contact Person </label>
-    <input [(ngModel)]="party.Contact_Person ">
+    <input [(ngModel)]="party.Contact_Person" id="Contact_Person" oninput="this.value = this.value.toUpperCase()">
 </div>
 <br>
 <br>
@@ -56,7 +56,7 @@
                
                   <div class="group col-md-6 col-12">
                     <label>Phone No</label>
-                    <input [(ngModel)]="party.Phone_No" type="number">
+                    <input [(ngModel)]="party.Phone_No" type="number" id="Phone_No">
                   </div>    
 
                   <br>
@@ -64,11 +64,11 @@
                                                  
                                                   <div class="group col-md-6 col-12">
                                                     <label>Email </label>
-                                                    <input [(ngModel)]="party.Email" type="email"  pattern=".+@globex\.com" size="30" required>
+                                                    <input [(ngModel)]="party.Email" type="email" id="Email" pattern=".+@globex\.com" size="30" required>
        
                                                     <br>
                                                     <label>City </label>
-                                                    <input [(ngModel)]="party.City">
+                                                    <input [(ngModel)]="party.City" id="City" oninput="this.value = this.value.toUpperCase()">
                                                   </div>  
                                                   <br><br>                                          
                                                 
@@ -82,21 +82,21 @@
                                                   <div class="group col-md-6 col-12 float-right">
                                                       <label>Address  </label>
                                                       <br>
-                                                      <textarea [(ngModel)]="party.Party_Address"></textarea>
+                                                      <textarea [(ngModel)]="party.Party_Address" id="Party_Address"></textarea>
                                                     </div>                  
          
          
         
           <div class="group col-md-6 col-12">
             <label>State </label>
-            <input [(ngModel)]="party.State">
+            <input [(ngModel)]="party.State" id="State" oninput="this.value = this.value.toUpperCase()">
           </div>
   
   <br>
   <br>
             <div class=" itemName col-md-6 col-12">
               <label>PIN Code</label>
-              <input [(ngModel)]="party.PIN_No" type="number"> 
+              <input [(ngModel)]="party.PIN_No" type="number" id="PIN_No"> 
           </div>
           <br>
           <br>
@@ -106,11 +106,12 @@
       </div>
   
       <div class="button">
-          <button id="save" (click)="saveparty()">Add Item</button>
+          <button id="save" (click)="saveparty()" *ngIf="buttonAdd">Add</button>
+          <button id="save" (click)="Edit($event)" *ngIf="buttonEdit" value={{party.groupCategory}}>Edit </button>
       </div>
   <br>
       <div class="table">
-        <app-party-table></app-party-table>
+        <app-party-table (parentFun)="getGroupDataToInput($event)"></app-party-table>
       </div>
   </div>
   

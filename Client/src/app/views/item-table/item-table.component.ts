@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { InventoryServiceService } from 'src/app/Services/inventory-service.service';
 
 @Component({
@@ -8,20 +8,25 @@ import { InventoryServiceService } from 'src/app/Services/inventory-service.serv
 })
 export class ItemTableComponent implements OnInit {
 
+  @Output("parentFun") parentFun: EventEmitter<any> = new EventEmitter();
+
+  searchText="";
   getItem:any=[];
   dataTable:any;
   getPurchases:any=[];
   dtOptions: DataTables.Settings = {};
   title='pagination';
-  tableSize:number=5;
-  tableSizes:any=[5,10,15,20];
+  tableSize:number=10;
+  tableSizes:any=[10,15,20];
   page:number=1;
   count:number=0;
   isData:boolean | undefined;
   noData:string | undefined;
   date:Date| undefined;
   errorMessage:String | undefined;
-  
+  groupCatrTarget:string='';
+  dataintext:any;
+
 
   constructor(private service:InventoryServiceService) { }
 
@@ -59,4 +64,38 @@ export class ItemTableComponent implements OnInit {
      }
    })
   }
+
+  edit(branch:any)
+  {
+    // console.log("getBranchbyid",branch.target.value);
+
+     this.groupCatrTarget=branch;
+    return this.service.getItemByItemName(branch).subscribe(res=>{
+  
+        console.log("getBranchbyid",res);
+        this.dataintext=res;
+        console.log("getBranchbyid", this.dataintext);
+
+        this.parentFun.emit();
+       
+    })
+  }
+  search(){
+    if(this.searchText!== "")
+    {
+      let searchValue = this.searchText.toLocaleLowerCase();
+     
+      this.getItem = this.getItem.filter((contact:any) =>
+      {
+        return contact.itemName.toLocaleLowerCase().match(searchValue );
+      
+       });
+            
+      }
+       else 
+       { 
+        this.service.AllItem().subscribe(res=>{this.getItem=res});
+       } 
+      }
 }
+

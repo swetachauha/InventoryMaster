@@ -36,10 +36,9 @@
             
             <div class=" button col-md-4 col-12 m-0 p-2">
                 <button id="save" (click)="saveUnit()" *ngIf="buttonAdd">Add Unit</button>
-        <button id="save" (click)="editUnit($event)" *ngIf="buttonEdit" value={{unit.Unit}}>Edit Bank</button>
+        <button id="save" (click)="editUnit($event)" *ngIf="buttonEdit" value={{unit.Unit}}>Edit </button>
             </div>
             <div class="table row m-0">
-                <label class="unitLabel col-12 col-md-12">See all units here with Acronym </label>
                 <app-unit-table (parentFun)="getUnitDataToInput($event)"></app-unit-table>
             </div>
     </div>

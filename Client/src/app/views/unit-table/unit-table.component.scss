@@ -10,6 +10,19 @@
 thead{
     background-color: skyblue;
 }
+#searchInput{
+    border:1px rgb(166, 225, 245) solid;
+    height: 2rem;
+    width:30%;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px rgba(184, 196, 202, 0.256);
+
+}
+input:focus-visible {
+    outline: -webkit-focus-ring-color auto 0px;
+    border:5px rgb(49, 135, 164) solid;
+
+}
 .flex{
     margin:2rem 2rem -1rem 3rem;
     display: grid;
@@ -25,6 +38,15 @@ i:hover{
 }
 table{
     border: 1px solid skyblue;
+}
+button{
+    background-color: transparent;
+    border-style: none;
+   
+}
+button:hover{
+    transform: scale(1.05 ,1.05);
+
 }
 
 

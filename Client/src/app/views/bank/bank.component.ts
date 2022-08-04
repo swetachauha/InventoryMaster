@@ -22,14 +22,22 @@ export class BankComponent implements OnInit {
   buttonAdd:boolean=true;
   buttonEdit:boolean=false;
 
+
   constructor(private service:InventoryServiceService , private router:Router) 
   { 
+  
   }
 
   ngOnInit(): void {
+    console.log("bankname",this.bank.bankName);
 //   this.service.refreshNeeded$.subscribe(()=>{      this.child?.AllBank();
 // });
   }
+  ngOnChanges() {
+    ///** WILL TRIGGER WHEN PARENT COMPONENT UPDATES '**
+    
+     console.log("ngonchange");
+    }   
   saveBank()
   { 
 
@@ -41,7 +49,11 @@ export class BankComponent implements OnInit {
       title: 'Added Successfully',
       icon: 'success',
       confirmButtonText: 'OK',
-    }).then(()=>{    window.location.reload();
+    }).then(()=>{  
+       
+     
+        this.child?.AllBank();
+        this.bank={};
     });
 
  
@@ -60,7 +72,14 @@ export class BankComponent implements OnInit {
           this.showFlashError=true;
           this.showFlash=false;
         }
-        
+        else if(err.error.errors.IFSC_Code=="Invalid IFSC Code")
+      {
+        this.errorMessage="Invalid IFSC Code !!";
+        this.showFlashError=true;
+        this.showFlash=false;
+        window.scroll(0,0);
+
+      }
         else
         {
           this.errorMessage="Please fill all the fields .";
@@ -107,7 +126,12 @@ export class BankComponent implements OnInit {
             title: 'Editted Successfully',
             icon: 'success',
             confirmButtonText: 'OK',
-          }).then(()=>{ window.location.reload();});
+          }).then(()=>{ 
+            this.buttonAdd=true;
+            this.buttonEdit=false;
+            this.child?.AllBank();
+            this.bank={};
+          });
         },(err:any)=>{
           console.log("error in component", err) ;
           if(err.status==400)
@@ -161,7 +185,7 @@ export class BankComponent implements OnInit {
  this.bank.City=(<HTMLInputElement>document.getElementById('City')).value=this.child?.dataintext.city;
  this.buttonAdd=false;
  this.buttonEdit=true;
- console.log("bankinput",this.bank.IFSC_Code)
+ console.log("bankinput",this.bank.IFSC_Code);
 
   }
 

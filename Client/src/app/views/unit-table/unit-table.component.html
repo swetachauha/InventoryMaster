@@ -1,15 +1,16 @@
 
 <div class="row m-0 p-2">
-    <div class="col-md-6 col-4">
+    <div class="col-md-4 col-4">
       Show:
       <select (change)="OnTableSizeChange($event)">
         <option *ngFor="let no of tableSizes">{{no}}</option>
       </select>
       entries
     </div>
+    <input class="col-md-4 col-4 mt-2 mb-2" id="searchInput" type="text" [(ngModel)]="searchText"  (input)="search()" placeholder="Search by Unit" /> 
 
 
-    <div class="col-md-6 col-8">
+    <div class="col-md-4 col-8">
       <pagination-controls class="float-end"
         previousLabel="Prev"
         nextLabel="Next"
@@ -29,7 +30,7 @@
     <th>SN</th>
     <th>Unit</th>
     <th>Acronymn</th>
-    <th>Edit / Delete</th>
+    <th>Edit </th>
 
     <!-- <th style="display: none"></th>  -->
   </thead>
@@ -42,7 +43,11 @@
       <td>{{unit.unit}}</td>
       <td>{{unit.acronymn}}</td>
       <td>        
-        <button class="bg-sucess" (click)="edit($event)" value="{{unit.unit}}" >Edit</button>
+        <button class="bg-sucess" (click)="edit(unit.unit)"  >
+          <mat-icon style="color: green;">
+            edit
+          </mat-icon>
+        </button>
         
       </td>
         <!-- <i class="fa-solid fa-trash-can" style="color:red" (click)="deleteItem()"></i></td> -->

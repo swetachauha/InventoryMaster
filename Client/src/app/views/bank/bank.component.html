@@ -42,6 +42,7 @@
     
         <div class="button">
             <button id="save" (click)="saveBank()" *ngIf="buttonAdd">Add Bank</button>
+            
             <button id="save" (click)="editBank($event)" *ngIf="buttonEdit" value={{bank.IFSC_Code}}>Edit Bank</button>
 
         </div>

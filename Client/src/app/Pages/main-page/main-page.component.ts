@@ -18,6 +18,7 @@ export class MainPageComponent implements OnInit {
   constructor( private service:AuthenticteService , private router :Router) { }
 
   ngOnInit(): void {
+    this.getUser();
   }
 
   login()
@@ -56,6 +57,18 @@ export class MainPageComponent implements OnInit {
 );
     }
    
+  }
+  getUser()
+  {
+    if(localStorage.getItem('username') && localStorage.getItem('token'))
+    {
+      this.router.navigate(['dashboard']);
+    }
+    else
+    {
+      this.router.navigate(['/']);
+    }
+    
   }
 
 }

@@ -14,8 +14,8 @@
     </button>
     <c-header-nav class="d-none d-lg-flex me-auto">
       <c-nav-item>
-        <a cNavLink routerLink="/dashboard" routerLinkActive="active" style="color: white;">
-          Dashboard
+        <a cNavLink routerLink="/dashboard" routerLinkActive="active"  style="color: white;" >
+        {{firmName}} 
         </a>
       </c-nav-item>
      
@@ -44,12 +44,10 @@
     </c-header-nav>
 
   </c-container>
-  <c-header-divider></c-header-divider>
-  <c-container [fluid]="true">
-    <c-breadcrumb-router class="ms-2"></c-breadcrumb-router>
+   <c-container [fluid]="true">
+    <c-breadcrumb-router class="ms-2" ></c-breadcrumb-router>
   </c-container>
 </ng-container>
-<!--</c-header>-->
 
 <ng-template #userDropdown>
   <c-dropdown alignment="end" variant="nav-item">

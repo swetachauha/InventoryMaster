@@ -1,3 +1,559 @@
+// .row{
+//     height:fit-content;
+// }
+// .card{
+//     box-shadow: 4px 4px 8px -4px blue;
+//     margin-bottom: 2rem;
+
+// }
+// .card-body{
+//     // text-align: center;
+// }
+// .label{
+//     font-weight: 600;
+// }
+// .inputDate{
+//     width: 85%;
+//     border-radius: .2rem;
+//     border: none;
+//     border-bottom: 1.5px solid #3a8ec5;
+// }
+// // .autocome{
+// //     width: 60%;
+// //     border-bottom:1.5px solid #3a8ec5 ;
+// // }
+// .input{
+//     width: 90%;
+//     border-style: none;
+//     // border-radius: .2rem;
+//     border-bottom: 1.5px solid #3a8ec5;
+//     outline: none;
+
+//     // height: 2rem;
+//     // border-radius: .5rem;
+//     // border: 2px solid #3a8ec5;
+// }
+// .addItemLabel{
+//     // margin-top: rem;
+//     margin-top:-2rem;
+//     z-index: 100;
+//     color:#1e72e1;
+//     margin-left:1rem;
+//     padding: 1rem;
+//     position: absolute;
+//     background-color: white;
+    
+// }
+// #addItems{
+//     z-index: 1;
+//     position: relative;
+//     border-radius: 0.5rem;
+//     border:2px solid rgb(193, 190, 190);
+//     padding:.5rem
+// }
+// .selectCSS{
+//     width: 100%;
+//     // border-style: none;
+//     border-radius: .2rem;
+//     border: 1.5px solid #3a8ec5;
+//     outline: none;
+
+// }
+// .itemCSS{
+//     width: 100%;
+//     // border-style: none;
+//     border-radius: .2rem;
+//     border: 1.5px solid #3a8ec5;
+//     outline: none;
+
+// }
+// .ilabel{
+//     width: 100px;
+// }
+// select{
+//     width: 90%;
+//     border-style: none;
+//     outline: none;
+//     // border-radius: .2rem;
+//     border-bottom: 1.5px solid #3a8ec5;
+//     // height: 2rem;
+//     // border-radius: .5rem;
+//     // border: 2px solid #3a8ec5;
+// }
+
+// .purchaseLabel{
+//     width: 170px;
+//     height: 10px;
+//     font-weight: 600;
+// }
+// .button{
+//     text-align: center;
+// }
+// #save{
+//     display: inline-block;
+//     box-shadow: 4px 4px 8px -4px black;
+//     margin-top: 3rem;
+//     border:none;
+//     background-color: #1e72e1;
+//     border-radius: 5px;
+//     height:2.5rem;
+//     width:7rem;
+//     margin-bottom: 1rem;
+//     color:white;
+   
+// }
+// #save:hover{
+//     background-color: #3a8ec5;
+//     // transform: scale(1.05 ,1.05);
+
+// }
+// .input:focus-visible {
+//     outline: -webkit-focus-ring-color auto 0px;
+//     border:2px solid #3a8ec5;
+//     border-radius: .1rem;
+    
+// }
+// .card-header{
+//     background-color: #3a8ec5
+//     ;
+//     color:white
+// }
+
+// .table{
+//     background-color: white;
+// }
+// .unitLabel{
+//     width: 100%;
+//     height: 30px;
+
+//     color:#3a8ec5;
+// }
+
+// .item{
+//     margin-top: 1rem;
+//     padding: 1rem;
+//     box-shadow: 0px 0px 2px 2px rgba(8, 5, 25, 0.089);
+//     background-color: #8ab6ef13;
+//     width:inherit;
+//     height: fit-content;
+    
+
+// }
+// .second{
+//     margin-top: 3rem;
+// }
+// #add{
+//     background-color: green;
+//     border-radius: 20rem;
+//     height: 3rem;
+//     width: 3rem;
+//     color: white;
+//     // font-size: 3rem;
+//     border-style: none;
+//     margin-top: 1rem;
+// }
+// #add:hover{
+//     // transform: scale(1.05 ,1.05);
+//     background-color: rgb(2, 109, 2);
+
+// }
+// .itemName{
+//     // text-align: center;
+// }
+// .left{
+//     // display: inline-block;
+// }
+// @media (max-width:1190px) and (min-width:1100px) {
+//     select{
+//         width: 90%;
+//     }
+//     .inputDate{
+//         width: 78%;
+//     }
+//     // .input{
+//     //     width: 35%;  
+//     // }
+//     // .autocome{
+//     //     width: 40%; 
+//     // }
+//     .purchaseLabel{
+//         font-size: .9rem;
+//         width: 150px;
+//     }
+//     .label{
+//         font-size: .9rem;
+//         width: 130px !important;
+//     }
+// }
+// @media (max-width:1100px) and (min-width:1024px) {
+//     select{
+//         width: 90%;
+//     }
+//     .inputDate{
+//         width: 75%;
+//     }
+//     // .input{
+//     //     width: 40%;  
+//     // }
+//     // .autocome{
+//     //     width: 50%; 
+//     // }
+//     .purchaseLabel{
+//         font-size: .8rem;
+//         width: 130px;
+//     }
+//     .label{
+//         font-size: .8rem;
+//         width: 90px !important;
+//     }
+// }
+// @media (max-width:1024px) and (min-width:908px) {
+//     select{
+//         width: 90%;
+//     }
+//     .inputDate{
+//         width: 72%;
+//     }
+//     // .input{
+//     //     width: 35%;  
+//     // }
+//     // .autocome{
+//     //     width: 40%; 
+//     // }
+//     .purchaseLabel{
+//         font-size: .9rem;
+//         width: 150px;
+//     }
+//     .label{
+//         font-size: .9rem;
+//         width: 90px !important;
+//     }
+//     // .left{
+//     //     margin-left: 3rem;
+//     // }
+// }
+// @media (max-width:908px) and (min-width:884px) {
+// //     select{
+// //         width: 40%;
+// //     }
+//     .inputDate{
+//         width: 70%;
+//     }
+// //     .input{
+// //         width: 30%;  
+// //     }
+//     .autocome{
+//      font-size: .8rem;
+
+//     }
+//     .purchaseLabel{
+//         font-size: .8rem;
+//         // width: 130px;
+//     }
+//     .label{
+//         font-size: .8rem;
+//         // width: 80px !important;
+//     }
+// //     .left{
+// //         margin-left: 3rem;
+// //     }
+//     }
+//     @media (max-width:884px) and (min-width:826px) {
+//         .inputDate{
+//             width: 65%;
+//         }
+//         .purchaseLabel{
+//             font-size: .8rem;
+//             // width: 130px;
+//         }
+//         .label{
+//             font-size: .8rem;
+//             // width: 80px !important;
+//         }
+//         .mat-datepicker-input {
+//             font-size: 0.8rem;
+//         }
+//         .autocome{
+//             font-size: .8rem;
+       
+//            }
+        
+//     }
+//     @media (max-width:826px) and (min-width:780px) {
+//         .inputDate{
+//             width: 60%;
+//         }
+//         .purchaseLabel{
+//             font-size: .8rem;
+//             // width: 130px;
+//         }
+//         .label{
+//             font-size: .8rem;
+//             // width: 80px !important;
+//         }
+//         .mat-datepicker-input {
+//             font-size: 0.7rem;
+//         }
+//         .autocome{
+//             font-size: .8rem;
+       
+//            }
+//     }
+//     @media (max-width:780px) and (min-width:767px) {
+//         .inputDate{
+//             width: 55%;
+//         }
+//         .purchaseLabel{
+//             font-size: .7rem;
+//             // width: 130px;
+//         }
+//         .label{
+//             font-size: .7rem;
+//             // width: 80px !important;
+//         }
+//         .mat-datepicker-input {
+//             font-size: 0.65rem;
+//         }
+//         .autocome{
+//             font-size: .8rem;
+       
+//            }
+//     }
+
+
+//     @media (max-width:1024px) and (min-width:767px) {
+//         input{
+//             margin-bottom: 1rem;
+//         }
+//         // .inputDate{
+//         //     width: 65%;
+//         // }
+//         // .input{
+//         //     width: 70%;  
+//         // }
+//         select{
+//             width: 90%;  
+//         }
+//         // .autocome{
+//         //     width: 80%; 
+//         // }
+//         // .left{
+//         //     margin-left: 3rem;
+//         // }
+//         .label{
+//             width: 140px;
+//         }
+//     }
+
+// @media (max-width:1300px) and (min-width:1190px) {
+//     select{
+//         width: 90%;
+//     }
+//     .inputDate{
+//         width: 80%;
+//     }
+   
+//     // .input{
+//     //     width: 40%;  
+//     // }
+//     // .autocome{
+//     //     width: 40%; 
+//     // }
+
+
+// }
+// @media (min-width:1024px) {
+// //    .left{
+// //     margin-left: 4rem;
+// //    }
+    
+//     .item{
+//         display:grid;
+//         grid-template-columns: 90% 10%;  
+//         row-gap: 1rem;    
+
+//     }
+//     .label{
+//         width: 150px;
+//     }
+//     .items{
+//         display:flex;
+//         flex-wrap: wrap;
+//         column-gap: 1.5rem;
+//     }
+//     .quantity{
+//         width: 10%;
+//     }
+//     .itemLabel{
+//         width:100px
+//     }
+//     #delete{
+//         border-radius: 20rem;
+//         height: 2rem;
+//         width: 2rem;
+//         color: white;
+//         // font-size: 3rem;
+//         border-style: none;
+        
+//     }
+//     #delete:hover{
+//         background-color: rgb(60, 40, 189);
+//     }
+    
+    
+
+// }
+// @media (max-width:1024px) and (min-width:767px) {
+//     .item{
+//         display:grid;
+//         grid-template-rows: 90% 10%;  
+//         column-gap: 1rem;    
+
+//     }
+//     .items{
+//         display:flex;
+//         flex-wrap: wrap;
+//         column-gap: 1rem;
+//     }
+//     .quantity{
+//         width: 20%;
+//     }
+//     .itemLabel{
+//         font-size: .7rem;
+//         width:100px
+//     }
+//     #delete{
+//         border-radius: 20rem;
+//         height: 1.5rem;
+//         width: 1.5rem;
+//         color: white;
+//         text-align: center;
+//         // font-size: 3rem;
+//         border-style: none;
+        
+//     }
+//     #delete:hover{
+//         background-color: rgb(143, 2, 2);
+//     }
+    
+    
+// }
+// @media (max-width:767px) {
+//     // select{
+//     //     width: 65%;
+//     // }
+//     // .inputDate{
+//     //     width: 60%;
+//     // }
+//     // .input{
+//     //     width: 65%;  
+//     // }
+//     // .autocome{
+//     //     width: 66%; 
+//     // }
+
+//     input{
+//         margin-bottom: 1rem;
+//     }
+//     .itemLabel{
+//         width:170px
+//     }
+//     .label{
+//         width:170px;
+//     }
+//     .purchaseLabel{
+//         width: 170px;
+//     }
+//     #delete{
+//         margin-top: 1rem;
+//         margin-bottom: 1rem;
+        
+//     }
+//     #delete{
+//         border-radius: 20rem;
+//         height: 2rem;
+//         width: 2rem;
+//         color: white;
+//         // font-size: 3rem;
+//         border-style: none;
+        
+//     }
+//     #delete:hover{
+//         background-color: rgb(143, 2, 2);
+//     }
+    
+//     .addItemLabel{
+//         font-size: 70%;
+//         text-align: center;
+//     }
+// }
+// @media (max-width:1200px) {
+//     .itemLabel{
+//         font-size: .8rem;
+//     }
+// }
+// @media (max-width:700px) {
+//     .label{
+//         width:200px;
+//     }
+//     .purchaseLabel{
+//         width: 200px;
+//     }
+//     // select{
+//     //     width: 100%;
+//     // }
+//     // .inputDate{
+//     //     width: 90%;
+//     // }
+//     // .input{
+//     //     width: 100%;  
+//     // }
+//     // .autocome{
+//     //     width: 100%; 
+//     // }
+// }
+// // .row{
+// //         height:fit-content;
+// //     }
+// //     .card{
+// //         box-shadow: 4px 4px 8px -4px blue;
+// //         margin-bottom: 2rem;
+    
+// //     }
+// //     // .card-body{
+// //     //     text-align: center;
+// //     // }
+// // input{
+// //     width: 60%;
+// //     border-radius: .2rem;
+// //     border: 1.5px solid #3a8ec5;
+// // }
+// // .input{
+// //     width: 60%;
+// //     border-radius: .2rem;
+// //     border: 1.5px solid #3a8ec5;
+// //     // height: 2rem;
+// //     // border-radius: .5rem;
+// //     // border: 2px solid #3a8ec5;
+// // }
+// // .card-header{
+// //     background-color: #3a8ec5
+// //     ;
+// //     color:white
+// // }
+// // .item{
+// //     margin-top: 1rem;
+// //     padding: 1rem;
+// //     box-shadow: 0px 0px 2px 2px rgba(8, 5, 25, 0.089);
+// //     background-color: #8ab6ef13;
+// //     width:inherit;
+
+// // }
+// @media (min-width:1024px) {
+//     .purchaseLabel{
+//         // font-size: 1.1rem;
+//     }
+// }
 .row{
     height:fit-content;
 }
@@ -14,7 +570,7 @@
 }
 .inputDate{
     width: 85%;
-    border-radius: .2rem;
+    // border-radius: .2rem;
     border: none;
     border-bottom: 1.5px solid #3a8ec5;
 }
@@ -35,11 +591,11 @@
 }
 .addItemLabel{
     // margin-top: rem;
-    margin-top:-2rem;
+    margin-top:-1.5rem;
     z-index: 100;
     color:#1e72e1;
     margin-left:1rem;
-    padding: 1rem;
+    padding: .5rem;
     position: absolute;
     background-color: white;
     
@@ -49,10 +605,12 @@
     position: relative;
     border-radius: 0.5rem;
     border:2px solid rgb(193, 190, 190);
+    // border:2px solid rgb(171, 7, 7);
+
     padding:.5rem
 }
 .selectCSS{
-    width: 100%;
+    width: 90%;
     // border-style: none;
     border-radius: .2rem;
     border: 1.5px solid #3a8ec5;
@@ -60,7 +618,8 @@
 
 }
 .itemCSS{
-    width: 100%;
+    width: 90%;
+    text-align: right;
     // border-style: none;
     border-radius: .2rem;
     border: 1.5px solid #3a8ec5;
@@ -107,10 +666,10 @@ select{
     // transform: scale(1.05 ,1.05);
 
 }
-.input:focus-visible {
+input:focus-visible {
     outline: -webkit-focus-ring-color auto 0px;
-    border:2px solid #3a8ec5;
-    border-radius: .1rem;
+    // border:2px solid #3a8ec5;
+    // border-radius: .1rem;
     
 }
 .card-header{
@@ -139,6 +698,11 @@ select{
     
 
 }
+// .quantityUnit
+// {
+//     display: flex;
+//     flex-direction: row;
+// }
 .second{
     margin-top: 3rem;
 }
@@ -352,7 +916,9 @@ select{
     .inputDate{
         width: 80%;
     }
-   
+   .labelWidth{
+    width:80%
+   }
     // .input{
     //     width: 40%;  
     // }
@@ -369,8 +935,8 @@ select{
     
     .item{
         display:grid;
-        grid-template-columns: 90% 10%;  
-        row-gap: 1rem;    
+        grid-template-columns: 98% 2%;  
+        // row-gap: 1rem;    
 
     }
     .label{
@@ -379,25 +945,28 @@ select{
     .items{
         display:flex;
         flex-wrap: wrap;
-        column-gap: 1.5rem;
+        // margin-top: 1rem;
+        // padding: .2rem;
+        // box-shadow: 0px 0px 2px 2px rgba(8, 5, 25, 0.089);
+        // background-color: #8ab6ef13;
+        // width:inherit;
+        // height: fit-content;
+        // column-gap: .5rem;
     }
+    // #quantityUnit{
+    //     margin-right: 1rem;
+    // }
     .quantity{
         width: 10%;
+        text-align: center;
     }
     .itemLabel{
-        width:100px
+        // width:100px;
+        // text-align: center;
     }
-    #delete{
-        border-radius: 20rem;
-        height: 2rem;
-        width: 2rem;
-        color: white;
-        // font-size: 3rem;
-        border-style: none;
-        
-    }
+   
     #delete:hover{
-        background-color: rgb(60, 40, 189);
+        color: rgb(132, 11, 13);
     }
     
     
@@ -406,34 +975,27 @@ select{
 @media (max-width:1024px) and (min-width:767px) {
     .item{
         display:grid;
-        grid-template-rows: 90% 10%;  
-        column-gap: 1rem;    
+        grid-template-rows: 98% 2%;  
+        // column-gap: 1rem;    
 
     }
     .items{
         display:flex;
         flex-wrap: wrap;
-        column-gap: 1rem;
+        // column-gap: 1rem;
     }
     .quantity{
         width: 20%;
+        text-align: center;
     }
     .itemLabel{
         font-size: .7rem;
-        width:100px
+        width:50px;
+        display: inline-block;
     }
-    #delete{
-        border-radius: 20rem;
-        height: 1.5rem;
-        width: 1.5rem;
-        color: white;
-        text-align: center;
-        // font-size: 3rem;
-        border-style: none;
-        
-    }
+  
     #delete:hover{
-        background-color: rgb(143, 2, 2);
+        color: rgb(132, 11, 13);
     }
     
     
@@ -451,7 +1013,17 @@ select{
     // .autocome{
     //     width: 66%; 
     // }
-
+.items{
+        display:flex;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+        padding: .2rem;
+        box-shadow: 0px 0px 2px 2px rgba(8, 5, 25, 0.089);
+        background-color: #8ab6ef13;
+        width:inherit;
+        height: fit-content;
+        // column-gap: .5rem;
+    }
     input{
         margin-bottom: 1rem;
     }
@@ -464,22 +1036,10 @@ select{
     .purchaseLabel{
         width: 170px;
     }
-    #delete{
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        
-    }
-    #delete{
-        border-radius: 20rem;
-        height: 2rem;
-        width: 2rem;
-        color: white;
-        // font-size: 3rem;
-        border-style: none;
-        
-    }
+   
+   
     #delete:hover{
-        background-color: rgb(143, 2, 2);
+        color: rgb(143, 2, 2);
     }
     
     .addItemLabel{
@@ -554,3 +1114,7 @@ select{
         // font-size: 1.1rem;
     }
 }
+.material-icons { font-size: 35px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }

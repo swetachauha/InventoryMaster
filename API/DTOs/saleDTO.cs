@@ -6,14 +6,14 @@ namespace API.DTOs
     {
       [Required]
        public string Customer_Name { get; set; }
-      [Required]
-       public string Address { get; set; }
-       [Required]
-        public string City { get; set; }
-      [Required]
-       public string GST_No { get; set; }
-      [Required]
-       public string Phone_No { get; set; }
+      // [Required]
+      //  public string Address { get; set; }
+      //  [Required]
+      //   public string City { get; set; }
+      // [Required]
+      //  public string GST_No { get; set; }
+      // [Required]
+      //  public string Phone_No { get; set; }
       [Required]
        public DateTime Sales_Date { get; set; }
       [Required]

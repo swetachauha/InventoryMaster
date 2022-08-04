@@ -9,7 +9,7 @@ namespace API.DTOs
     public class UploadImageDTO
     {
 
-        [Required]
-        public Byte[] image { get; set; }
+        
+        public string FirmLogo { get; set; }
     }
 }

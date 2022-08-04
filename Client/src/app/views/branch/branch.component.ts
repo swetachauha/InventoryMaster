@@ -35,7 +35,9 @@ export class BranchComponent implements OnInit {
       title: 'Added Successfully',
       icon: 'success',
       confirmButtonText: 'OK',
-    }).then(()=>{    window.location.reload();
+    }).then(()=>{  
+      this.branch={};
+      this.child?.AllBranch();
     });
 
       this.showFlashError=false;
@@ -124,7 +126,10 @@ export class BranchComponent implements OnInit {
             title: 'Editted Successfully',
             icon: 'success',
             confirmButtonText: 'OK',
-          }).then(()=>{ window.location.reload();});
+          }).then(()=>{
+            this.branch={};
+            this.child?.AllBranch();
+          });
         },(err:any)=>{
           console.log("error in component", err) ;
           if(err.status==400)

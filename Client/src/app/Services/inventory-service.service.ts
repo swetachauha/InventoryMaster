@@ -22,6 +22,14 @@ saveFirm(firm:any)
   return this.http.post("https://localhost:5001/firm",firm);
 
 }
+EditFirm(firm:any, pan_No:any)
+{
+  console.log("firm",firm);
+  console.log("id",pan_No);
+
+  return this.http.put("https://localhost:5001/firm/"+pan_No,firm);
+
+}
   saveUnit(unit:any)
   {
     return this.http.post("https://localhost:5001/unit",unit);
@@ -87,10 +95,26 @@ saveFirm(firm:any)
   {
     return this.http.get("https://localhost:5001/group/displayGroup/"+groupCategory)
   }
+  getUniqueGroup()
+  {
+    return this.http.get("https://localhost:5001/group/unique")
+  }
+  getGroupByCategory(groupCategory:any)
+  {
+    return this.http.get("https://localhost:5001/group/category/"+groupCategory);
+
+  }
   EditGroup(groupCategory:any,group:any)
   {
-      return this.http.put("https://localhost:5001/group/"+groupCategory,group);
+    
+      return this.http.put("https://localhost:5001/group/edit/"+groupCategory,group);
 
+  }
+  deleteGroup(groupCategory:any,group:any)
+  {
+    
+    return this.http.put("https://localhost:5001/group/delete/"+groupCategory,group);
+    
   }
   saveBank(bank:any):Observable<any>
   {
@@ -141,12 +165,19 @@ saveFirm(firm:any)
     return this.http.get("https://localhost:5001/item/displayItems/"+itemName);
 
   }
- 
-  UploadImage(image:any)
+  EditItem(itemId:any,item:any)
   {
-    return this.http.post("https://localhost:5001/firm/uploadImage",image);
+    console.log("itemEntity",item);
+      return this.http.put("https://localhost:5001/item/"+itemId,item);
 
   }
+ 
+  UploadImage(image:any,pan_No:any)
+  {
+    return this.http.put("https://localhost:5001/uploadImage/"+pan_No,image,{responseType: 'text'});
+
+  }
+ 
   Upload(image:any)
   {
     return this.http.post("https://localhost:5001/firm",image);
@@ -157,6 +188,12 @@ saveFirm(firm:any)
     return this.http.post("https://localhost:5001/party",party);
 
   }
+  EditParty(itemId:any,item:any)
+  {
+    return this.http.put("https://localhost:5001/party/"+itemId,item);
+
+  }
+  
   allParty()
   {
     return this.http.get("https://localhost:5001/party");
@@ -165,6 +202,13 @@ saveFirm(firm:any)
   getPartyByPhoneAndName(partyName:any,phone_No:any)
   {
     return this.http.get("https://localhost:5001/party/displayParty/"+partyName+"/"+phone_No);
+
+
+  }
+  getPartyByGST(gst:any)
+  {
+    return this.http.get("https://localhost:5001/party/getPartyByGST/"+gst);
+
 
   }
   savePurchase(purchase:any)
@@ -197,10 +241,31 @@ saveFirm(firm:any)
     return this.http.get("https://localhost:5001/transport");
 
   }
+  getTransporterByGSTNo(GST_No:any)
+  {
+    return this.http.get("https://localhost:5001/transport/getTransporterByGST/"+GST_No);
+
+  }
+  EditTransport(groupCategory:any,group:any)
+  {
+    
+      return this.http.put("https://localhost:5001/transport/"+groupCategory,group);
+
+  }
   saveSale(sale:any)
   {   
      return this.http.put("https://localhost:5001/sale/master",sale);
 
+
+  }
+  searchPurchaseReport(dateStart:any,dateEnd:any,itemName:any)
+  {
+    return this.http.get("https://localhost:5001/purchaseReport/"+dateStart+"/"+dateEnd+"/"+itemName);
+
+  }
+  searchSaleReport(dateStart:any,dateEnd:any,itemName:any)
+  {
+    return this.http.get("https://localhost:5001/saleReport/"+dateStart+"/"+dateEnd+"/"+itemName);
 
   }
   // savePurchaseTransaction(purchase:any)

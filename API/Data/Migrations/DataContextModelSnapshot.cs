@@ -65,8 +65,8 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entity.firmEntity", b =>
                 {
-                    b.Property<string>("FirmName")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Account_No")
                         .HasColumnType("nvarchar(max)");
@@ -98,11 +98,11 @@ namespace API.Data.Migrations
                     b.Property<string>("FirmLogo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("GST_No")
+                    b.Property<string>("FirmName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
+                    b.Property<string>("GST_No")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IFSC_Code")
                         .HasColumnType("nvarchar(max)");
@@ -116,7 +116,7 @@ namespace API.Data.Migrations
                     b.Property<string>("Website")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("FirmName");
+                    b.HasKey("ID");
 
                     b.ToTable("Firm");
                 });
@@ -156,6 +156,12 @@ namespace API.Data.Migrations
 
                     b.Property<DateTime>("CreatedAt_")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatedAt_")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("active")
+                        .HasColumnType("bit");
 
                     b.Property<string>("groupCategory")
                         .HasColumnType("nvarchar(max)");
@@ -239,6 +245,9 @@ namespace API.Data.Migrations
 
                     b.Property<decimal>("Sales_Rate")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Unit")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("groupName")
                         .HasColumnType("nvarchar(max)");
@@ -336,16 +345,7 @@ namespace API.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("purchaseID"), 1L, 1);
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Builty_No")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone_No")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Purchase_Invoice_Date")
@@ -554,28 +554,16 @@ namespace API.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Sales_Invoice_No"), 1L, 1);
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("Builty_Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Builty_No")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Customer_Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Document_Through")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GST_No")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone_No")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Purchase_Order_Date")
@@ -589,9 +577,6 @@ namespace API.Data.Migrations
 
                     b.Property<DateTime>("Sales_Invoice_Date")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Transport")
                         .HasColumnType("nvarchar(max)");

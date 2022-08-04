@@ -53,6 +53,7 @@ namespace API.DTOs
         // [Range(1, int.MaxValue, ErrorMessage = "Only positive number allowed")]
 
          public decimal Sales_Rate{ get; set; }
+         public string Unit { get; set; }
 
     }
 }

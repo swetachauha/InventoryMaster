@@ -36,10 +36,10 @@ namespace API.Controllers
                      var Sales = new SalesEntity
                 {
                     Customer_Name=SalesMasterDTO.Customer_Name,
-                    Address=SalesMasterDTO.Address,
-                    City=SalesMasterDTO.City,
-                    GST_No=SalesMasterDTO.GST_No,
-                    Phone_No=SalesMasterDTO.Phone_No,
+                    // Address=SalesMasterDTO.Address,
+                    // City=SalesMasterDTO.City,
+                    // GST_No=SalesMasterDTO.GST_No,
+                    // Phone_No=SalesMasterDTO.Phone_No,
                     Sales_Date=SalesMasterDTO.Sales_Date,
                     Purchase_Order_Date=SalesMasterDTO.Purchase_Order_Date,
                     Purchase_Order_no=SalesMasterDTO.Purchase_Order_No,
@@ -59,15 +59,23 @@ namespace API.Controllers
                 
             foreach(var item in SalesMasterDTO.SalesTransaction.AsList())
                 {
+                                    Console.WriteLine($"purchaseQuantity.Quantity ,{item.ItemName}");
+                    
                     var purchaseQuantity=await _context.PurchaseTransaction
                 .FirstOrDefaultAsync(e => e.ItemName == item.ItemName);
+                if(purchaseQuantity.ItemName!=item.ItemName)
+                {
+                    return NotFound("Item should be purchased before Sale !!");
+                }
+                                    // Console.WriteLine($"purchaseQuantity.Quantity ,{purchaseQuantity}")
+                                    // Console.WriteLine($"ITEMy.Quantity ,{item.Quantity}");
 
-                // if(purchaseQuantity.Quantity<item.Quantity)
-                // {
-                //     BadRequest("Sales could not greater than purchase");
-                // }
-                // else
-                // {
+                else if(purchaseQuantity.Quantity<item.Quantity)
+                {
+                    BadRequest("Sales could not greater than purchase");
+                }
+                else
+                {
               var SalesTran = new SalesTransactionEntity
                 {
                     Sales_Invoice_No=Sales.Sales_Invoice_No,
@@ -88,7 +96,7 @@ namespace API.Controllers
                 }
 
                 
-            // }
+             }
          
           
 

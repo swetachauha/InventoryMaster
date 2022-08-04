@@ -22,6 +22,10 @@ export class GroupComponent implements OnInit {
   showFlashError:boolean=false;
   buttonAdd:boolean=true;
   buttonEdit:boolean=false;
+  activeGroupList:any=[];
+  edit:boolean=false;
+  groupbyCategory:any={};
+  uniqueGroup:any=[];
 
   constructor(private service:InventoryServiceService) { }
 
@@ -45,7 +49,9 @@ export class GroupComponent implements OnInit {
         title: 'Added Successfully',
         icon: 'success',
         confirmButtonText: 'OK',
-      }).then(()=>{    window.location.reload();
+      }).then(()=>{    
+        this.group={};
+        this.child?.AllGroup();
       });
       this.showFlash=true;
       this.showFlashError=false;
@@ -96,36 +102,46 @@ export class GroupComponent implements OnInit {
    return this.service.AllGroup().subscribe(res=>{
      console.log("res",res);
      this.getGroups=res;
-     for(var i=0 ;i<this.getGroups.length ; i++)
-     {
-       console.log("for",this.getGroups.length);
-      //  if(this.getGroups[i].groupCategory=='' && this.getGroups[i].groupName=="Primary" )
-      //  {
-      //   console.log("Primary");
-
-      //  }
+     
+     
+    //  for(var i=0 ;i<this.getGroups.length ; i++)
+    //  {
+    //   if(this.getGroups[i].active==true)
+    //     {
+    //       this.activeGroupList.push(this.getGroups[i]);
+    //       console.log("ACTIVE",this.activeGroupList)
+    //     }
       
-      for(var j=i+1 ; j<this.getGroups.length ;j++)
-      {
-        console.log("groupCategory",this.getGroups[i].groupCategory);
+    //   for(var j=i+1 ; j<this.activeGroupList.length ;j++)
+    //   {
+    //     console.log("groupCategory",this.activeGroupList[i].groupCategory);
 
-        console.log("groupName",this.getGroups[j].groupName);
+    //     console.log("groupName",this.activeGroupList[j].groupName);
 
-        if(this.getGroups[j].groupName==this.getGroups[i].groupCategory)
-        {
-          console.log("hello");
-          this.getGroups[j].groupName=this.getGroups[i].groupName  + "/" +this.getGroups[i].groupCategory
+    //     if(this.activeGroupList[j].groupName==this.activeGroupList[i].groupCategory) 
+    //     {
+    //       console.log("hello");
+    //       this.activeGroupList[j].groupName=this.activeGroupList[i].groupName  + "/" +this.activeGroupList[i].groupCategory
 
-        }
-        else{
-          console.log(" nithello");
-        }
-      }
+    //     }
+    //     else{
+    //       console.log(" nithello");
+    //     }
+    //   }
        
    
-     };
-     console.log("fghj");
+    //  };
+    //  console.log("fghj");
    })
+ }
+ getUniueGroup()
+ {
+  return this.service.getUniqueGroup().subscribe(res=>
+    {
+      console.log("uniquegroup",res);
+      this.uniqueGroup=res;
+    }
+  )
  }
  getWholegroup(event:any)
  {
@@ -150,10 +166,16 @@ export class GroupComponent implements OnInit {
  
    }
 
-   EditGroup(group:any)
+   EditGroup(event:any)
    {
-     console.log("groupid",this.group.groupId);
-     if(this.group.groupName=='' ||this.group.FirmName==''|| this.group.Address=='' || this.group.City==''  || this.group.groupId=='')
+
+  
+   console.log("edit",this.child?.groupCatrTarget);
+   this.service.getGroupByCategory(this.child?.groupCatrTarget).subscribe(res=>{
+    console.log("targ",res);
+    this.groupbyCategory=res;
+    console.log("targ",this.groupbyCategory.groupId);
+    if( this.group.groupCategory=='')
      {
        this.errorMessage="Please fill all the fields";
        this.showFlashError=true;
@@ -161,7 +183,8 @@ export class GroupComponent implements OnInit {
        return false;
      }
      else{
-       return this.service.EditGroup(this.group.groupId,this.group).subscribe(res=>
+      console.log("targ",this.groupbyCategory.groupId);
+       return this.service.EditGroup(this.groupbyCategory.groupId,this.group).subscribe(res=>
          { 
            
      
@@ -171,7 +194,12 @@ export class GroupComponent implements OnInit {
            title: 'Editted Successfully',
            icon: 'success',
            confirmButtonText: 'OK',
-         }).then(()=>{ window.location.reload();});
+         }).then(()=>{ 
+          this.buttonAdd=true;
+          this.buttonEdit=false;
+          this.group={};
+        this.child?.AllGroup();
+         });
        },(err:any)=>{
          console.log("error in component", err) ;
          if(err.status==400)
@@ -194,7 +222,7 @@ export class GroupComponent implements OnInit {
          }
          else if(err.status==404 )
          {
-           this.errorMessage=" IFSC Code not found !!";
+           this.errorMessage=" Group category not found !!";
            this.showFlashError=true;
            this.showFlash=false;
          }
@@ -208,6 +236,30 @@ export class GroupComponent implements OnInit {
         
        })
      }
+   })
+  
    }
+   getGroupDataToInput(event:any)
+
+   {
+    
+    
+   this.edit=true;
+      
+   
+    this.group.groupName=(<HTMLSelectElement>document.getElementsByClassName('selectGroupName')).value=this.child?.dataintext.groupName;
+    this.group.groupCategory=(<HTMLInputElement>document.getElementById('groupCategory')).value=this.child?.dataintext.groupCategory;
+    this.buttonAdd=false;
+    this.buttonEdit=true;
+    // console.log("groupinput",this.group.IFSC_Code)
+    console.log("resgroupbycatr",event.target.value);
+
+   
+   
+     }
 
 }
+function e(e: any) {
+  throw new Error('Function not implemented.');
+}
+

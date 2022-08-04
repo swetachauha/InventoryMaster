@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
@@ -111,6 +112,7 @@ namespace API.Controllers
 
             return await  _context.Firm.ToListAsync();
         }
+        
           [HttpGet("{firmGSTNo}")]
 
         public async Task<firmEntity> GetItemByName(string firmGSTNo)
@@ -125,40 +127,44 @@ namespace API.Controllers
             return await _context.Firm
                 .FirstOrDefaultAsync(e => e.PAN_No == PAN_No);
         }
-     [HttpPut("{PAN_No}")]
-        public async Task<ActionResult<firmEntity>> UpdateBank(string PAN_No, firmEntity firmEntity)
+
+
+        
+     [HttpPut("{id}")]
+        public async Task<ActionResult<firmEntity>> UpdateBank(int id, FirmDTO firmEntity)
         {
            
-                Console.WriteLine($"FROM BODY { PAN_No}");
-                 Console.WriteLine($"DB ITEMNAME { firmEntity.PAN_No}");
+                // Console.WriteLine($"FROM BODY { PAN_No}");
+                //  Console.WriteLine($"DB ITEMNAME { firmEntity.PAN_No}");
+                // var result = await _context.Firm
+                //             .FirstOrDefaultAsync(e => e.PAN_No == firmEntity.PAN_No);
 
-                if (PAN_No != firmEntity.PAN_No)
+// if pan no is present in db
+                // if (PAN_No != result.PAN_No)
+                // {
+                //     Console.WriteLine($"PAN_No {PAN_No}");
+                //     Console.WriteLine($"firmEntity.PAN_No {firmEntity.PAN_No}");
+
+                //     return BadRequest("PAN_No not found");
+                // }
+                var result=await _context.Firm
+                .FirstOrDefaultAsync(e => e.ID == id);
+                    Console.WriteLine($"bankToUpdate {result.FirmName}");
+// get firm data having above panno
+               if (result == null)
                 {
-                    Console.WriteLine($"PAN_No {PAN_No}");
-                     Console.WriteLine($"firmEntity.PAN_No {firmEntity.PAN_No}");
-
-                    return BadRequest("PAN_No not found");
+                    return NotFound("PAN_No not found");
                 }
-
-                var bankToUpdate = await getFirmByPAN_No(PAN_No);
-                    Console.WriteLine($"bankToUpdate {bankToUpdate}");
-
-               if (bankToUpdate == null)
-                {
-                    return NotFound($"Item of name {PAN_No} not found");
-                }
-                var result = await _context.Firm
-                            .FirstOrDefaultAsync(e => e.PAN_No == firmEntity.PAN_No);
-                                                Console.WriteLine($"result {result.FirmName}");
-
-                if (result != null)
+               
+                else
+                // if (result != null)
                 {
                     result.FirmLogo = firmEntity.FirmLogo;
                     result.FirmName=firmEntity.FirmName;
 
                      result.FirmAddress = firmEntity.FirmAddress;
                      result.FirmLocation=firmEntity.FirmLocation;
-                     result.GST_No=firmEntity.GST_No;
+                     result.GST_No=result.GST_No;
                      result.PAN_No=firmEntity.PAN_No;
                      result.Reg_no=firmEntity.Reg_no;
                      result.FSSAI_No=firmEntity.FSSAI_No;
@@ -174,17 +180,13 @@ namespace API.Controllers
                      Console.WriteLine($"result4 {result.IFSC_Code}");
 
                     //  _context.Firm.Update(result);
-                    try
-                    {
+                   
+
                      await _context.SaveChangesAsync();
                      Console.WriteLine($"result3 {result.FirmName}");
 
                     return result;
-                    }
-                     catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data");
-            }
+          
                     
                 }
                 return null;

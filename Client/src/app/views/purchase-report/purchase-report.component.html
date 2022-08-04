@@ -1,4 +1,4 @@
-
+<!-- 
 
 
 <div class="row m-0 p-4">
@@ -11,8 +11,7 @@
           <div class="col-md-3 col-12">
               <mat-form-field>
                   <mat-label>From</mat-label>
-                  <input matInput [matDatepicker]="mypicker"[(ngModel)]="purchaseReport.dateStart"  min="{{minDate}}">
-                  <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                  <input matInput [matDatepicker]="mypicker"[(ngModel)]="purchaseReport.fromDate"  min="{{minDate}}">
                   <mat-datepicker-toggle  [for]="mypicker" matSuffix></mat-datepicker-toggle>
                   <mat-datepicker #mypicker></mat-datepicker>
                 </mat-form-field>
@@ -21,8 +20,7 @@
           <div class="col-md-3 col-12">
               <mat-form-field  >
                   <mat-label>To</mat-label>
-                  <input matInput [matDatepicker]="picker"[(ngModel)]="purchaseReport.dateEnd" min="{{minDate}}">
-                  <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                  <input matInput [matDatepicker]="picker"[(ngModel)]="purchaseReport.toDate" min="{{minDate}}">
                   <mat-datepicker-toggle  [for]="picker" matSuffix></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -33,7 +31,6 @@
           <div class="col-md-3 col-12">
               <label >Item</label><br>
               <select  [(ngModel)]="purchaseReport.itemName" class="select">
-                  <!-- <option id="groupSelect" *ngFor="let item of getItemList"  value={{item.itemName}}>{{item.itemName}}</option> -->
                   
               </select>
           </div>
@@ -78,7 +75,6 @@
           <th>Item</th>
           <th>Quantity</th>
       
-          <!-- <th style="display: none"></th>  -->
         </thead>
         <tbody >
           <tr  *ngFor="let purchases of getPurchaseReportList | paginate:{
@@ -97,7 +93,6 @@
           <p>{{noData}}</p>
         </tbody>
       </table>
-      <!-- </div> -->
       
       
     </div>
@@ -106,4 +101,119 @@
   </div>
   </div>
   
-  
+   -->
+
+   
+   <div *ngIf="showFlash" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Successfully Added !!</strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <div *ngIf="showFlashError" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error !!</strong>&nbsp;{{errorMessage}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<div class=" m-0 ">
+  <div class="col-md-12 border card ">
+
+    <div class="card-header">
+      Purchase Report
+    </div>
+    <div class="card-body row m-0">
+        <div class="col-md-4 col-12">
+            <mat-form-field>
+                <mat-label style="text-align: left;">From</mat-label><br>
+                <input matInput [matDatepicker]="mypicker"[(ngModel)]="purchaseReport.dateStart"  [max]="today" placeholder={{maxDate}}>
+                <mat-datepicker-toggle  [for]="mypicker" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #mypicker></mat-datepicker>
+              </mat-form-field>
+              
+        </div>
+        <div class="col-md-4 col-12">
+            <mat-form-field  >
+                <mat-label>To</mat-label><br>
+                <input matInput [matDatepicker]="picker"[(ngModel)]="purchaseReport.dateEnd" [max]="today" placeholder={{maxDate}}>
+                <mat-datepicker-toggle  [for]="picker" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              
+        </div>      
+        <div class="col-md-4 col-12">
+          <mat-form-field  >
+            <mat-label>Item</mat-label><br>
+            <select  [(ngModel)]="purchaseReport.itemName" class="select">
+              <option>Select</option>
+                <option id="groupSelect" *ngFor="let item of getItemList"  value={{item.itemName}}>{{item.itemName}}</option>
+                
+            </select>
+          </mat-form-field  >
+
+        </div>
+        
+        
+<div class="button">
+  <button id="save"(click)="searchPurchaseReport()">Search</button>
+
+</div>
+
+    </div>
+
+
+    <div class="tabl  row p-2 m-0" *ngIf="showTable">
+        <div class="col-md-6 col-4">
+          Show:
+          <select (change)="OnTableSizeChange($event)">
+            <option *ngFor="let no of tableSizes">{{no}}</option>
+          </select>
+          entries
+        </div>
+    
+    
+        <div  class="col-md-6 col-8">
+          <pagination-controls  class="float-end"
+            previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="OnTableDataChange($event)">
+          </pagination-controls>
+    
+      </div>
+     
+     
+      <div class="table-responsive ">
+        <table datatable [dtOptions]="dtOptions" 
+         class="table border table-striped table-bordered table-sm row-border hover">
+        
+        <thead>
+        <th>SN</th>
+        <th>Purchase Order Date </th>
+        <th>Item</th>
+        <th>Vendor</th>
+        <th>Quantity</th>
+    
+        <!-- <th style="display: none"></th>  -->
+      </thead>
+      <tbody >
+        <tr  *ngFor="let purchases of getPurchaseReportList | paginate:{
+            itemsPerPage : tableSize,
+            currentPage:page,
+            totalItems:count};   let i=index" >
+            <td>{{i+1}}</td>
+          <td>{{purchases.purchase_Order_Date | date :'yyyy-MM-dd'}}</td>
+          <td>{{purchases.itemName}}</td>
+          <td>{{purchases.vendor_Name}}</td>
+          <td>{{purchases.quantity}}{{purchases.unit}}</td>
+         
+        </tr>
+      </tbody>
+      <tbody *ngIf="!isData">
+        <p>{{noData}}</p>
+      </tbody>
+    </table>
+    <!-- </div> -->
+    
+    
+  </div>
+    
+</div>  
+</div>
+</div>
+

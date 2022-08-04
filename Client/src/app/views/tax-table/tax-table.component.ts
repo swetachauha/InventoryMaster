@@ -23,7 +23,7 @@ export class TaxTableComponent implements OnInit {
   noData:string | undefined;
   date:Date| undefined;
   dataintext:any;
-
+  searchText='';
 
   constructor(private service:InventoryServiceService) { }
 
@@ -63,9 +63,9 @@ export class TaxTableComponent implements OnInit {
  }
  edit(taxType:any)
  {
-  console.log("GETTAX",taxType.target.value);
+  console.log("GETTAX",taxType);
 
-   return this.service.getTaxByType(taxType.target.value).subscribe(res=>{
+   return this.service.getTaxByType(taxType).subscribe(res=>{
  
        console.log("getBranchbyid",res);
        this.dataintext=res;
@@ -73,4 +73,33 @@ export class TaxTableComponent implements OnInit {
       
    })
  }
+ search(){
+  if(this.searchText!== "")
+  {
+    let searchValue = this.searchText.toLocaleLowerCase();
+   
+    this.getTax = this.getTax.filter((contact:any) =>
+    {
+      if(!contact.taxType.toLocaleLowerCase().match(searchValue ))
+      {
+        this.isData=false;
+        this.noData="Data Not Found";
+      }
+      else
+      {
+        return contact.taxType.toLocaleLowerCase().match(searchValue );
+
+      }
+    
+     });
+          
+    }
+     else 
+     { 
+      this.service.AllTax().subscribe(res=>{
+        this.getTax=res;
+        
+      });
+     } 
+    }
 }

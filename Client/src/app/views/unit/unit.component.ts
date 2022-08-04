@@ -36,7 +36,9 @@ export class UnitComponent implements OnInit {
         title: 'Added Successfully',
         icon: 'success',
         confirmButtonText: 'OK',
-      }).then(()=>{    window.location.reload();
+      }).then(()=>{    
+        this.unit={};
+        this.child?.AllUnits();
       });
       this.showFlashError=false;
       this.unit='';
@@ -111,7 +113,11 @@ export class UnitComponent implements OnInit {
             title: 'Editted Successfully',
             icon: 'success',
             confirmButtonText: 'OK',
-          }).then(()=>{ window.location.reload();});
+          }).then(()=>{ 
+            this.buttonAdd=true;
+            this.buttonEdit=false;
+            this.unit={};
+            this.child?.AllUnits();          });
         },(err:any)=>{
           console.log("error in component", err) ;
           if(err.status==400)

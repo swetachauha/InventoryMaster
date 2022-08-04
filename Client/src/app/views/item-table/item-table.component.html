@@ -1,7 +1,7 @@
 
 
 <div class="row m-0 p-2">
-    <div class="col-md-6 col-4">
+    <div class="col-md-4 col-4">
       Show:
       <select (change)="OnTableSizeChange($event)">
         <option *ngFor="let no of tableSizes">{{no}}</option>
@@ -9,8 +9,9 @@
       entries
     </div>
 
+    <input class="col-md-4 col-4 mt-2 mb-2" id="searchInput" type="text" [(ngModel)]="searchText"  (input)="search()" placeholder="Search by Item Name" /> 
 
-    <div class="col-md-6 col-8">
+    <div class="col-md-4 col-8">
       <pagination-controls class="float-end"
         previousLabel="Prev"
         nextLabel="Next"
@@ -36,10 +37,11 @@
     <th>CGST</th>
     <th>SGST</th>
     <th>Cess</th>
-    <th>Execise</th>
     <th>Purchase_Rate</th>
     <th>Margin</th>
     <th>Sales Rate</th>
+    <th>Unit</th>
+    <th>Edit</th>
 
     <!-- <th style="display: none"></th>  -->
   </thead>
@@ -53,17 +55,24 @@
       <td>{{item.groupName}}</td>
       <td>{{item.hsN_No}}</td>
       <td>{{item.bar_Code}}</td>
-      <th>{{item.igst}}</th>
-      <th>{{item.cgst}}</th>
-      <th>{{item.sgst}}</th>
+      <td>{{item.igst}}</td>
+      <td>{{item.cgst}}</td>
+      <td>{{item.sgst}}</td>
 
-      <th>{{item.cess}}</th>
+      <td>{{item.cess}}</td>
 
-      <th>{{item.execise}}</th>
-      <th>{{item.purchase_Rate}}</th>
-      <th>{{item.margin}}</th>
-      <th>{{item.sales_Rate}}</th>
+      <td>{{item.purchase_Rate}}</td>
+      <td>{{item.margin}}</td>
+      <td>{{item.sales_Rate}}</td>
+      <td>{{item.unit}}</td>
+      <td>
+        <button  (click)="edit(item.itemName)"  >
+          <mat-icon style="color:green;">
+            edit
+          </mat-icon>
+        </button>
 
+      </td>
 
       
         <!-- <i class="fa-solid fa-trash-can" style="color:red" (click)="deleteItem()"></i></td> -->

@@ -33,7 +33,9 @@ export class TaxSlabComponent implements OnInit {
         title: 'Added Successfully',
         icon: 'success',
         confirmButtonText: 'OK',
-      }).then(()=>{    window.location.reload();
+      }).then(()=>{    
+        this.tax={};
+        this.child?.AllTax();
       });
       // this.child?.AllTax();
       // this.showFlash=true;
@@ -120,7 +122,8 @@ export class TaxSlabComponent implements OnInit {
             title: 'Editted Successfully',
             icon: 'success',
             confirmButtonText: 'OK',
-          }).then(()=>{ window.location.reload();});
+          }).then(()=>{ this.tax={};
+          this.child?.AllTax();});
         },(err:any)=>{
           console.log("error in component", err) ;
           if(err.status==400)
@@ -158,5 +161,5 @@ export class TaxSlabComponent implements OnInit {
         })
       }
     }
-
+   
 }

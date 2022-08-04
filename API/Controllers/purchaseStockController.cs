@@ -32,7 +32,7 @@ namespace API.Controllers
             {
                 var itemname=item.itemName;
                 var query=$"Execute getOpeningQuantityFromItems @itemName="+@itemname;
-                var q2="Select Items.itemName , Items.openingQuantity, PurchaseTotal.total from Items i INNER JOIN PurchaseTotal p ON i.itemName=p.itemName";
+                // var q2="Select Items.itemName , Items.openingQuantity, PurchaseTotal.total from Items i INNER JOIN PurchaseTotal p ON i.itemName=p.itemName";
                 using (var connection = _context.CreateConnection())
                 {
                      openingQuantity = await connection.QueryAsync<ItemDTO>(query);

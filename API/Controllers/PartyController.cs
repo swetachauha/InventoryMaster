@@ -80,50 +80,47 @@ namespace API.Controllers
                 .FirstOrDefaultAsync();
                 
         }
-
+[HttpGet("getPartyByGST/{GST_No}")]
+  public async Task<PartyEntity> getPartyByGST(string GST_No)
+        {
+            return await _context.Party.Where(e => e.GST_No== GST_No)
+                .FirstOrDefaultAsync();
+                
+        }
     
-    //  [HttpPut("{IFSC_Code}")]
-    //     public async Task<ActionResult<PartyEntity>> UpdateParty(string IFSC_Code, PartyEntity PartyEntity)
-    //     {
-    //         try
-    //         {
-    //             // Console.WriteLine($"FROM BODY { itemId}");
-    //             //  Console.WriteLine($"DB ITEMNAME { itemsEntity.itemId}");
+     [HttpPut("{partyId}")]
+        public async Task<ActionResult<PartyEntity>> UpdateParty(int partyId, PartyEntity PartyEntity)
+        {
+            try
+            {
+                var result = await _context.Party
+                            .FirstOrDefaultAsync(e => e.ID == partyId);
+                if (result != null)
+                {
+                    result.Party_Name=PartyEntity.Party_Name;
+                    result.Party_Type=PartyEntity.Party_Type;
+                    result.GST_No=PartyEntity.GST_No;
+                    result.PAN_No=PartyEntity.PAN_No;
+                    result.Contact_Person=PartyEntity.Contact_Person;
+                    result.Phone_No=PartyEntity.Phone_No;
+                    result.Email=PartyEntity.Email;
+                    result.Party_Address = PartyEntity.Party_Address;
+                    result.City=PartyEntity.City;
+                    result.State=PartyEntity.State;
+                    result.PIN_No=PartyEntity.PIN_No;
 
-    //             if (IFSC_Code != PartyEntity.IFSC_Code)
-    //             {
-    //                 Console.WriteLine($"IFSC_Code {IFSC_Code}");
-    //                  Console.WriteLine($"PartyEntity.IFSC_Code {PartyEntity.IFSC_Code}");
 
-    //                 return BadRequest("IFSC_Code not found");
-    //             }
+                    await _context.SaveChangesAsync();
+                    return result;
+                }
+                return null;
 
-    //             var PartyToUpdate = await getPartyByIFSC(IFSC_Code);
-
-    //            if (PartyToUpdate == null)
-    //             {
-    //                 return NotFound($"Item of name {IFSC_Code} not found");
-    //             }
-    //             var result = await _context.Party
-    //                         .FirstOrDefaultAsync(e => e.IFSC_Code == PartyEntity.IFSC_Code);
-    //             if (result != null)
-    //             {
-    //                 result.PartyName=PartyEntity.PartyName;
-    //                 result.IFSC_Code = PartyEntity.IFSC_Code;
-    //                 result.Address = PartyEntity.Address;
-    //                 result.City=PartyEntity.City;
-
-    //                 await _context.SaveChangesAsync();
-    //                 return result;
-    //             }
-    //             return null;
-
-    //         }
-    //         catch (Exception)
-    //         {
-    //             return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data");
-    //         }
-    //     }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data");
+            }
+        }
 
     }
 }

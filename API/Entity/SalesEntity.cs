@@ -12,11 +12,11 @@ namespace API.Entity
        
        
         public string Customer_Name{ get; set; }
-        public string Address{ get; set; }
-        public string City{ get; set; }
-        public string State{ get; set; }
-        public  string GST_No { get; set; }
-        public string Phone_No{ get; set; }
+        // public string Address{ get; set; }
+        // public string City{ get; set; }
+        // public string State{ get; set; }
+        // public  string GST_No { get; set; }
+        // public string Phone_No{ get; set; }
         public string Purchase_Order_no{ get; set; }
         public string Builty_No{ get; set; }
         public string Transport{ get; set; }

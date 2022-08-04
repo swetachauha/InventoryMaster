@@ -1,44 +1,70 @@
+<div *ngIf="showFlash" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Submitted </strong> 
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <div *ngIf="showFlashError" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error !!</strong>&nbsp;{{errorMessage}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+
 <div class="row  m-0 p-2">
     <div class="row firm col-md-12 border card p-0">
         <div class="card-header">
             <strong>About Firm</strong>
+            <h6 class="m-0 col-md-9 col-10 float-end" >
+                <span >
+                    <div class="example-container" cdkScrollable>
+                      
+                        <button  (click)="edit()"*ngIf="!clickedEdit" style="background-color: transparent; border:none;" mat-raised-button matTooltip="Edit" matTooltipClass="example-tooltip-red"aria-label="Button that shows a red tooltip"class="example-button">
+                           
+                                <span class="material-icons">
+                                edit
+                                </span>
+                        </button>
+                               
+                  
+
+                        <button style="background-color: transparent; border:none;" mat-raised-button matTooltip="Click to update" matTooltipClass="example-tooltip-red" aria-label="Button that shows a red tooltip" class="example-button">
+                            <i class="fa fa-check fa-2x" *ngIf="clickedEdit" style="color: green; cursor: pointer;" (click)="updated()">
+                            </i>
+                        </button>
+                      </div>
+              
+
+            </span>
+        </h6>
         </div>
-        <div class="card-body row m-0 p-2" *ngIf="!saved">
+        <!-- <div class="card-body row m-0 p-2" *ngIf="!saved">
             <div class="first col-md-6 col-12 m-0 p-2" >
                 <div class="col-md-12 border card p-3" style="background-color: #f4f5f7d7;">
                     <div class="name">
                         <label>Firm Logo :</label>
                         <div class="col-md-12 border card p-2">
-                            <!-- <img class="img-responsive img-thumbnail" [src]="image" height="150"> -->
 
                             <input [(ngModel)]="firm.FirmLogo" type="file" name="Image" id="Image" class="form-control mt-3 mb-2"  formControlName="ImageUrl" >
                             
-                            <img [src]="image" height="150" >
-                            <!-- <button type="submit" class="btn btn-primary btn-block mt-3" (click)="UploadImage()">Submit</button> -->
+                            <img src="data:image/png;base64,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" height="150" >
                            
                         </div>
 
 
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
 
                     </div>
                     <br>
                     <div class="row name m-0 ">
                         <label class="m-0 col-md-4 col-4">Firm Name :</label>
                         <input type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.FirmName">
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                     </div>
                     <br>
                     <div class=" row address m-0">
                         <label class="m-0 col-md-4 col-4">Firm Address :</label>
                         <textarea class=" col-md-4 col-4" [(ngModel)]="firm.FirmAddress"></textarea>
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                     </div>
                     <br>
                     <div class=" row map m-0">
                         <label class="m-0 col-md-4 col-4">Firm Location :</label>
                         <div class="m-0 col-md-4 col-4"></div>
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span>Edit</span></h6>
 
                     </div>
                     <br>
@@ -58,25 +84,21 @@
                     <div class="row gst m-0 ">
                         <label class="m-0 col-md-4 col-12 ">GST No :</label>
                         <input [(ngModel)]="firm.GST_No" type="text" class="m-0 col-md-4 col-4 " >
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                     </div>
                     <br>
                     <div class="row pan m-0 ">
                         <label class="m-0 col-md-4 col-12 ">PAN No :</label>
                         <input [(ngModel)]="firm.PAN_No" type="text" class="m-0 col-md-4 col-4 ">
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                     </div>
                     <br>
                     <div class="row reg m-0 ">
                         <label class="m-0 col-md-4 col-12">Registration No :</label>
                         <input [(ngModel)]="firm.Reg_no" type="text" class="m-0 col-md-4 col-4 ">
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                     </div>
                     <br>
                     <div class="row fssai m-0 ">
                         <label class="m-0 col-md-4 col-12 ">FSSAI No :</label>
                         <input [(ngModel)]="firm.FSSAI_No" type="text" class="m-0 col-md-4 col-4 ">
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                     </div>
                     <br>
                    </div>
@@ -88,25 +110,21 @@
                     <div class="row namePerson m-0 ">
                         <label class="m-0 col-md-4 col-12 ">Contact Person  :</label>
                         <input [(ngModel)]="firm.Contact_Person" type="text" class="m-0 col-md-4 col-4">
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                     </div>
                     <br>
                     <div class="row mobile m-0 ">
                         <label class="m-0 col-md-4 col-12 ">Mobile No :</label>
                         <input [(ngModel)]="firm.Contact_Mobile" type="text" class="m-0 col-md-4 col-4 ">
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                     </div>
                     <br>
                     <div class="row email m-0 ">
                         <label class="m-0 col-md-4 col-12 ">Email :</label>
                         <input [(ngModel)]="firm.Email" type="text" class="m-0 col-md-4 col-4 ">
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                     </div>
                     <br>
                     <div class="row website m-0 ">
                         <label class="m-0 col-md-4 col-12 ">Website :</label>
                         <input [(ngModel)]="firm.Website" type="text" class="m-0 col-md-4 col-4 ">
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                     </div>
                     <br>
                    </div>
@@ -122,25 +140,21 @@
                             <option>------------------Select--------------------</option>
                             <option *ngFor="let bank of banks"  value={{bank.bankName}}>{{bank.bankName}}</option>
                         </select>
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                      </div>
                      <br>
                      <div class="row account m-0 ">
                         <label class="m-0 col-md-4 col-4 ">Account No :</label>
                         <input [(ngModel)]="firm.Account_No" type="text" class="m-0 col-md-4 col-4 ">
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                      </div>
                      <br>
                      <div class="row ifsc m-0 ">
                         <label class="m-0 col-md-4 col-4 ">IFSC Code :</label>
                         <input [(ngModel)]="firm.IFSC_Code" type="text" class="m-0 col-md-4 col-4 ">
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                      </div>
                      <br>
                      <div class=" row address m-0">
                         <label class="m-0 col-md-4 col-4">Bank Address :</label>
                         <textarea class="m-0 col-md-4 col-4"  [(ngModel)]="firm.Bank_Address"></textarea>
-                        <!-- <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6> -->
                     </div>
                      <br>
                     </div>
@@ -149,49 +163,56 @@
             <div class=" button ">
                 <button id="save" (click)="saveFirm()">Submit</button>
             </div>
-        </div>
+        </div> -->
 
 
-        <div class="card-body row m-0 p-2" *ngIf="saved">
+        <div class="card-body row m-0 p-4" *ngIf="!saved">
             <div class="first col-md-6 col-12 m-0 p-2" >
                 <div class="col-md-12 border card p-3" style="background-color: #f4f5f7d7;">
-                    <div class="name">
-                        <label class="coloured">Firm Logo :</label>
-                        <div class="col-md-12 border card p-2">
+                    <div class="logo">
+                        <label class="coloured">Firm Logo          :</label>
+                        <div class="col-md-12 card p-2" style="background-color: transparent;border: none;">
                             <!-- <img class="img-responsive img-thumbnail" [src]="image" height="150"> -->
-
-                            <input [(ngModel)]="firm.FirmLogo" type="file" name="Image" id="Files" class="form-control mt-3 mb-2"   (change)="onFileChanged($event)">
-
-                            <img [src]="image" height="150" >
-                            <!-- <button type="submit" class="btn btn-primary btn-block mt-3" (click)="UploadImage()">Submit</button> -->
+                            <div class="image col-md-12 border card p-0">
+                                <img [src]="image" height="200">
+                            </div>
+                            <div class="buttons row " >
+                                <div class="fileselect col-md-6  col-6"  *ngIf="choose" >
+                                    <input  [(ngModel)]="firm.FirmLogo" type="file"  id="Files" class="form-control"   (change)="onFileSelected($event)" style="background-image: none;color:white;width: 10rem;">
+                                    Edit Logo
+                                </div>
+                                <div class="col-md-6  col-6" *ngIf="!choose">
+                                    <button  type="submit" class="submit  col-md-6 col-lg-6 col-sm-12" (click)="upload()">Upload Logo</button>
+                                </div>
+                                <div class="col-md-6 col-6">
+                                    <button type="submit" class="submit col-md-6 col-lg-6 col-sm-12" (click)="remove()">Remove Logo</button>
+                                </div>
+    
+                            </div>
+                                                        <!-- <img src="data:image/png;base64,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" height="150" > -->
                            
                         </div>
-
-
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+<br>
+                       
 
                     </div>
                     <br>
                     <div class="row name m-0 ">
-                        <label class="m-0 col-md-4 col-4" class="coloured">Firm Name :</label>
-                        <label  class="m-0 col-md-4 col-4" [(ngModel)]="firm.Firm_Name" id="1" *ngIf="!editContent">{{firmDetails[0].firmName}}</label>
-                        <input type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.FirmName"  *ngIf="editContent" id="fname">
+                        <label class="m-0 col-md-4 col-4" class="coloured">Firm Name </label>:
+                        <input autocomplete="on" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.FirmName" >
 
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >
-                            <button (click)="edit()"*ngIf="!clickedEdit" >Edit</button>
-                            <i class="fa fa-check fa-1.5x" *ngIf="clickedEdit" style="color: green;" (click)="updated()"></i></span></h6>
+                       
                     </div>
                     <br>
                     <div class=" row address m-0">
-                        <label class="m-0 col-md-4 col-4" class="coloured">Firm Address :</label>
-                        <label class=" col-md-4 col-4" >{{firmDetails[0].firmAddress}}</label>
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                        <label class="m-0 col-md-4 col-4" class="coloured">Firm Address </label>:
+                        <textarea class=" col-md-4 col-4" [(ngModel)]="firm.FirmAddress"></textarea>
+
                     </div>
                     <br>
                     <div class=" row map m-0">
-                        <label class="m-0 col-md-4 col-4" class="coloured">Firm Location :</label>
+                        <label class="m-0 col-md-4 col-4" class="coloured">Firm Location </label>:
                         <div class="m-0 col-md-4 col-4"></div>
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span>Edit</span></h6>
 
                     </div>
                     <br>
@@ -205,97 +226,278 @@
                 </div>
             </div>
             <div class="second col-md-6 col-12 m-0 p-2" >
-                <div class="col-md-12 border card p-3" style="background: radial-gradient(#f4f5f7d7, transparent);">
+                <div class="col-md-12 border card " style="background: radial-gradient(#f4f5f7d7, transparent);">
                    <div class=" tax">
                     <h4>Tax Info</h4>
                     <div class="row gst m-0 ">
-                        <label class="m-0 col-md-4 col-4 " class="coloured" >GST No :</label>
-                        <label  class="m-0 col-md-4 col-4 " id="GST" >{{firmDetails[0].gsT_No}}</label>
-                        <!-- <select [(ngModel)]="firm.GST_No" class="m-0 col-md-4 col-4 ">
-                            <option *ngFor="let firm of firmGST">{{firm.gsT_No}}</option>
-                        </select> -->
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                        <label class="m-0 col-md-6 col-4 col-lg-6 " class="coloured" >GST No </label>:
+                        <input autocomplete="on" [(ngModel)]="firm.GST_No" type="text" class="m-0 col-md-6 col-4 col-lg-6 " oninput="this.value = this.value.toUpperCase()" >
+
                     </div>
                     <br>
                     <div class="row pan m-0 ">
-                        <label class="m-0 col-md-4 col-4 " class="coloured">PAN No :</label>
-                        <label   class="m-0 col-md-4 col-4 ">{{firmDetails[0].paN_No}}</label>
-                        <!-- <label  class="m-0 col-md-4 col-4">{{firmDetails[0].firmName}}</label> -->
+                        <label class="m-0 col-md-4 col-4 " class="coloured">PAN No </label>:
+                        <input autocomplete="on" [(ngModel)]="firm.PAN_No" type="text" class="m-0 col-md-4 col-4 " oninput="this.value = this.value.toUpperCase()">
 
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
                     </div>
                     <br>
                     <div class="row reg m-0 ">
-                        <label class="m-0 col-md-4 col-12" class="coloured">Registration No :</label>
-                        <label   class="m-0 col-md-4 col-4 ">{{firmDetails[0].reg_no}}</label>
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                        <label class="m-0 col-md-4 col-12" class="coloured">Registration No </label>:
+                        <input autocomplete="on" [(ngModel)]="firm.Reg_no" type="text" class="m-0 col-md-4 col-4 " oninput="this.value = this.value.toUpperCase()">
+
                     </div>
                     <br>
                     <div class="row fssai m-0 ">
-                        <label class="m-0 col-md-4 col-12 " class="coloured">FSSAI No :</label>
-                        <label   class="m-0 col-md-4 col-4 ">{{firmDetails[0].fssaI_No}}</label>
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                        <label class="m-0 col-md-4 col-12 " class="coloured">FSSAI No </label>:
+                        <input autocomplete="on" [(ngModel)]="firm.FSSAI_No" type="text" class="m-0 col-md-4 col-4 " oninput="this.value = this.value.toUpperCase()">
+
                     </div>
                     <br>
                    </div>
                 </div>  
                 <br>
-                <div class="col-md-12 border card p-4" style="background: radial-gradient(#f4f5f7d7, transparent);">
+                <div class="col-md-12 border card " style="background: radial-gradient(#f4f5f7d7, transparent);">
                     <h4>Contact</h4>
                    <div class="contact">
                     <div class="row namePerson m-0 ">
-                        <label class="m-0 col-md-4 col-12 " class="coloured">Contact Person  :</label>
-                        <label   class="m-0 col-md-4 col-4">{{firmDetails[0].contact_Person}}</label>
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                        <label class="m-0 col-md-4 col-12 " class="coloured">Contact Person </label>:
+                        <input autocomplete="on" [(ngModel)]="firm.Contact_Person" type="text" class="m-0 col-md-4 col-4">
+
                     </div>
                     <br>
                     <div class="row mobile m-0 ">
-                        <label class="m-0 col-md-4 col-12 " class="coloured">Mobile No :</label>
-                        <label   class="m-0 col-md-4 col-4 ">{{firmDetails[0].contact_Mobile}}</label>
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                        <label class="m-0 col-md-4 col-12 " class="coloured">Mobile No </label>:
+                        <input autocomplete="on" [(ngModel)]="firm.Contact_Mobile" type="text" class="m-0 col-md-4 col-4 ">
+
                     </div>
                     <br>
                     <div class="row email m-0 ">
-                        <label class="m-0 col-md-4 col-12 " class="coloured">Email :</label>
-                        <label   class="m-0 col-md-4 col-4 ">{{firmDetails[0].email}}</label>
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                        <label class="m-0 col-md-4 col-12 " class="coloured">Email </label>:
+                        <input autocomplete="on" [(ngModel)]="firm.Email" type="text" class="m-0 col-md-4 col-4 ">
+
                     </div>
                     <br>
                     <div class="row website m-0 ">
-                        <label class="m-0 col-md-4 col-12 " class="coloured">Website :</label>
-                        <label  class="m-0 col-md-4 col-4 ">{{firmDetails[0].website}}</label>
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                        <label class="m-0 col-md-4 col-12 " class="coloured">Website </label>:
+                        <input autocomplete="on" [(ngModel)]="firm.Website" type="text" class="m-0 col-md-4 col-4 ">
+
                     </div>
                     <br>
                    </div>
                 
                 </div>
                 <br>
-                <div class="col-md-12 border card p-4" style="background: radial-gradient(#f4f5f7d7, transparent);">
+                <div class="col-md-12 border card " style="background: radial-gradient(#f4f5f7d7, transparent);">
                     <div class="bank">
                      <h4>Bank Details</h4>
                      <div class="row bankName m-0 ">
-                        <label class="m-0 col-md-4 col-4 " class="coloured" >Bank Name :</label>
-                        <label class="m-0 col-md-4 col-4 " >{{firmDetails[0].bank_Name}}</label>
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                        <label class="m-0 col-md-4 col-4 " class="coloured" >Bank Name </label>:
+                        <select class="m-0 col-md-4 col-4 " [(ngModel)]="firm.Bank_Name">
+                            <option>------------------Select--------------------</option>
+                            <option *ngFor="let bank of banks"  value={{bank.bankName}}>{{bank.bankName}}</option>
+                        </select>
                      </div>
                      <br>
                      <div class="row account m-0 ">
-                        <label class="m-0 col-md-4 col-4 " class="coloured">Account No :</label>
-                        <label   class="m-0 col-md-4 col-4 ">{{firmDetails[0].account_No}}</label>
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                        <label class="m-0 col-md-4 col-4 " class="coloured">Account No </label>:
+                        <input autocomplete="on" [(ngModel)]="firm.Account_No" type="text" class="m-0 col-md-4 col-4 ">
+
                      </div>
                      <br>
                      <div class="row ifsc m-0 ">
-                        <label class="m-0 col-md-4 col-4 " class="coloured">IFSC Code :</label>
-                        <label   class="m-0 col-md-4 col-4 ">{{firmDetails[0].ifsC_Code}}</label>
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                        <label class="m-0 col-md-4 col-4 " class="coloured">IFSC Code </label>:
+                        <input autocomplete="on" [(ngModel)]="firm.IFSC_Code" type="text" class="m-0 col-md-4 col-4 " oninput="this.value = this.value.toUpperCase()"> 
+
                      </div>
                      <br>
                      <div class=" row address m-0">
-                        <label class="m-0 col-md-4 col-4" class="coloured">Bank Address :</label>
-                        <label class="m-0 col-md-4 col-4" >{{firmDetails[0].bank_Address}}</label>
-                        <h6 class="m-0 col-md-9 col-10 float-end" ><span >Edit</span></h6>
+                        <label class="m-0 col-md-4 col-4" class="coloured">Bank Address </label>:
+                        <textarea class="m-0 col-md-4 col-4"  [(ngModel)]="firm.Bank_Address"></textarea>
+
+                    </div>
+                     <br>
+                    </div>
+                 </div>  
+            </div>
+
+            <div class=" button ">
+                <button id="save" (click)="saveFirm()">Submit</button>
+            </div>
+            <!-- <div class=" button ">
+                <button id="save" (click)="saveFirm()">Submit</button>
+            </div> -->
+        </div>
+
+
+
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+
+        <div class="card-body row m-0 p-4" *ngIf="saved">
+            <div class="first col-md-6 col-12 m-0 p-2" >
+                <div class="col-md-12 border card p-3" style="background-color: #f4f5f7d7;">
+                    <div class="logo">
+                        <label class="coloured">Firm Logo          :</label>
+                        <div class="col-md-12 card p-2" style="background-color: transparent;border: none;">
+                            <!-- <img class="img-responsive img-thumbnail" [src]="image" height="150"> -->
+                            <div class="image col-md-12 border card p-0">
+                                <img [src]="image" height="200">
+                                <!-- <app-image-l [src]="image"></app-image-l> -->
+                            </div>
+                            <div class="buttons row " >
+                                <div class="fileselect col-md-6  col-6"  *ngIf="choose" >
+                                    <input  [(ngModel)]="firm.FirmLogo" type="file"  id="Files" class="form-control"   (change)="onFileSelected($event)" style="background-image: none;color:white;width: 10rem;">
+                                    Edit Logo
+                                </div>
+                                <div class="col-md-6  col-6" *ngIf="!choose">
+                                    <button  type="submit" class="submit  col-md-6 col-lg-6 col-sm-12" (click)="upload()">Upload Logo</button>
+                                </div>
+                                <div class="col-md-6 col-6">
+                                    <button type="submit" class="submit col-md-6 col-lg-6 col-sm-12" (click)="remove()">Remove Logo</button>
+                                </div>
+    
+                            </div>
+                                                        <!-- <img src="data:image/png;base64,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" height="150" > -->
+                           
+                        </div>
+<br>
+                       
+
+                    </div>
+                    <br>
+                    <div class="row name m-0 ">
+                        <label class="m-0 col-md-4 col-4" class="coloured">Firm Name </label>:
+                        <label  class="m-0 col-md-8 col-8 labelData"  [(ngModel)]="firm.Firm_Name" id="1" *ngIf="!editContent">{{firmDetails[0].firmName}}</label>
+                        &nbsp; <input id="firmName" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.FirmName"  *ngIf="editContent" >
+
+                       
+                    </div>
+                    <br>
+                    <div class=" row address m-0">
+                        <label class="m-0 col-md-4 col-4" class="coloured">Firm Address </label>:
+                        <label class=" col-md-6 col-6 col-lg-6 col-sm-6"  *ngIf="!editContent" >{{firmDetails[0].firmAddress}}</label>
+                        &nbsp; <input id="firmAddress" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.FirmAddress"  *ngIf="editContent" >
+
+                    </div>
+                    <br>
+                    <div class=" row map m-0">
+                        <label class="m-0 col-md-4 col-4" class="coloured">Firm Location </label>:
+                        <div class="m-0 col-md-4 col-4"></div>
+
+                    </div>
+                    <br>
+                    
+                    <div class="row location m-0 ">
+                        <iframe [(ngModel)]="firm.FirmLocation" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3538.9313308145383!2d77.66553601555144!3d27.50251098287727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39737104fd94fb13%3A0x5f8ead5963602dad!2sUtkranti%20Softwares%20Pvt%20Ltd%20%7C%20Digital%20Marketing%20Agency%20%7C%20Software%20Development%20Company!5e0!3m2!1sen!2sin!4v1654842016913!5m2!1sen!2sin" width="102%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                    </div>
+
+                    <br>
+                </div>
+            </div>
+            <div class="second col-md-6 col-12 m-0 p-2" >
+                <div class="col-md-12 border card " style="background: radial-gradient(#f4f5f7d7, transparent);">
+                   <div class=" tax">
+                    <h4>Tax Info</h4>
+                    <div class="row gst m-0 ">
+                        <label class="m-0 col-md-6 col-4 col-lg-6 " class="coloured" >GST No </label>:
+                        <label  class="m-0 col-md-6 col-6 col-lg-6 "  id="GST"  *ngIf="!editContent">{{firmDetails[0].gsT_No}}</label>
+                      &nbsp;  <input id="gstNo" style="padding: 0;" type="text" class="m-0 col-md-6 col-6 col-lg-6" [(ngModel)]="firm.GST_No"  *ngIf="editContent" >
+
+                        <!-- <select [(ngModel)]="firm.GST_No" class="m-0 col-md-4 col-4 ">
+                            <option *ngFor="let firm of firmGST">{{firm.gsT_No}}</option>
+                        </select> -->
+                    </div>
+                    <br>
+                    <div class="row pan m-0 ">
+                        <label class="m-0 col-md-4 col-4 " class="coloured">PAN No </label>:
+                        <label   class="m-0 col-md-4 col-4 "  *ngIf="!editContent">{{firmDetails[0].paN_No}}</label>
+                         &nbsp;<input id="panNo" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.PAN_No"  *ngIf="editContent" >
+
+                        <!-- <label  class="m-0 col-md-4 col-4">{{firmDetails[0].firmName}}</label> -->
+
+                    </div>
+                    <br>
+                    <div class="row reg m-0 ">
+                        <label class="m-0 col-md-4 col-12" class="coloured">Registration No </label>:
+                        <label   class="m-0 col-md-4 col-4 "  *ngIf="!editContent">{{firmDetails[0].reg_no}}</label>
+                         &nbsp;<input id="regNo" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.Reg_no"  *ngIf="editContent" >
+
+                    </div>
+                    <br>
+                    <div class="row fssai m-0 ">
+                        <label class="m-0 col-md-4 col-12 " class="coloured">FSSAI No </label>:
+                        <label   class="m-0 col-md-8 col-lg-6 col-12 "  *ngIf="!editContent">{{firmDetails[0].fssaI_No}}</label>
+                         &nbsp;<input id="fssaiNo" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.FSSAI_No"  *ngIf="editContent" >
+
+                    </div>
+                    <br>
+                   </div>
+                </div>  
+                <br>
+                <div class="col-md-12 border card " style="background: radial-gradient(#f4f5f7d7, transparent);">
+                    <h4>Contact</h4>
+                   <div class="contact">
+                    <div class="row namePerson m-0 ">
+                        <label class="m-0 col-md-4 col-12 " class="coloured">Contact Person </label>:
+                        <label   class="m-0 col-md-4 col-4"   *ngIf="!editContent">{{firmDetails[0].contact_Person}}</label>
+                         &nbsp;<input id="contactPerson" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.Contact_Person"  *ngIf="editContent" >
+
+                    </div>
+                    <br>
+                    <div class="row mobile m-0 ">
+                        <label class="m-0 col-md-4 col-12 " class="coloured">Mobile No </label>:
+                        <label   class="m-0 col-md-4 col-4 "   *ngIf="!editContent">{{firmDetails[0].contact_Mobile}}</label>
+                         &nbsp;<input id="contactMobile" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.Contact_Mobile"  *ngIf="editContent" >
+
+                    </div>
+                    <br>
+                    <div class="row email m-0 ">
+                        <label class="m-0 col-md-4 col-12 " class="coloured">Email </label>:
+                        <label   class="m-0 col-md-4 col-4 "  *ngIf="!editContent">{{firmDetails[0].email}}</label>
+                         &nbsp;<input id="email" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.Email"  *ngIf="editContent" >
+
+                    </div>
+                    <br>
+                    <div class="row website m-0 ">
+                        <label class="m-0 col-md-4 col-12 " class="coloured">Website </label>:
+                        <label  class="m-0 col-md-4 col-4 "  *ngIf="!editContent">{{firmDetails[0].website}}</label>
+                         &nbsp;<input id="website" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.Website" *ngIf="editContent" >
+
+                    </div>
+                    <br>
+                   </div>
+                
+                </div>
+                <br>
+                <div class="col-md-12 border card " style="background: radial-gradient(#f4f5f7d7, transparent);">
+                    <div class="bank">
+                     <h4>Bank Details</h4>
+                     <div class="row bankName m-0 ">
+                        <label class="m-0 col-md-4 col-4 " class="coloured" >Bank Name </label>:
+                        <label class="m-0 col-md-4 col-4 "  *ngIf="!editContent">{{firmDetails[0].bank_Name}}</label>
+                         &nbsp;<input id="bankName" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.Bank_Name"  *ngIf="editContent" >
+
+                     </div>
+                     <br>
+                     <div class="row account m-0 ">
+                        <label class="m-0 col-md-4 col-4 " class="coloured">Account No </label>:
+                        <label   class="m-0 col-md-4 col-4 "  *ngIf="!editContent">{{firmDetails[0].account_No}}</label>
+                         &nbsp;<input id="accountNo" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.Account_No"  *ngIf="editContent" >
+
+                     </div>
+                     <br>
+                     <div class="row ifsc m-0 ">
+                        <label class="m-0 col-md-4 col-4 " class="coloured">IFSC Code </label>:
+                        <label   class="m-0 col-md-4 col-4 "  *ngIf="!editContent">{{firmDetails[0].ifsC_Code}}</label>
+                         &nbsp;<input id="ifsc" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.IFSC_Code"  *ngIf="editContent" >
+
+                     </div>
+                     <br>
+                     <div class=" row address m-0">
+                        <label class="m-0 col-md-4 col-4" class="coloured">Bank Address </label>:
+                        <label class="m-0 col-md-4 col-4"  *ngIf="!editContent">{{firmDetails[0].bank_Address}}</label>
+                         &nbsp;<input id="bankAddress" type="text" class="m-0 col-md-4 col-4" [(ngModel)]="firm.Bank_Address"  *ngIf="editContent" >
                     </div>
                      <br>
                     </div>

@@ -9,17 +9,18 @@ namespace API.Entity
 {
     public class firmEntity
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
 
         public int ID { get; set; }
         public string FirmLogo{ get; set; }
 
-[Key]
+
         public string FirmName{ get; set; }
         public string FirmAddress{ get; set; }
 
         public string FirmLocation{ get; set; }
-
+    
         public string GST_No{ get; set; }
 
         public string PAN_No{ get; set; }

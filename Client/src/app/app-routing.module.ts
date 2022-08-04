@@ -25,19 +25,32 @@ import { SalesComponent } from './views/sales/sales.component';
 import { TransportComponent } from './views/transport/transport.component';
 import { SalesReportComponent } from './views/sales-report/sales-report.component';
 import { PurchaseReportComponent} from './views/purchase-report/purchase-report.component';
+import { AuthGuardGuard } from './Security/auth-guard.guard';
+import { firmRoutingModule} from './views/firm/firm-routing.module';
+import { groupRoutingModule} from './views/group/group-routing.module';
+import { itemRoutingModule} from './views/items/item-routing.module';
+import { partyRoutingModule} from './views/party/party-routing.module';
+import { purchaseRoutingModule} from './views/purchase/purchase-routing.module';
+import { saleRoutingModule} from './views/sales/sales-routing.module';
+// import { taxRoutingModule} from './views/tax-Slab/tax-routing.module';
+import { transportRoutingModule} from './views/transport/transport-routing.module';
+import { bankRoutingModule} from './views/bank/bank-routing.module';
+import { branchRoutingModule} from './views/branch/branch-routing.module';
+import { unitRoutingModule} from './views/unit/unit-routing.module';
+import { stockRoutingModule} from './views/stock/stock-routing.module';
+import { ImageLComponent } from './views/image-l/image-l.component';
+
+
 
 
 
 const routes: Routes = [
- 
-
   {
     path: '',
     component:MainPageComponent,
     data: {
       title: 'Home',
-      path:'',
-      
+      path:'', 
     },
   },
   {
@@ -52,92 +65,95 @@ const routes: Routes = [
       
       {
         path: 'dashboard',
+        // component:DashboardComponent,
         loadChildren: () =>
-          import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
+          import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule),
+        canActivate:[AuthGuardGuard]
+
       },
       {
         path: 'firmMaster',
-        component: FirmComponent,
-        // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+        // component: FirmComponent,
+        loadChildren: () =>
+        import('./views/firm/firm-routing.module').then((m) => m.firmRoutingModule),
+        canActivate:[AuthGuardGuard]
+       
       },
       {
         path: 'bankMaster',
-        component: BankComponent,
-        // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+        // component: BankComponent,
+        loadChildren: () =>
+        import('./views/bank/bank-routing.module').then((m) => m.bankRoutingModule),
+        canActivate:[AuthGuardGuard]
+        
       },
       {
         path: 'branchMaster',
-        component: BranchComponent,
-        // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+        loadChildren: () =>
+        import('./views/branch/branch-routing.module').then((m) => m.branchRoutingModule),        canActivate:[AuthGuardGuard]
       },
       {
         path: 'unit',
-        component: UnitComponent,
-        // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+        loadChildren: () =>
+        import('./views/unit/unit-routing.module').then((m) => m.unitRoutingModule),    
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'taxMaster',
-        component: TaxSlabComponent,
+        component:TaxSlabComponent,
         // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+        // import('./views/tax-Slab/tax-routing.module').then((m) => m.taxRoutingModule),
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'groupMaster',
-        component: GroupComponent,
-        // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+        loadChildren: () =>
+        import('./views/group/group-routing.module').then((m) => m.groupRoutingModule),
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'itemMaster',
-        component: ItemsComponent,
-        // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+        loadChildren: () =>
+        import('./views/items/item-routing.module').then((m) => m.itemRoutingModule),    
+            canActivate:[AuthGuardGuard]
       },
       {
         path: 'stockMaster',
-        component: StockComponent,
-        // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+        loadChildren: () =>
+        import('./views/stock/stock-routing.module').then((m) => m.stockRoutingModule),            canActivate:[AuthGuardGuard]
       },
       {
         path: 'partyMaster',
-        component: PartyComponent,
-        // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+        loadChildren: () =>
+        import('./views/party/party-routing.module').then((m) => m.partyRoutingModule),    
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'purchase',
-        component: PurchaseComponent,
-        // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+        loadChildren: () =>
+        import('./views/purchase/purchase-routing.module').then((m) => m.purchaseRoutingModule),  
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'sales',
-        component: SalesComponent,
-        // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+        loadChildren: () =>
+        import('./views/sales/sales-routing.module').then((m) => m.saleRoutingModule),                
+        canActivate:[AuthGuardGuard]
       },
       {
         path: 'transportMaster',
-        component: TransportComponent ,
-        // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+        loadChildren: () =>
+        import('./views/transport/transport-routing.module').then((m) => m.transportRoutingModule),                    canActivate:[AuthGuardGuard]
       },
       {
         path: 'purchaseReport',
         component: PurchaseReportComponent ,
-        // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+                canActivate:[AuthGuardGuard]
       },
       {
         path: 'saleReport',
         component: SalesReportComponent ,
-        // loadChildren: () =>
-        //   import('./views/unit/unit.component').then((m) => m.UnitComponent)
+                canActivate:[AuthGuardGuard]
       },
       
      
@@ -184,9 +200,11 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: 'top',
       anchorScrolling: 'enabled',
-      initialNavigation: 'enabledBlocking'
+      initialNavigation: 'enabledBlocking',
       // relativeLinkResolution: 'legacy'
-    })
+      onSameUrlNavigation:'reload'
+    },      
+    )
   ],
   exports: [RouterModule]
 })

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { InventoryServiceService } from 'src/app/Services/inventory-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-transport-table',
@@ -7,7 +8,9 @@ import { InventoryServiceService } from 'src/app/Services/inventory-service.serv
   styleUrls: ['./transport-table.component.scss']
 })
 export class TransportTableComponent implements OnInit {
+  @Output("parentFun") parentFun: EventEmitter<any> = new EventEmitter();
 
+  searchText="";
   getItem:any=[];
   dataTable:any;
   getPurchases:any=[];
@@ -21,6 +24,8 @@ export class TransportTableComponent implements OnInit {
   noData:string | undefined;
   date:Date| undefined;
   errorMessage:String | undefined;
+  groupCatrTarget:string='';
+  dataintext:any;
 
   constructor(private service:InventoryServiceService) { }
 
@@ -57,4 +62,45 @@ export class TransportTableComponent implements OnInit {
      }
    })
   }
+
+  edit(branch:any)
+{
+   this.groupCatrTarget=branch;
+  return this.service.getTransporterByGSTNo(branch).subscribe(res=>{
+
+      console.log("getBranchbyid",res);
+      this.dataintext=res;
+      this.parentFun.emit();
+     
+  })
+}
+search(){
+  if(this.searchText!== "")
+  {
+    let searchValue = this.searchText.toLocaleLowerCase();
+   
+    this.getItem = this.getItem.filter((contact:any) =>
+    {
+      if(!contact.transporter_Name.toLocaleLowerCase().match(searchValue ))
+      {
+        this.isData=false;
+        this.noData="Data Not Found";
+      }
+      else
+      {
+        return contact.transporter_Name.toLocaleLowerCase().match(searchValue );
+
+      }
+    
+     });
+          
+    }
+     else 
+     { 
+      this.service.AllTransport().subscribe(res=>{
+        this.getItem=res;
+        
+      });
+     } 
+    }
 }

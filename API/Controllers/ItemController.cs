@@ -53,7 +53,8 @@ namespace API.Controllers
                     Cess=itemDTO.Cess,
                     Purchase_Rate=itemDTO.Purchase_Rate,
                     margin=itemDTO.margin,
-                    Sales_Rate=(itemDTO.Purchase_Rate + ((itemDTO.IGST+itemDTO.Cess)/100)*itemDTO.Purchase_Rate+itemDTO.margin)
+                    Sales_Rate=itemDTO.Sales_Rate ,
+                    Unit=itemDTO.Unit
                    
                     
 
@@ -75,7 +76,8 @@ namespace API.Controllers
                     Cess=item.Cess,
                     Purchase_Rate=item.Purchase_Rate,
                     margin=item.margin,
-                    Sales_Rate=item.Sales_Rate
+                    Sales_Rate=item.Sales_Rate,
+                    Unit=item.Unit
                    
 
                 };
@@ -158,27 +160,28 @@ namespace API.Controllers
         {
             try
             {
-                // Console.WriteLine($"FROM BODY { itemId}");
-                //  Console.WriteLine($"DB ITEMNAME { itemsEntity.itemId}");
+                Console.WriteLine($"FROM BODY { itemId}");
+                 Console.WriteLine($"DB ITEMNAME { itemsEntity.itemId}");
 
-                if (itemId != itemsEntity.itemId)
-                {
-                    return BadRequest("Item Id mismatch");
-                }
-
-                var itemToUpdate = await GetItemById(itemId);
-
-               if (itemToUpdate == null)
-                {
-                    return NotFound($"Item of name {itemId} not found");
-                }
+              
                 var result = await _context.Items
-                            .FirstOrDefaultAsync(e => e.itemId == itemsEntity.itemId);
+                            .FirstOrDefaultAsync(e => e.itemId == itemId);
                 if (result != null)
                 {
                     // result.itemId=itemsEntity.itemId;
                     result.itemName = itemsEntity.itemName;
-                    // result.groupName = itemsEntity.groupName;
+                    result.groupName = itemsEntity.groupName;
+                    result.HSN_No = itemsEntity.HSN_No;
+                    result.Bar_Code = itemsEntity.Bar_Code;
+                    result.IGST = itemsEntity.IGST;
+                    result.CGST= itemsEntity.CGST;
+                    result.SGST = itemsEntity.SGST;
+                    result.Cess = itemsEntity.Cess;
+                    result.Purchase_Rate = itemsEntity.Purchase_Rate;
+                    result.margin = itemsEntity.margin;
+                    result.Sales_Rate = itemsEntity.Sales_Rate;
+                    result.Unit = itemsEntity.Unit;
+
 
                     await _context.SaveChangesAsync();
                     return result;

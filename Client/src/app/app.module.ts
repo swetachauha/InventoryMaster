@@ -2,14 +2,18 @@ import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { FormsModule , ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { DatePipe } from '@angular/common';
+
+// import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -79,6 +83,9 @@ import { TransportComponent } from './views/transport/transport.component';
 import { TransportTableComponent } from './views/transport-table/transport-table.component';
 import { SalesReportComponent } from './views/sales-report/sales-report.component';
 import { PurchaseReportComponent } from './views/purchase-report/purchase-report.component';
+import { ImageLComponent } from './views/image-l/image-l.component';
+import { SearchFilterPipe } from './Pipe/search-filter.pipe';
+//import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -95,7 +102,7 @@ const APP_CONTAINERS = [
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 
-  declarations: [AppComponent, ...APP_CONTAINERS, TaxSlabComponent, UnitComponent, ItemsComponent, GroupComponent, FirmComponent, BranchComponent, BankComponent, StockComponent, BranchTableComponent, TaxTableComponent, UnitTableComponent, GroupTableComponent, ItemTableComponent, BankTableComponent, MainPageComponent, PartyComponent, PartyTableComponent, PurchaseComponent, SalesComponent, TransportComponent, TransportTableComponent, SalesReportComponent, PurchaseReportComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, TaxSlabComponent, UnitComponent, ItemsComponent, GroupComponent, FirmComponent, BranchComponent, BankComponent, StockComponent, BranchTableComponent, TaxTableComponent, UnitTableComponent, GroupTableComponent, ItemTableComponent, BankTableComponent, MainPageComponent, PartyComponent, PartyTableComponent, PurchaseComponent, SalesComponent, TransportComponent, TransportTableComponent, SalesReportComponent, PurchaseReportComponent, ImageLComponent, SearchFilterPipe, ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -108,7 +115,6 @@ const APP_CONTAINERS = [
     HeaderModule,
     SidebarModule,
     IconModule,
-    PerfectScrollbarModule,
     NavModule,
     ButtonModule,
     FormModule,
@@ -128,9 +134,9 @@ const APP_CONTAINERS = [
     FormsModule,
     HttpClientModule,
     MatDatepickerModule,
-    MatNativeDateModule
-
-
+    MatNativeDateModule,
+    MatIconModule,
+    MatTooltipModule,
   ],
   providers: [
     {
@@ -142,7 +148,9 @@ const APP_CONTAINERS = [
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
     IconSetService,
-    Title
+    Title,
+    DatePipe
+
   ],
   bootstrap: [AppComponent],
 })

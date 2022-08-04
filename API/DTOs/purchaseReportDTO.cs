@@ -11,10 +11,7 @@ namespace API.DTOs
         public DateTime toDate { get; set; }
         [Required]
         public string itemName{ get; set; }
-        [Range(1, int.MaxValue, ErrorMessage = "Only positive number allowed")]
 
-        public float quantity { get; set; }
-        
-        public string unit { get; set; }
+       
     }
 }

@@ -11,8 +11,10 @@ import Swal from 'sweetalert2';
 })
 export class SalesComponent implements OnInit {
 
+  show:boolean=false;
   itemArray : any[]=[];
   firm:any=[];
+  showItem:any=false;
   purchase:any={};
   purchaseTran:any={};
   errorMessage:String | undefined;
@@ -21,6 +23,7 @@ export class SalesComponent implements OnInit {
   buttonAdd:boolean=true;
   buttonEdit:boolean=false;
   getVendor:any=[];
+  ifItem:boolean=false;
   getVendorList :any=[];
   getItem:any=[];
   item:any=[];
@@ -31,6 +34,7 @@ export class SalesComponent implements OnInit {
   maxDate:any;
   dataFetched:any=false;
   transportList:any=[];
+  today=new Date();
 
 
   constructor(private service:InventoryServiceService , private router:Router) { }
@@ -56,7 +60,7 @@ export class SalesComponent implements OnInit {
   futureDateDisable()
   {
     var date:any=new Date();
-    var todayDate:any=date.getDate();
+    var todayDate:any=date.getDate()+1;
     var month:any=date.getMonth()+1;
     var year:any=date.getFullYear();
 
@@ -93,10 +97,7 @@ export class SalesComponent implements OnInit {
    
     this.itemArray.push({
       value:"",
-      HSN_No:this.purchaseTran.HSN_No,
-      Price:this.purchaseTran.Price,
-      IGST:this.purchaseTran.IGST,
-      CGST:this.purchaseTran.CGST,
+     
   });
   console.log("itemarray",this.itemArray.length);
 
@@ -125,25 +126,81 @@ export class SalesComponent implements OnInit {
 
     )
   }
-  getSelectedVendor(event:any)
-  {
-    var arrOfStr = event.target.value.split("-", 2);
+  // getSelectedVendor(event:any)
+  // {
+  //   var arrOfStr = event.target.value.split("-", 2);
 
-    return this.service.getPartyByPhoneAndName(arrOfStr[0],arrOfStr[1]).subscribe(res=>{
-      console.log("vendorsselected",res);
+  //   return this.service.getPartyByPhoneAndName(arrOfStr[0],arrOfStr[1]).subscribe(res=>{
+  //     console.log("vendorsselected",res);
 
-      this.getVendor=res;
-      if (this.getVendor!=null)
-      {
-        this.dataFetched=true;
-        this.getVendorDataToInput();
-      }
+  //     this.getVendor=res;
+  //     if (this.getVendor!=null)
+  //     {
+  //       this.dataFetched=true;
+  //       this.getVendorDataToInput();
+  //       const gstVendor=this.getVendor.gsT_No.slice(0,2);
+  //       const gstStart=this.firmDetails[0].gsT_No.slice(0,2);
+  
+  //       setTimeout(()=>{
+  //         if (gstStart===gstVendor)
+  //         {
+  //           console.log("09");
+  //           this.gst=false;
+  //           console.log("09",this.gst);
+
+  //           this.showItem=true;
+
+  //         }
+  //         else
+  //         {
+  //           console.log("not 09");
+  //            this.gst=true;
+  //            console.log(" not 09",this.gst);
+
+  //            this.showItem=true;
+
+      
+  //         }
+  //       },100)
+       
+  //     }
 
      
 
-    }
+  //   }
 
-    )
+  //   )
+  // }
+  getSelectedVendor(event:any)
+  {
+    var arrOfStr = event.target.value.split("-", 2);
+    return this.service.getPartyByPhoneAndName(arrOfStr[0],arrOfStr[1]).subscribe(res=>{
+      this.getVendor=res;
+      console.log("res",this.getVendor);
+(<HTMLLabelElement>document.getElementById('Address')).textContent=this.getVendor?.party_Address;
+(<HTMLLabelElement>document.getElementById('City')).textContent=this.getVendor?.city;
+(<HTMLLabelElement>document.getElementById('phone')).textContent=this.getVendor?.phone_No;
+(<HTMLLabelElement>document.getElementById('GST_No')).textContent=this.getVendor?.gsT_No;
+      // this.getVendorDataToInput();
+
+      this.show=true;
+
+      this.showItem=true;
+      const gstVendor=this.getVendor.gsT_No.slice(0,2);
+        const gstStart=this.firmDetails[0].gsT_No.slice(0,2);
+        
+          if (gstStart===gstVendor)
+          {    
+            this.gst=false;
+            // this.showItem=true;
+          }
+          else if(gstStart!==gstVendor)
+          {    
+             this.gst=true;
+          }
+
+
+    });
   }
   getVendorDataToInput()
 {
@@ -177,6 +234,8 @@ export class SalesComponent implements OnInit {
         Builty_NO:this.purchase.Builty_NO,
         Document_Through:this.purchase.Document_Through,
         Transport:this.purchase.Transport,
+        Sales_Date:this.purchase.Sales_Date,
+        Sales_Invoice_Date:this.purchase.Sales_Invoice_Date,
   
   
         salesTransaction:this.itemArray
@@ -315,25 +374,11 @@ getUnit()
     console.log("firmgst",res);
    
     this.firmDetails=res;
-    const gstStart=this.firmDetails[0].gsT_No.slice(0,2);
-    if (gstStart==='09')
-    {
-      console.log("09");
-      this.gst=false;
-
-    }
-    else
-    {
-      console.log("not 09");
-       this.gst=true;
-
-    }
+ 
     
 
   })
 }
-
-
 getItemDetails(event:any , id:any)
 {
   console.log("event",event.target.value);
@@ -342,75 +387,48 @@ getItemDetails(event:any , id:any)
   return this.service.getItemByItemName(event.target.value).subscribe(res=>{
     console.log("getitem",res);
     this.item=res;
-    
+    this.ifItem=true;
     console.log("price",(this.purchase.Price));
-
+      
     // this.purchaseTran.HSN_No=(<HTMLInputElement>document.getElementById('HSN_No'+id)).value=this.item?.hsN_No;
     this.purchaseTran.Price=(<HTMLInputElement>document.getElementById('Price'+id)).value=this.item?.purchase_Rate;
-    console.log("price",(this.purchase.Price));
+    this.purchaseTran.Unit=(<HTMLLabelElement>document.getElementById('Unit'+id)).textContent=this.item?.unit;
 
-   if(this.gst==false)
-   {    
-    console.log("gstboolean",this.gst);
+    // this.price=this.item?.purchase_Rate;
 
-     this.purchaseTran.CGST=(<HTMLInputElement>document.getElementById('CGST'+id)).value=this.item?.cgst;
-     this.purchaseTran.SGST=(<HTMLInputElement>document.getElementById('SGST'+id)).value=this.item?.sgst;
-    //  this.purchaseTran.IGST=0;
-   }
-   else  if(this.gst==true){
-    console.log("gstboolean",this.gst);
 
-    this.purchaseTran.IGST=(<HTMLInputElement>document.getElementById('IGST'+id)).value=this.item?.igst;
-   }
-   
-  //  this.purchaseTran.Total_Amount=(<HTMLInputElement>document.getElementById('Total_Amount'+id)).value=amount;
-console.log("hsn", this.purchaseTran.SGST);
-console.log("hsn", this.purchaseTran.CGST);
-console.log("hsn", this.purchaseTran.IGST);
+  this.itemArray[id].Price=this.item?.purchase_Rate;
+  this.itemArray[id].Unit=this.item?.unit;
+  this.itemArray[id].IGST=this.item?.igst;
+  this.itemArray[id].CGST=this.item?.cgst;
+  this.itemArray[id].SGST=this.item?.sgst;
 
-for(var i=0;i<this.itemArray.length;i++)
-{
-  this.itemArray[i].Price=this.item?.purchase_Rate;
-  if(this.gst==false)
-  {
-    this.itemArray[i].CGST=this.item?.cgst;
-    this.itemArray[i].SGST=this.item?.sgst;
-  }
-  else{
-    this.itemArray[i].IGST=this.item?.igst;
 
-  }
- 
 
-}
   }
   )
 
 }
 
-calculate(i:any)
+calculate(i:any, id:any)
 {    
-  console.log("Price", this.purchaseTran.Price );
-  console.log("i",i.Price);
-  console.log("i",i.Quantity);
 
   if((!this.purchaseTran.Price || !i.Quantity ) )
   {
-    console.log("Price", this.purchaseTran.Price )
-    console.log("quantity", i.Quantity)
     i.Total_Amount=0;
-    
+    i.Total_Amount=parseFloat(  i.Total_Amount).toFixed(2);
+
   }
   else if(i.Price==undefined)
   {
     i.Total_Amount=this.purchaseTran.Price*i.Quantity;
-    console.log("2",  i.Total_Amount);
+    i.Total_Amount=parseFloat(  i.Total_Amount).toFixed(2);
+
   }
   else 
   {
     i.Total_Amount=i.Price*i.Quantity;
-    console.log("2",  i.Total_Amount);
-
+    i.Total_Amount=parseFloat(  i.Total_Amount).toFixed(2);
   }
   
   if(!i.Discount)
@@ -420,17 +438,37 @@ calculate(i:any)
     else
     {
       i.DiscountPrice=(i.Discount*i.Total_Amount)/100
-      i.Disc_Price=i.Disc_Price-i.DiscountPrice;
+      i.Disc_Price=i.Total_Amount-i.DiscountPrice;
       console.log("dis",i.Disc_Price)
 
     }
-    console.log("CGST",this.purchaseTran.CGST);
-    console.log("CGST",i.Disc_Price);
+  
+    var cgst=(this.item?.cgst* i.Disc_Price )/100;
+   var sgst=(this.item?.sgst* i.Disc_Price )/100;
+   var igst=(this.item?.igst* i.Disc_Price )/100;
+   console.log("igt",igst);
+   var net='0';
+    if(this.gst==false)
+   {
+    this.purchaseTran.CGSTAmount=(<HTMLInputElement>document.getElementById('CGST'+id)).value=cgst.toString();
+     this.purchaseTran.SGSTAmount=(<HTMLInputElement>document.getElementById('SGST'+id)).value=sgst.toString();
+      net =(parseFloat(i.Disc_Price)+((cgst+sgst))).toString()
 
-    i.CGSTLabel=(this.purchaseTran.CGST*i.Disc_Price)/100;
-    i.SGSTLabel=(this.purchaseTran.SGST*i.Disc_Price)/100;
-    i.Net_Amount=i.Disc_Price-(((this.purchaseTran.CGST*i.Disc_Price)/100)+((this.purchaseTran.SGST*i.Disc_Price)/100));
-    console.log("CGST",i.Net_Amount);
+
+    //  this.purchaseTran.IGST=0;
+   }
+   else if(this.gst==true) {
+    net=(parseFloat(i.Disc_Price)+((cgst+sgst))).toString();
+
+    this.purchaseTran.IGST=(<HTMLInputElement>document.getElementById('IGST'+id)).value=igst.toString();
+     
+   }
+  
+   console.log("sdxfcgvhbj",net);
+
+    i.Net_Amount=(<HTMLInputElement>document.getElementById('Net_Amount'+id)).value=net;
+    console.log("net",i.Net_Amount);
+
 
 }
 calculateDiscount(i:any)
@@ -447,5 +485,116 @@ calculateDiscount(i:any)
 
     }
 }
+
+// getItemDetails(event:any , id:any)
+// {
+//   console.log("event",event.target.value);
+//   console.log("id",id);
+
+//   return this.service.getItemByItemName(event.target.value).subscribe(res=>{
+//     console.log("getitem",res);
+//     this.item=res;
+//     this.ifItem=true;
+//     console.log("price",(this.purchase.Price));
+      
+//     // this.purchaseTran.HSN_No=(<HTMLInputElement>document.getElementById('HSN_No'+id)).value=this.item?.hsN_No;
+//     this.purchaseTran.Price=(<HTMLInputElement>document.getElementById('Price'+id)).value=this.item?.purchase_Rate;
+//     this.purchaseTran.Unit=(<HTMLLabelElement>document.getElementById('Unit'+id)).textContent=this.item?.unit;
+
+//     // this.price=this.item?.purchase_Rate;
+
+
+//   this.itemArray[id].Price=this.item?.purchase_Rate;
+//   this.itemArray[id].Unit=this.item?.unit;
+//   this.itemArray[id].IGST=this.item?.igst;
+//   this.itemArray[id].CGST=this.item?.cgst;
+//   this.itemArray[id].SGST=this.item?.sgst;
+
+
+
+//   }
+//   )
+
+// }
+
+// calculate(i:any, id:any)
+// {    
+
+//   if((!this.purchaseTran.Price || !i.Quantity ) )
+//   {
+//     i.Total_Amount=0;
+//     i.Total_Amount=parseFloat(  i.Total_Amount).toFixed(2);
+
+//   }
+//   else if(i.Price==undefined)
+//   {
+//     i.Total_Amount=this.purchaseTran.Price*i.Quantity;
+//     i.Total_Amount=parseFloat(  i.Total_Amount).toFixed(2);
+
+//   }
+//   else 
+//   {
+//     i.Total_Amount=i.Price*i.Quantity;
+//     i.Total_Amount=parseFloat(  i.Total_Amount).toFixed(2);
+//   }
+  
+//   if(!i.Discount)
+//     {
+//       i.Disc_Price=i.Total_Amount;
+//     }
+//     else
+//     {
+//       i.DiscountPrice=(i.Discount*i.Total_Amount)/100
+//       i.Disc_Price=i.Total_Amount-i.DiscountPrice;
+//       console.log("dis",i.Disc_Price)
+
+//     }
+//     console.log("CGST",this.purchaseTran.CGST);
+//     console.log("CGST",i.Disc_Price);
+
+//     // i.CGSTLabel=(this.purchaseTran.CGST*i.Disc_Price)/100;
+//     // i.SGSTLabel=(this.purchaseTran.SGST*i.Disc_Price)/100;
+//     var cgst=(this.item?.cgst* i.Disc_Price )/100;
+//    var sgst=(this.item?.sgst* i.Disc_Price )/100;
+//    var igst=(this.item?.igst* i.Disc_Price )/100;
+//     if(this.gst==false)
+//    {
+//     this.purchaseTran.CGSTAmount=(<HTMLInputElement>document.getElementById('CGST'+id)).value=cgst.toString();
+//      this.purchaseTran.SGSTAmount=(<HTMLInputElement>document.getElementById('SGST'+id)).value=sgst.toString();
+     
+
+
+//     //  this.purchaseTran.IGST=0;
+//    }
+//    else {
+//     this.purchaseTran.IGST.value=(<HTMLInputElement>document.getElementById('IGST'+id)).value=igst.toString();
+//     this.purchaseTran.IGSTAmount=parseFloat(  this.purchaseTran.IGSTAmount).toFixed(2);
+
+//     // this.purchaseTran.SGST=0;
+//     // this.purchaseTran.CGST=0;
+//    }
+//    console.log("disc",i.Disc_Price);
+//    console.log("CGST",(cgst+sgst));
+//    console.log("disctype",typeof(i.Disc_Price));
+//    console.log("CGST",typeof(cgst+sgst));
+
+//     i.Net_Amount=parseFloat(i.Disc_Price)+((cgst+sgst));
+//     console.log("CGST",i.Net_Amount);
+
+// }
+// calculateDiscount(i:any)
+// {
+//   if(!i.Discount)
+//     {
+//       i.Disc_Price=i.Total_Amount;
+//     }
+//     else
+//     {
+//       i.DiscountPrice=(i.Discount*i.Total_Amount)/100
+//       i.Disc_Price=i.Disc_Price-i.DiscountPrice;
+//       console.log("dis",i.Disc_Price)
+
+//     }
+// }
 
 }

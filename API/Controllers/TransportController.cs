@@ -24,7 +24,13 @@ namespace API.Controllers
 
             return await  _context.Transport.ToListAsync();
         }
+         [HttpGet("getTransporterByGST/{GST_No}")]
+        
+       public async Task<TransportEntity>GetTransporterByGST(string GST_No)
+        {
 
+            return await _context.Transport.FirstOrDefaultAsync(x => x.GST_No==GST_No);
+        }
          private async Task<bool> Transporter(string GST_No)
         {
             return await _context.Transport.AnyAsync(x => x.GST_No==GST_No);
@@ -75,31 +81,19 @@ namespace API.Controllers
         }
 
     
-     [HttpPut("{GST_No}")]
-        public async Task<ActionResult<TransportEntity>> UpdateTransport(string GST_No, TransportEntity TransportEntity)
+     [HttpPut("{Transporter_Id}")]
+        public async Task<ActionResult<TransportEntity>> UpdateTransport(int Transporter_Id, TransportEntity TransportEntity)
         {
             try
             {
                 // Console.WriteLine($"FROM BODY { itemId}");
                 //  Console.WriteLine($"DB ITEMNAME { itemsEntity.itemId}");
 
-                if (GST_No != TransportEntity.GST_No)
-                {
-                    Console.WriteLine($"GST_No {GST_No}");
-                     Console.WriteLine($"TransportEntity.GST_No {TransportEntity.GST_No}");
+               
 
-                    return BadRequest("GST_No not found");
-                }
-
-                var TransportToUpdate = await getTransportByIFSC(GST_No);
-
-               if (TransportToUpdate == null)
-                {
-                    return NotFound($"Item of name {GST_No} not found");
-                }
+              
                 var result = await _context.Transport
-                            .FirstOrDefaultAsync(e => e.GST_No == TransportEntity.GST_No);
-                                                Console.WriteLine($"GST_No {result.Address}");
+                            .FirstOrDefaultAsync(e => e.Transporter_ID == Transporter_Id);
 
                 if (result != null)
                 {

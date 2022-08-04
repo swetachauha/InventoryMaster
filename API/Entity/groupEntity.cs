@@ -15,8 +15,11 @@ namespace API.Entity
         [Remote("IsExist", "Product", ErrorMessage = "serialno exist!")]
 
          public string groupCategory{ get; set; }
+        public bool active { get; set; }
 
         public DateTime CreatedAt_ { get; set; }=DateTime.Now;
+        public DateTime UpdatedAt_ { get; set; }
+
 
 
     }

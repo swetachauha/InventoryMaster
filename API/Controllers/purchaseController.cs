@@ -59,9 +59,9 @@ public async Task<IEnumerable<purchaseTotalDTO>> GetCompanies()
                      var purchase = new PurchaseMasterEntity
                 {
                     Vendor_Name=purchaseMasterDTO.Vendor_Name,
-                    Address=purchaseMasterDTO.Address,
-                    City=purchaseMasterDTO.City,
-                    Phone_No=purchaseMasterDTO.Phone_No,
+                    // Address=purchaseMasterDTO.Address,
+                    // City=purchaseMasterDTO.City,
+                    // Phone_No=purchaseMasterDTO.Phone_No,
                     // purchaseDate=purchaseMasterDTO.purchaseDate,
                     Purchase_Order_No=purchaseMasterDTO.Purchase_Order_No,
                     Purchase_Order_Date=purchaseMasterDTO.Purchase_Order_Date,
@@ -94,7 +94,7 @@ public async Task<IEnumerable<purchaseTotalDTO>> GetCompanies()
                     IGST=item.IGST,
                     CGST=item.CGST,
                     SGST=item.SGST,
-                    HSN_No=item.HSN_No,
+                    HSN_No=itemP.HSN_No,
                     Total_Amount=item.Net_Amount,
                 };
                  _context.PurchaseTransaction.Add(purchaseTran);
